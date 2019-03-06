@@ -1,0 +1,76 @@
+
+splashscreen.png
+size: 64,64
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+icon
+  rotate: false
+  xy: 2, 27
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+l1
+  rotate: false
+  xy: 36, 38
+  size: 11, 21
+  orig: 11, 21
+  offset: 0, 0
+  index: -1
+l2
+  rotate: false
+  xy: 37, 14
+  size: 9, 11
+  orig: 9, 11
+  offset: 0, 0
+  index: -1
+l3
+  rotate: false
+  xy: 49, 44
+  size: 7, 15
+  orig: 7, 15
+  offset: 0, 0
+  index: -1
+l4
+  rotate: false
+  xy: 2, 2
+  size: 13, 23
+  orig: 13, 23
+  offset: 0, 0
+  index: -1
+l5
+  rotate: false
+  xy: 17, 9
+  size: 8, 16
+  orig: 8, 16
+  offset: 0, 0
+  index: -1
+l6
+  rotate: false
+  xy: 36, 27
+  size: 9, 9
+  orig: 9, 9
+  offset: 0, 0
+  index: -1
+l7
+  rotate: false
+  xy: 49, 33
+  size: 9, 9
+  orig: 9, 9
+  offset: 0, 0
+  index: -1
+l8
+  rotate: false
+  xy: 27, 11
+  size: 8, 14
+  orig: 8, 14
+  offset: 0, 0
+  index: -1
+l9
+  rotate: false
+  xy: 48, 20
+  size: 9, 11
+  orig: 9, 11
+  offset: 0, 0
+  index: -1
