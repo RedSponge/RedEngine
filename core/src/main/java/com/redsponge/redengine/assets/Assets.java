@@ -40,22 +40,32 @@ public class Assets implements Disposable {
         return am.update();
     }
 
-    public float getPrecentDone() {
+
+    /**
+     * Calculates the percent of assets loaded out of all
+     * @return the percent of assets loaded out of all
+     */
+    @SuppressWarnings("unused")
+    public float getPercentDone() {
         return (float) am.getLoadedAssets() / (am.getQueuedAssets() + am.getLoadedAssets());
     }
 
+
+
     /**
-     * Loads in files into the {@link AssetManager} based on the passed screen's {@link AbstractScreen#getRequiredAssets()}
-     * @param screen - The screen to load from
+     * Unloads files from the {@link AssetManager} based on the passed requirer's {@link IAssetRequirer#getRequiredAssets()}
+     * @param requirer - The screen to unload from
      */
-    public void unload(AbstractScreen screen) {
-        Logger.log(this, "Unloading assets for screen ", screen);
-        for(AssetDescriptor a : screen.getRequiredAssets()) {
+    public void unload(IAssetRequirer requirer) {
+        Logger.log(this, "Unloading assets for screen ", requirer);
+        for(AssetDescriptor a : requirer.getRequiredAssets()) {
             Logger.log(this, "Unloading: ", a.fileName);
             am.unload(a.fileName);
         }
-        Logger.log(this, "Finished unloading assets for screen ", screen);
+        Logger.log(this, "Finished unloading assets for screen ", requirer);
     }
+
+
 
     /**
      * Retrieves an asset
@@ -66,6 +76,8 @@ public class Assets implements Disposable {
     public <T> T get(AssetDescriptor<T> descriptor) {
         return am.get(descriptor);
     }
+
+
 
     /**
      * Retrieves an asset
@@ -81,5 +93,9 @@ public class Assets implements Disposable {
     @Override
     public void dispose() {
         am.dispose();
+    }
+
+    public void finishLoading() {
+        am.finishLoading();
     }
 }

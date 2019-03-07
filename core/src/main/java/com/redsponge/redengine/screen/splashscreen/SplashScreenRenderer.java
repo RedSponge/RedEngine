@@ -1,6 +1,6 @@
 package com.redsponge.redengine.screen.splashscreen;
 
-import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -11,31 +11,30 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.redsponge.redengine.assets.IAssetRequirer;
+import com.redsponge.redengine.assets.Assets;
 
-public class SplashScreenRenderer implements Disposable {
+public class SplashScreenRenderer implements Disposable, IAssetRequirer {
 
     private FitViewport viewport;
     private Stage stage;
     private SpriteBatch batch;
-    private AssetManager am;
     private boolean complete;
     private Image icon;
+    private Assets assets;
 
-    public SplashScreenRenderer(SpriteBatch batch) {
+    public SplashScreenRenderer(SpriteBatch batch, Assets assets) {
         this.batch = batch;
-        this.am = new AssetManager();
+        this.assets = assets;
     }
 
     public void begin() {
         this.viewport = new FitViewport(480, 480);
-        this.am.load("splashscreen/splashscreen.atlas", TextureAtlas.class);
         this.stage = new Stage(viewport, batch);
         this.complete = false;
 
-        this.am.finishLoading();
-
         float waitBeforeFallDown = 2;
-        TextureAtlas atlas = this.am.get("splashscreen/splashscreen.atlas", TextureAtlas.class);
+        TextureAtlas atlas = this.assets.get("splashscreen/splashscreen.atlas", TextureAtlas.class);
 
         icon = new Image(atlas.findRegion("icon"));
 
@@ -94,7 +93,14 @@ public class SplashScreenRenderer implements Disposable {
     }
 
     @Override
+    public AssetDescriptor[] getRequiredAssets() {
+        return new AssetDescriptor[] {
+                new AssetDescriptor<TextureAtlas>("splashscreen/splashscreen.atlas", TextureAtlas.class)
+        };
+    }
+
+    @Override
     public void dispose() {
-        this.am.dispose();
+        this.stage.dispose();
     }
 }

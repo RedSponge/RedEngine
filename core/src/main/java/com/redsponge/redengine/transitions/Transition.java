@@ -7,5 +7,4 @@ public interface Transition {
 
     void render(float secondsSinceStart, Interpolation interFrom, Interpolation interTo, float length, ShapeRenderer shapeRenderer);
     void resize(int width, int height);
-
 }

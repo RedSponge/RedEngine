@@ -5,9 +5,10 @@ import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.redsponge.redengine.assets.Assets;
+import com.redsponge.redengine.assets.IAssetRequirer;
 import com.redsponge.redengine.utils.GameAccessor;
 
-public abstract class AbstractScreen extends ScreenAdapter {
+public abstract class AbstractScreen extends ScreenAdapter implements IAssetRequirer {
 
     protected ShapeRenderer shapeRenderer;
     protected SpriteBatch batch;
@@ -45,11 +46,11 @@ public abstract class AbstractScreen extends ScreenAdapter {
     public abstract void render();
 
     /**
-     * Gets all assets that should be loaded for this screen
-     * @return an array containing {@link AssetDescriptor}s which describe what should be loaded/unloaded
+     * Should the screen be disposed when hidden?
+     * @return Should the screen be disposed when hidden? defaults to false
      */
-    public AssetDescriptor[] getRequiredAssets() {
-        return new AssetDescriptor[0];
+    public boolean shouldDispose() {
+        return true;
     }
 
     public void beginTransition() {

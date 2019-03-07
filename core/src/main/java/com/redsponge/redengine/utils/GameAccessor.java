@@ -3,11 +3,11 @@ package com.redsponge.redengine.utils;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Interpolation;
 import com.redsponge.redengine.assets.Assets;
 import com.redsponge.redengine.EngineGame;
 import com.redsponge.redengine.screen.AbstractScreen;
 import com.redsponge.redengine.transitions.Transition;
-import com.redsponge.redengine.transitions.TransitionScreen;
 
 /**
  * Made to access some of the game's properties and methods without passing the game instance itself
@@ -20,10 +20,10 @@ public class GameAccessor {
         this.game = game;
     }
 
-    public void transitionTo(AbstractScreen to, Transition transition, float length) {
+    public void transitionTo(AbstractScreen to, Transition transition, float length, Interpolation interFrom, Interpolation interTo) {
         AbstractScreen s = (AbstractScreen) game.getScreen();
         s.beginTransition();
-        setScreen(new TransitionScreen(s, to, length, this, transition));
+        game.transitionToScreen(to, transition, length, interFrom, interTo);
     }
 
     public SpriteBatch getSpriteBatch() {

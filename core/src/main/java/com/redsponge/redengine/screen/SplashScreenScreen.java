@@ -1,38 +1,43 @@
 package com.redsponge.redengine.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.utils.Scaling;
-import com.badlogic.gdx.utils.viewport.ScalingViewport;
-import com.redsponge.redengine.utils.GameAccessor;
+import com.badlogic.gdx.math.Interpolation;
 import com.redsponge.redengine.screen.splashscreen.SplashScreenRenderer;
 import com.redsponge.redengine.transitions.TransitionFade;
+import com.redsponge.redengine.transitions.TransitionLine;
+import com.redsponge.redengine.utils.GameAccessor;
 
 /**
  * Splash Screen - Renders the RedSponge splashscreen using a {@link SplashScreenRenderer}
  */
 public class SplashScreenScreen extends AbstractScreen {
+
     private SplashScreenRenderer splashScreenRenderer;
-    private ScalingViewport scalingViewport;
-    private boolean didTransition;
+    private boolean skipped;
 
     public SplashScreenScreen(GameAccessor ga) {
         super(ga);
+        splashScreenRenderer = new SplashScreenRenderer(batch, assets);
     }
 
     @Override
     public void show() {
-        this.scalingViewport = new ScalingViewport(Scaling.fill, 1, 1);
-        splashScreenRenderer = new SplashScreenRenderer(batch);
         splashScreenRenderer.begin();
-        didTransition = true;
+        skipped = false;
     }
 
     @Override
     public void tick(float delta) {
-        splashScreenRenderer.tick(delta);
+        if(Gdx.input.isKeyJustPressed(Keys.SPACE)) {
+            skipped = true;
+        }
+
+        if(!skipped) {
+            splashScreenRenderer.tick(delta);
+        }
     }
 
     @Override
@@ -40,24 +45,25 @@ public class SplashScreenScreen extends AbstractScreen {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        if(!splashScreenRenderer.isComplete()) {
-            splashScreenRenderer.render();
-        } else if(!transitioning) {
-            ga.transitionTo(new OtherScreen(ga), new TransitionFade(), 2);
+
+
+        splashScreenRenderer.render();
+
+        if((splashScreenRenderer.isComplete() || skipped) && !transitioning) {
+            ga.transitionTo(new OtherScreen(ga), new TransitionLine(), 1f, Interpolation.sineIn, Interpolation.sineIn);
         }
     }
+
+
 
     @Override
     public void resize(int width, int height) {
         splashScreenRenderer.resize(width, height);
-        scalingViewport.update(width, height, true);
     }
 
     @Override
     public AssetDescriptor[] getRequiredAssets() {
-        return new AssetDescriptor[] {
-                new AssetDescriptor<TextureAtlas>("splashscreen/splashscreen.atlas", TextureAtlas.class)
-        };
+        return splashScreenRenderer.getRequiredAssets();
     }
 
     @Override
