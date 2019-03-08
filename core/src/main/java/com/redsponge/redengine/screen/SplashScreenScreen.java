@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Interpolation;
 import com.redsponge.redengine.screen.splashscreen.SplashScreenRenderer;
 import com.redsponge.redengine.transitions.TransitionFade;
 import com.redsponge.redengine.transitions.TransitionLine;
+import com.redsponge.redengine.transitions.TransitionTemplates;
 import com.redsponge.redengine.utils.GameAccessor;
 
 /**
@@ -44,13 +45,10 @@ public class SplashScreenScreen extends AbstractScreen {
     public void render() {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-
-
         splashScreenRenderer.render();
 
         if((splashScreenRenderer.isComplete() || skipped) && !transitioning) {
-            ga.transitionTo(new OtherScreen(ga), new TransitionLine(), 1f, Interpolation.sineIn, Interpolation.sineIn);
+            ga.transitionTo(new OtherScreen(ga), TransitionTemplates.sineSlide);
         }
     }
 

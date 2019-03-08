@@ -78,7 +78,6 @@ public class Assets implements Disposable {
     }
 
 
-
     /**
      * Retrieves an asset
      * @param filename - The asset's filename
@@ -90,12 +89,16 @@ public class Assets implements Disposable {
         return am.get(filename, type);
     }
 
+    /**
+     * Blocks until all assets are loaded.
+     */
+    public void finishLoading() {
+        am.finishLoading();
+    }
+
     @Override
     public void dispose() {
         am.dispose();
     }
 
-    public void finishLoading() {
-        am.finishLoading();
-    }
 }

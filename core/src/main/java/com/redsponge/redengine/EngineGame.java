@@ -10,6 +10,7 @@ import com.redsponge.redengine.assets.Assets;
 import com.redsponge.redengine.screen.AbstractScreen;
 import com.redsponge.redengine.transitions.Transition;
 import com.redsponge.redengine.transitions.TransitionManager;
+import com.redsponge.redengine.utils.Discord;
 import com.redsponge.redengine.utils.GameAccessor;
 
 public abstract class EngineGame extends Game {
@@ -19,7 +20,7 @@ public abstract class EngineGame extends Game {
     protected ShapeRenderer shapeRenderer;
     protected Assets assets;
     protected TransitionManager transitionManager;
-
+    protected Discord discord;
 
     @Override
     public final void create() {
@@ -31,6 +32,7 @@ public abstract class EngineGame extends Game {
 
         transitionManager.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
+        discord = new Discord("553575233018265601", "");
         init();
     }
 
@@ -106,6 +108,7 @@ public abstract class EngineGame extends Game {
 
     @Override
     public void dispose() {
+        discord.dispose();
         batch.dispose();
         shapeRenderer.dispose();
         assets.dispose();

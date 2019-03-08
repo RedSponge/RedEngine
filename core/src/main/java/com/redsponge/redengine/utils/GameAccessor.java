@@ -8,6 +8,7 @@ import com.redsponge.redengine.assets.Assets;
 import com.redsponge.redengine.EngineGame;
 import com.redsponge.redengine.screen.AbstractScreen;
 import com.redsponge.redengine.transitions.Transition;
+import com.redsponge.redengine.transitions.TransitionTemplate;
 
 /**
  * Made to access some of the game's properties and methods without passing the game instance itself
@@ -18,6 +19,10 @@ public class GameAccessor {
 
     public GameAccessor(EngineGame game) {
         this.game = game;
+    }
+
+    public void transitionTo(AbstractScreen to, TransitionTemplate template) {
+        transitionTo(to, template.transition, template.length, template.interFrom, template.interTo);
     }
 
     public void transitionTo(AbstractScreen to, Transition transition, float length, Interpolation interFrom, Interpolation interTo) {
