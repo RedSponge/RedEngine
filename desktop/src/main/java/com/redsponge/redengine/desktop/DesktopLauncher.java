@@ -3,7 +3,7 @@ package com.redsponge.redengine.desktop;
 import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.redsponge.redengine.TestGame;
+import com.redsponge.testgame.TestGame;
 
 /** Launches the desktop (LWJGL) application. */
 public class DesktopLauncher {
