@@ -3,10 +3,10 @@ package com.redsponge.testgame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.redsponge.redengine.input.InputTranslator;
 import com.redsponge.redengine.input.SimpleInputTranslator;
-import com.redsponge.redengine.physics.PActor;
 import com.redsponge.redengine.physics.PSolid;
 import com.redsponge.redengine.physics.PhysicsDebugRenderer;
 import com.redsponge.redengine.physics.PhysicsWorld;
@@ -19,7 +19,7 @@ public class MyCoolScreen extends AbstractScreen {
     private PhysicsDebugRenderer debugRenderer;
     private FitViewport viewport;
 
-    private PActor myActor;
+    private PlayerPActor myActor;
     private PSolid mySolid;
 
     private InputTranslator input;
@@ -34,20 +34,24 @@ public class MyCoolScreen extends AbstractScreen {
         world = new PhysicsWorld();
         debugRenderer = new PhysicsDebugRenderer();
 
-        myActor = new PActor(world);
-        myActor.pos.set(10, 10);
-        myActor.size.set(40, 40);
+        myActor = new PlayerPActor(world);
 
         world.addActor(myActor);
 
-        PSolid solid = new PSolid(world);
-        solid.pos.set(300, 100);
-        solid.size.set(30, 100);
+        PSolid floor = new PSolid(world);
+        floor.pos.set(0, 0);
+        floor.size.set((int) viewport.getWorldWidth(), 30);
 
-        world.addSolid(solid);
+        world.addSolid(floor);
+
+        PSolid ceil = new PSolid(world);
+        ceil.pos.set(0, 140);
+        ceil.size.set((int) viewport.getWorldWidth(), 30);
+
+        world.addSolid(ceil);
 
         mySolid = new PSolid(world);
-        mySolid.pos.set(0, 100);
+        mySolid.pos.set(0, 0);
         mySolid.size.set(20, 100);
 
         world.addSolid(mySolid);
@@ -60,15 +64,8 @@ public class MyCoolScreen extends AbstractScreen {
         float horiz = input.getHorizontal();
         float vert = input.getVertical();
 
-        if(horiz != 0) {
-            myActor.moveX(delta * 100 * horiz, null);
-        }
 
-        if(vert != 0) {
-            myActor.moveY(delta * 100 * vert, null);
-        }
-
-        mySolid.move(1, 0);
+        myActor.update(delta);
         world.update();
     }
 
@@ -77,6 +74,7 @@ public class MyCoolScreen extends AbstractScreen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        viewport.getCamera().position.lerp(new Vector3(myActor.pos.x, myActor.pos.y, 0), 0.1f);
         viewport.apply();
 
         debugRenderer.render(world, viewport.getCamera().combined);

@@ -26,11 +26,11 @@ public class SimpleInputTranslator implements InputTranslator {
 
     @Override
     public boolean isJumping() {
-        return false;
+        return Gdx.input.isKeyPressed(Keys.SPACE);
     }
 
     @Override
     public boolean isJustJumping() {
-        return false;
+        return Gdx.input.isKeyJustPressed(Keys.SPACE);
     }
 }

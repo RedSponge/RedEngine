@@ -7,7 +7,7 @@ import com.redsponge.redengine.utils.Logger;
 /**
  * An actor in the world, must never overlap a solid
  */
-public class PActor extends PWorldObject {
+public class PActor extends PEntity {
     private float remainderX, remainderY;
 
     public PActor(PhysicsWorld worldIn) {
@@ -21,14 +21,13 @@ public class PActor extends PWorldObject {
      */
     public final void moveX(float x, Runnable onCollide) {
         remainderX += x;
-        int move = Math.round(remainderX);
-
+        int move = (int) remainderX;
         if(move != 0) {
             remainderX -= move;
             int sign = (int) Math.signum(move);
 
             while(move != 0) {
-                if(!collideAt(pos.copy().add(move, 0))) {
+                if(!collideAt(pos.copy().add(sign, 0))) {
                     pos.x += sign;
                     move -= sign;
                 } else {
@@ -57,7 +56,7 @@ public class PActor extends PWorldObject {
             int sign = (int) Math.signum(move);
 
             while(move != 0) {
-                if(!collideAt(pos.copy().add(0, move))) {
+                if(!collideAt(pos.copy().add(0, sign))) {
                     pos.y += sign;
                     move -= sign;
                 } else {
@@ -77,13 +76,27 @@ public class PActor extends PWorldObject {
      * @param pos The checking position
      * @return Has the actor collided with a solid?
      */
-    private boolean collideAt(IntVector2 pos) {
+    protected boolean collideAt(IntVector2 pos) {
         for(PSolid solid : worldIn.getSolids()) {
             if(solid.isCollidable() && GeneralUtils.rectanglesIntersect(pos, this.size, solid.pos, solid.size)) {
                 return true;
             }
         }
         return false;
+    }
+
+    /**
+     * Finds the first thing the actor will collide with in a given position
+     * @param pos The checking position
+     * @return The first solid the actor will collide with when in this position. null if none
+     */
+    protected PSolid collideFirst(IntVector2 pos) {
+        for(PSolid solid : worldIn.getSolids()) {
+            if(solid.isCollidable() && GeneralUtils.rectanglesIntersect(pos, this.size, solid.pos, solid.size)) {
+                return solid;
+            }
+        }
+        return null;
     }
 
     /**

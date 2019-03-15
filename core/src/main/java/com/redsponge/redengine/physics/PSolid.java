@@ -6,7 +6,7 @@ import com.redsponge.redengine.utils.GeneralUtils;
 /**
  * A solid in a {@link PhysicsWorld}. cannot interact with other solids
  */
-public class PSolid extends PWorldObject {
+public class PSolid extends PEntity {
 
     private float remainderX, remainderY;
     private boolean collidable;

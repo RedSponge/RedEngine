@@ -5,7 +5,7 @@ import com.redsponge.redengine.utils.IntVector2;
 /**
  * An object in a {@link PhysicsWorld}. has size and position.
  */
-public class PWorldObject {
+public class PEntity {
 
     public IntVector2 pos, size;
     protected PhysicsWorld worldIn;
@@ -15,7 +15,7 @@ public class PWorldObject {
      */
     private boolean removed;
 
-    public PWorldObject(PhysicsWorld worldIn) {
+    public PEntity(PhysicsWorld worldIn) {
         this.worldIn = worldIn;
         this.pos = new IntVector2();
         this.size = new IntVector2();
