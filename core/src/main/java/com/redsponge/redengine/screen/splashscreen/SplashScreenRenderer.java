@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.redsponge.redengine.assets.AssetDescBin;
 import com.redsponge.redengine.assets.AssetDescBin.SplashScreen;
 import com.redsponge.redengine.assets.IAssetRequirer;
@@ -129,5 +130,9 @@ public class SplashScreenRenderer implements Disposable, IAssetRequirer {
     @Override
     public void dispose() {
         this.stage.dispose();
+    }
+
+    public Viewport getViewport() {
+        return viewport;
     }
 }

@@ -47,6 +47,7 @@ public class TransitionManager {
         }
 
         if(timeSince > length && transitioning) {
+            transition.dispose();
             transition = null;
             transitioning = false;
             Logger.log(this, "Transition Complete!!");

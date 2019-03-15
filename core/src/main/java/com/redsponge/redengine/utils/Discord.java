@@ -26,11 +26,8 @@ public class Discord {
         presence = new DiscordRichPresence();
 
         DiscordRPC.INSTANCE.Discord_Initialize(appId, handlers, true, steamId);
-        presence.details = "Nyeh!";
-        presence.state = "Hi";
-        presence.largeImageKey = "clouds";
-        presence.smallImageKey = "clouds";
-        presence.smallImageText = "The Character";
+        presence.details = "#meowmeowmeow!";
+        presence.state = "meow";
         DiscordRPC.INSTANCE.Discord_UpdatePresence(presence);
         thread = new Thread(new Runnable() {
             @Override

@@ -22,4 +22,11 @@ public class GeneralUtils {
         return (T[]) out;
     }
 
+    public static boolean rectanglesIntersect(IntVector2 pos1, IntVector2 size1, IntVector2 pos2, IntVector2 size2) {
+        return pos1.x < pos2.x + size2.x &&
+                pos1.x + size1.x > pos2.x &&
+                pos1.y < pos2.y + size2.y &&
+                pos1.y + size1.y > pos2.y;
+    }
+
 }

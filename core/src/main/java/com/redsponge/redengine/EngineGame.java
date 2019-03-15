@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Interpolation;
 import com.redsponge.redengine.assets.Assets;
@@ -24,6 +25,8 @@ public abstract class EngineGame extends Game {
 
     @Override
     public final void create() {
+        ShaderProgram.pedantic = false;
+
         batch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
         ga = new GameAccessor(this);
