@@ -3,11 +3,12 @@ package com.redsponge.testgame;
 import com.badlogic.gdx.math.Vector2;
 import com.redsponge.redengine.input.InputTranslator;
 import com.redsponge.redengine.input.SimpleInputTranslator;
+import com.redsponge.redengine.physics.IUpdated;
 import com.redsponge.redengine.physics.PActor;
 import com.redsponge.redengine.physics.PSolid;
 import com.redsponge.redengine.physics.PhysicsWorld;
 
-public class PlayerPActor extends PActor {
+public class PlayerPActor extends PActor implements IUpdated {
 
     private Vector2 vel;
     private InputTranslator input;
@@ -22,6 +23,7 @@ public class PlayerPActor extends PActor {
         this.input = new SimpleInputTranslator();
     }
 
+    @Override
     public void update(float delta) {
         vel.add(0, -10 * delta); // Apply Gravity
 
@@ -37,9 +39,15 @@ public class PlayerPActor extends PActor {
         moveY(vel.y, null);
 
         PSolid floor = collideFirst(pos.copy().add(0, -1));
+
         if(floor != null) {
             onGround = true;
             vel.y = 0;
+            if(floor instanceof MovingPSolid) {
+                if(!((MovingPSolid) floor).isActive()) {
+                    ((MovingPSolid) floor).activate();
+                }
+            }
         } else {
             onGround = false;
         }

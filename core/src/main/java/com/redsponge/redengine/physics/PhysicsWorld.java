@@ -1,5 +1,6 @@
 package com.redsponge.redengine.physics;
 
+import com.badlogic.gdx.utils.Array.ArrayIterator;
 import com.badlogic.gdx.utils.DelayedRemovalArray;
 
 public class PhysicsWorld {
@@ -31,14 +32,20 @@ public class PhysicsWorld {
     /**
      * Removes all things that should be removed
      */
-    public void update() {
-        for(PActor actor : actors) {
+    public void update(float delta) {
+        for(PActor actor : new ArrayIterator<>(actors)) {
+            if(actor instanceof IUpdated) {
+                ((IUpdated) actor).update(delta);
+            }
             if(actor.isRemoved()) {
                 actors.removeValue(actor, true);
             }
         }
 
-        for(PSolid solid : solids) {
+        for(PSolid solid : new ArrayIterator<>(solids)) {
+            if(solid instanceof IUpdated) {
+                ((IUpdated) solid).update(delta);
+            }
             if(solid.isRemoved()) {
                 solids.removeValue(solid, true);
             }

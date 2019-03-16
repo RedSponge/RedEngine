@@ -30,7 +30,7 @@ public class MyCoolScreen extends AbstractScreen {
 
     @Override
     public void show() {
-        viewport = new FitViewport(500, 500);
+        viewport = new FitViewport(512, 512);
         world = new PhysicsWorld();
         debugRenderer = new PhysicsDebugRenderer();
 
@@ -44,15 +44,9 @@ public class MyCoolScreen extends AbstractScreen {
 
         world.addSolid(floor);
 
-        PSolid ceil = new PSolid(world);
-        ceil.pos.set(0, 140);
-        ceil.size.set((int) viewport.getWorldWidth(), 30);
-
-        world.addSolid(ceil);
-
-        mySolid = new PSolid(world);
-        mySolid.pos.set(0, 0);
-        mySolid.size.set(20, 100);
+        mySolid = new MovingPSolid(world);
+        mySolid.pos.set(0, 50);
+        mySolid.size.set(100, 20);
 
         world.addSolid(mySolid);
 
@@ -65,8 +59,7 @@ public class MyCoolScreen extends AbstractScreen {
         float vert = input.getVertical();
 
 
-        myActor.update(delta);
-        world.update();
+        world.update(delta);
     }
 
     @Override
@@ -74,7 +67,7 @@ public class MyCoolScreen extends AbstractScreen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        viewport.getCamera().position.lerp(new Vector3(myActor.pos.x, myActor.pos.y, 0), 0.1f);
+        viewport.getCamera().position.set(new Vector3(myActor.pos.x, myActor.pos.y, 0));
         viewport.apply();
 
         debugRenderer.render(world, viewport.getCamera().combined);
