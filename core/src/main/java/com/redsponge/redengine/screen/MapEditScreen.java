@@ -42,8 +42,9 @@ public class MapEditScreen extends AbstractScreen{
 
     @Override
     public void tick(float delta) {
-        viewport.getCamera().position.x += 100 * delta * ((OrthographicCamera) viewport.getCamera()).zoom * input.getHorizontal();
-        viewport.getCamera().position.y -= 100 * delta * ((OrthographicCamera) viewport.getCamera()).zoom * input.getVertical();
+        viewport.getCamera().position.x += 200 * delta * ((OrthographicCamera) viewport.getCamera()).zoom * input.getHorizontal();
+        viewport.getCamera().position.y -= 200 * delta * ((OrthographicCamera) viewport.getCamera()).zoom * input.getVertical();
+
         stage.act(delta);
     }
 

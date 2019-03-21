@@ -33,7 +33,7 @@ public class TileGroup {
                     continue;
                 }
                 try {
-                    neighbors[2 - (yy + 1)][xx + 1] = map[yy + y][xx + x] == id;
+                    neighbors[2 - (yy + 1)][xx + 1] = map[yy + y][xx + x] != 0;
                 } catch (IndexOutOfBoundsException e) {
                     neighbors[yy+1][xx+1] = false;
                 }
