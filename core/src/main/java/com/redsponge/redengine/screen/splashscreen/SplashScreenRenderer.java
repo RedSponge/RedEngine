@@ -49,8 +49,8 @@ public class SplashScreenRenderer implements Disposable, IAssetRequirer {
 
     /**
      * Creates the icon and adds its actions
-     * @param atlas - The {@link TextureAtlas} containing the splashscreen's textures
-     * @param waitBeforeFallDown - The delay before disappearing
+     * @param atlas The {@link TextureAtlas} containing the splashscreen's textures
+     * @param waitBeforeFallDown The delay before disappearing
      */
     private void createIcon(TextureAtlas atlas, float waitBeforeFallDown) {
         icon = new Image(atlas.findRegion("icon"));
@@ -68,8 +68,8 @@ public class SplashScreenRenderer implements Disposable, IAssetRequirer {
 
     /**
      * Creates the letters and adds their actions
-     * @param atlas - The {@link TextureAtlas} containing the splashscreen's textures
-     * @param waitBeforeFallDown - The delay before disappearing
+     * @param atlas The {@link TextureAtlas} containing the splashscreen's textures
+     * @param waitBeforeFallDown The delay before disappearing
      */
     private void createLetters(TextureAtlas atlas, float waitBeforeFallDown) {
         int spaced = 0;

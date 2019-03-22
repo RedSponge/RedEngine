@@ -36,7 +36,7 @@ public abstract class AbstractScreen extends ScreenAdapter implements IAssetRequ
 
     /**
      * Called before render, all logic should go here
-     * @param delta - The delta time from the last frame
+     * @param delta The delta time from the last frame
      */
     public abstract void tick(float delta);
 

@@ -101,7 +101,7 @@ public class PActor extends PEntity {
 
     /**
      * Checks if the actor is riding a solid - Defaults to if the actor is standing on the solid
-     * @param solid - The solid to check
+     * @param solid The solid to check
      * @return Is the actor riding the solid?
      */
     public boolean isRiding(PSolid solid) {

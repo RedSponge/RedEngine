@@ -23,8 +23,8 @@ public class PhysicsDebugRenderer implements Disposable {
 
     /**
      * Renders a world: solids in green and actors in blue
-     * @param world - The world to render
-     * @param projectionMatrix - The projection matrix to render through
+     * @param world The world to render
+     * @param projectionMatrix The projection matrix to render through
      */
     public void render(PhysicsWorld world, Matrix4 projectionMatrix) {
         debugRenderer.setProjectionMatrix(projectionMatrix);

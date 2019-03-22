@@ -19,8 +19,8 @@ public class Logger {
 
     /**
      * Log if the {@link Logger#logLevel} is {@link Logger#LOG} or less
-     * @param from - Log from
-     * @param toLog - What to log
+     * @param from Log from
+     * @param toLog What to log
      */
     public static void log(Object from, Object... toLog) {
         log(from.getClass(), toLog);
@@ -28,8 +28,8 @@ public class Logger {
 
     /**
      * Log if the {@link Logger#logLevel} is {@link Logger#LOG} or less
-     * @param from - Log from class
-     * @param toLog - What to log
+     * @param from Log from class
+     * @param toLog What to log
      */
     public static void log(Class<?> from, Object... toLog) {
         logUnderLevel(LOG, from, toLog);
@@ -37,8 +37,8 @@ public class Logger {
 
     /**
      * Log if the {@link Logger#logLevel} is {@link Logger#DEBUG} or less
-     * @param from - Log from
-     * @param toLog - What to log
+     * @param from Log from
+     * @param toLog What to log
      */
     public static void debug(Object from, Object... toLog) {
         debug(from.getClass(), toLog);
@@ -46,8 +46,8 @@ public class Logger {
 
     /**
      * Log if the {@link Logger#logLevel} is {@link Logger#DEBUG} or less
-     * @param from - Log from class
-     * @param toLog - What to log
+     * @param from Log from class
+     * @param toLog What to log
      */
     public static void debug(Class<?> from, Object... toLog) {
         logUnderLevel(DEBUG, from, toLog);
@@ -55,8 +55,8 @@ public class Logger {
 
     /**
      * Log if the {@link Logger#logLevel} is {@link Logger#ERROR} or less
-     * @param from - Log from
-     * @param toLog - What to log
+     * @param from Log from
+     * @param toLog What to log
      */
     public static void error(Object from, Object... toLog) {
         error(from.getClass(), toLog);
@@ -64,8 +64,8 @@ public class Logger {
 
     /**
      * Log if the {@link Logger#logLevel} is {@link Logger#ERROR} or less
-     * @param from - Log from class
-     * @param toLog - What to log
+     * @param from Log from class
+     * @param toLog What to log
      */
     public static void error(Class<?> from, Object... toLog) {
         logUnderLevel(ERROR, from, toLog);
@@ -73,9 +73,9 @@ public class Logger {
 
     /**
      * Prints a formatted log if the level is good
-     * @param level - The log level
-     * @param from - The class name
-     * @param toLog - What to print
+     * @param level The log level
+     * @param from The class name
+     * @param toLog What to print
      */
     private static void logUnderLevel(int level, Class<?> from, Object... toLog) {
         if(logLevel <= level) {
@@ -90,7 +90,7 @@ public class Logger {
     /**
      * Set the log level
      * DEBUG < LOG < ERROR
-     * @param logLevel - The new log level
+     * @param logLevel The new log level
      */
     public static void setLogLevel(int logLevel) {
         Logger.logLevel = logLevel;

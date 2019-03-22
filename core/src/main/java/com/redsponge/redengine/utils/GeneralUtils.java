@@ -10,9 +10,9 @@ public class GeneralUtils {
 
     /**
      * Joins two arrays into one new array
-     * @param arr1 - The first array to join
-     * @param arr2 - The second array to join
-     * @param <T> - The type
+     * @param arr1 The first array to join
+     * @param arr2 The second array to join
+     * @param <T> The type
      * @return An array consisting of the two arrays joined.
      */
     public static <T> T[] joinArrays(T[] arr1, T[] arr2) {

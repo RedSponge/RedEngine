@@ -21,7 +21,7 @@ public class Assets implements Disposable {
 
     /**
      * Loads in files into the {@link AssetManager} based on the passed screen's {@link AbstractScreen#getRequiredAssets()}
-     * @param screen - The screen to load from
+     * @param screen The screen to load from
      */
     public void load(AbstractScreen screen) {
         Logger.log(this, "[Loading assets for screen] ", screen);
@@ -54,7 +54,7 @@ public class Assets implements Disposable {
 
     /**
      * Unloads files from the {@link AssetManager} based on the passed requirer's {@link IAssetRequirer#getRequiredAssets()}
-     * @param requirer - The screen to unload from
+     * @param requirer The screen to unload from
      */
     public void unload(IAssetRequirer requirer) {
         Logger.log(this, "Unloading assets for screen ", requirer);
@@ -69,7 +69,7 @@ public class Assets implements Disposable {
 
     /**
      * Retrieves an asset
-     * @param descriptor - The asset descriptor
+     * @param descriptor The asset descriptor
      * @param <T> - The asset's type
      * @return The asset
      */
@@ -80,8 +80,8 @@ public class Assets implements Disposable {
 
     /**
      * Retrieves an asset
-     * @param filename - The asset's filename
-     * @param type - The asset's class
+     * @param filename The asset's filename
+     * @param type The asset's class
      * @param <T> - The asset's type
      * @return The asset
      */

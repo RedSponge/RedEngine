@@ -18,8 +18,8 @@ public class PSolid extends PEntity {
 
     /**
      * Moves a solid, pushing and moving all riding / in the way actors
-     * @param x - The x amount to move
-     * @param y - The y amount to move
+     * @param x The x amount to move
+     * @param y The y amount to move
      */
     public final void move(float x, float y) {
         remainderX += x;
