@@ -4,19 +4,23 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class TileGroup {
 
-    private TextureRegion region;
     private TextureRegion[] regions;
-
     private int id;
 
     public TileGroup(int topLCornerX, int topLCornerY, TileBatch batch, int id) {
         this.id = id;
+        if(batch == null) return;
+
         int size = batch.getTileSize();
 
         regions = new TextureRegion[16];
         for(int i = 0; i < 16; i++) {
             regions[i] = new TextureRegion(batch.getTexture(), topLCornerX * size + (i % 4) * size, topLCornerY * size + (i / 4) * size, size, size);
         }
+    }
+
+    public TextureRegion getRepresentingRegion() {
+        return regions[0];
     }
 
     public TextureRegion getRegion(int x, int y, short[][] map) {
@@ -54,32 +58,9 @@ public class TileGroup {
         }
 
         return regions[mask];
+    }
 
-        /*
-        if(!neighbors[0][1]) {
-            // Top
-            if(!neighbors[1][2]) {
-                return topR;
-            } else if(!neighbors[1][0]) {
-                return topL;
-            }
-            return top;
-        } else if(!neighbors[2][1]) {
-            // Bottom
-            if(!neighbors[1][2]) {
-                return bottomR;
-            } else if(!neighbors[1][0]) {
-                return bottomL;
-            }
-            return bottom;
-        } else {
-            // Center
-            if(!neighbors[1][2]) {
-                return centerR;
-            } else if(!neighbors[1][0]) {
-                return centerL;
-            }
-            return center;
-        }*/
+    public int getIndex() {
+        return id;
     }
 }

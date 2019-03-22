@@ -24,7 +24,6 @@ public class MapEditor implements InputProcessor {
     private int lastX, lastY;
     private TileBatch tileBatch;
 
-    private TileGroup grass;
     private TileGroup[] groups;
 
     private int selectedTile;
@@ -46,6 +45,10 @@ public class MapEditor implements InputProcessor {
                 new TileGroup(4, 0, tileBatch, 2),
         };
         selectedTile = 0;
+    }
+
+    public TileGroup[] getGroups() {
+        return groups;
     }
 
     private void renderLayer(short[][] grid, SpriteBatch batch) {
@@ -141,6 +144,10 @@ public class MapEditor implements InputProcessor {
     public boolean scrolled(int amount) {
         ((OrthographicCamera) viewport.getCamera()).zoom += amount * 0.05f;
         return true;
+    }
+
+    public void setSelectedTile(int selectedTile) {
+        this.selectedTile = selectedTile;
     }
 
     public void dispose() {

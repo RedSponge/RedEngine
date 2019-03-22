@@ -29,4 +29,7 @@ public class GeneralUtils {
                 pos1.y + size1.y > pos2.y;
     }
 
+    public static float lerp(float current, float to, float a) {
+        return (1 - a) * current + a * to;
+    }
 }

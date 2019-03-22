@@ -1,51 +1,44 @@
 package com.redsponge.redengine.map;
 
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Pixmap.Format;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.WindowConstants;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.concurrent.locks.StampedLock;
+public class TileSelector extends Group {
 
-public class TileSelector extends Actor {
-
-    private Pixmap pixmap;
+    private NinePatch selector;
+    private boolean display;
 
     public TileSelector() {
-        pixmap = new Pixmap(1, 1, Format.RGBA8888);
-        pixmap.drawPixel(0, 0, 0xFFFFFFFF);
+        display = true;
 
-        new HashSet<Integer>() {{
-            add(1);
-            add(2);
-            add(3);
-            add(4);
-        }};
+        selector = new NinePatch(new Texture("selector_background.png"), 3, 3, 3, 3);
+        setPosition(0, 0);
 
-        new JFrame() {{
-           setTitle("Howdy");
-           setSize(50, 50);
-           setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-           setVisible(true);
-        }};
-
-        StampedLock lock;
-        Arrays.a
+        addListener(new ClickListener() { // Clicking the selector should cancel the event
+            @Override
+            public void clicked(InputEvent event, float x, float y) {}
+        });
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
+        setSize(getStage().getViewport().getWorldWidth() / 8, getStage().getViewport().getWorldHeight());
+        selector.draw(batch, getX(), getY(), getWidth(), getHeight());
         super.draw(batch, parentAlpha);
     }
 
     @Override
     public boolean remove() {
-        pixmap.dispose();
+        selector.getTexture().dispose();
         return super.remove();
+    }
+
+    public void toggle() {
+        display = !display;
+        setPosition(display ? 0 : -100, 0);
     }
 }
