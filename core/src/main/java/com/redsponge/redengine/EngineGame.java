@@ -23,6 +23,11 @@ public abstract class EngineGame extends Game {
     protected TransitionManager transitionManager;
     protected Discord discord;
 
+    /**
+     * Initialization - Called when the program boots up
+     */
+    public abstract void init();
+
     @Override
     public final void create() {
         ShaderProgram.pedantic = false;
@@ -39,10 +44,34 @@ public abstract class EngineGame extends Game {
         init();
     }
 
+    @Override
+    public void render() {
+        final AbstractScreen currentScreen = (AbstractScreen) screen;
+
+        assets.updateAssetManager();
+        if(screen != null) {
+            currentScreen.tick(Gdx.graphics.getDeltaTime());
+            currentScreen.render();
+        }
+
+        if(transitionManager.isActive()) {
+            transitionManager.render(Gdx.graphics.getDeltaTime());
+        }
+    }
+
+    /**
+     * Sets a transition to a new screen
+     * @param screen The new screen to be displayed
+     * @param transition The transition to use
+     * @param length The length of the transition
+     * @param interFrom The interpolation in the 1st half
+     * @param interTo The interpolation in the 2nd half
+     */
     public void transitionToScreen(AbstractScreen screen, Transition transition, float length, Interpolation interFrom, Interpolation interTo) {
         transitionManager.startTransition(screen, transition, length, interFrom, interTo);
         transitionManager.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
+
 
     @Override
     public void setScreen(Screen screen) {
@@ -72,30 +101,10 @@ public abstract class EngineGame extends Game {
     }
 
     @Override
-    public void render() {
-        final AbstractScreen currentScreen = (AbstractScreen) screen;
-
-        assets.updateAssetManager();
-        if(screen != null) {
-            currentScreen.tick(Gdx.graphics.getDeltaTime());
-            currentScreen.render();
-        }
-
-        if(transitionManager.isActive()) {
-            transitionManager.render(Gdx.graphics.getDeltaTime());
-        }
-    }
-
-    @Override
     public void resize(int width, int height) {
         super.resize(width, height);
         transitionManager.resize(width, height);
     }
-
-    /**
-     * Initialization - Called when the program boots up
-     */
-    public abstract void init();
 
     public SpriteBatch getSpriteBatch() {
         return batch;
