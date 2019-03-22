@@ -94,11 +94,6 @@ public class MapEditor implements InputProcessor {
 
 
     public boolean keyUp(int keycode) {
-        if(keycode == Keys.SPACE) {
-            selectedTile++;
-            selectedTile %= 3;
-        }
-
         return true;
     }
 
