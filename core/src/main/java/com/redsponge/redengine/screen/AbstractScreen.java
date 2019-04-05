@@ -31,7 +31,7 @@ public abstract class AbstractScreen extends ScreenAdapter implements IAssetRequ
 
     @Override
     public final void render(float delta) {
-        throw new RuntimeException("The default render method shouldn't be called when using an AbstractScreen!");
+        throw new RuntimeException("The default render method shouldn'item be called when using an AbstractScreen!");
     }
 
     /**

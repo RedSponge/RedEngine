@@ -3,8 +3,10 @@ package com.redsponge.redengine.map;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class TileSelector extends Group {
@@ -39,6 +41,6 @@ public class TileSelector extends Group {
 
     public void toggle() {
         display = !display;
-        setPosition(display ? 0 : -100, 0);
+        addAction(Actions.moveTo(display ? 0 : -150, 0, 0.5f, display ? Interpolation.swingOut : Interpolation.swingIn));
     }
 }

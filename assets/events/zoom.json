@@ -1,0 +1,18 @@
+{
+  "params": {
+    "value": "float"
+  },
+  "code": {
+    "params": [
+      {"type":  "OrthographicCamera", "name": "cam"}
+    ],
+    "exec": [
+      {
+        "type": "setField",
+        "on": "cam",
+        "name": "zoom",
+        "to": "value"
+      }
+    ]
+  }
+}
