@@ -1,0 +1,22 @@
+{
+  "params": [
+    {"mySuperValue": "int"}
+  ],
+  "code": {
+    "params": [
+      {"type":  "DummyObject", "name": "dummy"}
+    ],
+    "exec": [
+      {
+        "type": "execMethod",
+        "on": "dummy",
+        "name": "mySampleMethod",
+        "params": [
+          "mySuperValue",
+          5,
+          "b"
+        ]
+      }
+    ]
+  }
+}

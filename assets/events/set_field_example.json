@@ -1,0 +1,18 @@
+{
+  "params": [
+    {"myValue": "object"}
+  ],
+  "code": {
+    "params": [
+      {"type": "DummyObject", "name":  "dummy"}
+    ],
+    "exec": [
+      {
+        "type": "setField",
+        "on": "dummy",
+        "name": "testField",
+        "to": "myValue"
+      }
+    ]
+  }
+}
