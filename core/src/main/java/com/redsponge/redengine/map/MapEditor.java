@@ -1,42 +1,62 @@
 package com.redsponge.redengine.map;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Array.ArrayIterator;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.redsponge.redengine.map.events.EventTile;
 import com.redsponge.redengine.utils.IntVector2;
+import com.redsponge.redengine.utils.Logger;
 
 public class MapEditor extends InputAdapter implements Disposable {
 
     private short[][] mapGrid;
-    private short[][] foregroundGrid;
+    private Array<EventTile> events;
+    private EventTile selectedEvent;
 
     private Viewport viewport;
     private int cellSize;
-    private int mapWidth, mapHeight;
     private int lastX, lastY;
     private TileBatch tileBatch;
 
     private TileGroup[] groups;
 
     private int selectedTile;
+    private Texture eventTex;
+    private NinePatch eventNP;
+
+    private boolean eventMode;
+    private boolean creatingEvent;
+
+    private int newEventX, newEventY, newEventW, newEventH;
 
     public MapEditor(Viewport viewport, int width, int height, int cellSize) {
         this.viewport = viewport;
         this.mapGrid = new short[width][height];
-        this.foregroundGrid = new short[width][height];
+        this.eventMode = false;
+
+        eventTex = new Texture("event_tile.png");
+        eventNP = new NinePatch(eventTex, 1, 1, 1, 1);
+
+        events = new Array<EventTile>();
+        events.add(new EventTile(2, 2, 5, 2, eventNP));
+
+        eventMode = true;
+        creatingEvent = false;
 
         this.cellSize = cellSize;
-
-        this.mapWidth = width * cellSize;
-        this.mapHeight = height * cellSize;
 
         tileBatch = new TileBatch(new Texture("world_tiles.png"), cellSize / 2);
 
@@ -69,13 +89,40 @@ public class MapEditor extends InputAdapter implements Disposable {
      * @param renderer The {@link ShapeRenderer} to use
      */
     public void render(SpriteBatch batch, ShapeRenderer renderer) {
+        processKeys();
         batch.begin();
         renderLayer(mapGrid, batch);
-        renderLayer(foregroundGrid, batch);
+
+        for(EventTile e : new ArrayIterator<EventTile>(events)) {
+            e.renderOnMap(batch, cellSize);
+        }
+        if(selectedEvent != null) {
+            selectedEvent.renderOnMap(batch, cellSize); // Highlight selected
+        }
+
+        if(creatingEvent) {
+            eventNP.draw(batch, newEventX * cellSize, newEventY * cellSize, newEventW * cellSize, newEventH * cellSize);
+        }
 
         renderTilePreview(batch);
         batch.end();
         renderGrid(renderer);
+    }
+
+    private void processKeys() {
+        if(eventMode) {
+            if (Gdx.input.isKeyJustPressed(Keys.DEL) || Gdx.input.isKeyJustPressed(Keys.FORWARD_DEL)) {
+                if (selectedEvent != null) {
+                    events.removeValue(selectedEvent, true);
+                    selectedEvent = null;
+                }
+            }
+            if(Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
+                if(creatingEvent) {
+                    creatingEvent = false;
+                }
+            }
+        }
     }
 
     /**
@@ -133,8 +180,46 @@ public class MapEditor extends InputAdapter implements Disposable {
         lastX = screenX;
         lastY = screenY;
 
-        markSpot(screenX, screenY);
+        newEventX = 0;
+        newEventY = 0;
+        newEventW = 0;
+        newEventH = 0;
+
+        if(eventMode) {
+            selectEvent();
+            processEventCreation(false);
+        } else {
+            markSpot(screenX, screenY);
+        }
         return true;
+    }
+
+    private void processEventCreation(boolean dragged) {
+        creatingEvent = true;
+        IntVector2 projected = new IntVector2(viewport.unproject(new Vector2(lastX, lastY)));
+        projected.scl(1f / cellSize);
+
+        if(dragged) {
+            newEventW = projected.x - newEventX;
+            newEventH = projected.y - newEventY;
+            if(newEventW >= 0) newEventW++;
+            if(newEventH >= 0) newEventH++;
+        } else {
+            newEventX = projected.x;
+            newEventY = projected.y;
+        }
+    }
+
+    private void selectEvent() {
+        IntVector2 projected = new IntVector2(viewport.unproject(new Vector2(lastX, lastY)));
+        for (EventTile e : new ArrayIterator<EventTile>(events)) {
+            if (e.mouseInside(projected.x, projected.y, cellSize)) {
+                selectedEvent = e;
+                Logger.log(this, "Selected event!");
+                return;
+            }
+        }
+        selectedEvent = null;
     }
 
     @Override
@@ -142,7 +227,29 @@ public class MapEditor extends InputAdapter implements Disposable {
         lastX = screenX;
         lastY = screenY;
 
+        if(creatingEvent)
+            createEvent();
+
+        newEventX = 0;
+        newEventY = 0;
+        newEventW = 0;
+        newEventH = 0;
         return true;
+    }
+
+    private void createEvent() {
+        if(newEventW == 0 || newEventH == 0) {
+            Logger.log(this, "Event size is 0!");
+            return;
+        }
+        if(newEventX < 0 || newEventY < 0 || newEventX > mapGrid[0].length - 1 || newEventY > mapGrid.length - 1) {
+            Logger.log(this, "Event out of map!");
+            return;
+        }
+        EventTile newEvent = new EventTile(newEventX, newEventY, newEventW, newEventH, eventNP);
+        events.add(newEvent);
+        selectedEvent = newEvent;
+        Logger.log(this, newEventX, newEventY, newEventW, newEventH);
     }
 
     @Override
@@ -150,7 +257,11 @@ public class MapEditor extends InputAdapter implements Disposable {
         lastX = screenX;
         lastY = screenY;
 
-        markSpot(screenX, screenY);
+        if(eventMode && creatingEvent) {
+            processEventCreation(true);
+        } else {
+            markSpot(screenX, screenY);
+        }
         return true;
     }
 

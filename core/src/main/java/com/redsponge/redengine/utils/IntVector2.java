@@ -61,6 +61,44 @@ public class IntVector2 {
         return set(intVec2.x, intVec2.y);
     }
 
+    /**
+     * Scales a vector by given numbers
+     * @param x The x to scale in, float to allow fractions
+     * @param y THe y to scale in, float to allow fractions
+     * @return The vector for chaining
+     */
+    public IntVector2 scl(float x, float y) {
+        this.x *= x;
+        this.y *= y;
+        return this;
+    }
+
+    /**
+     * Scales a vector by a scalar
+     * @param scalar The scalar to scale in, float to allow fractions
+     * @return The vector for chaining
+     */
+    public IntVector2 scl(float scalar) {
+        return scl(scalar, scalar);
+    }
+
+    /**
+     * Scales a vector by a vector
+     * @param vec2 The vector to scale in, regular to allow fractions
+     * @return The vector for chaining
+     */
+    public IntVector2 scl(Vector2 vec2) {
+        return scl(vec2.x, vec2.y);
+    }
+
+    /**
+     * Scales a vector by a vector
+     * @param vec2 The vector to scale in
+     * @return The vector for chaining
+     */
+    public IntVector2 scl(IntVector2 vec2) {
+        return scl(vec2.x, vec2.y);
+    }
 
     /**
      * Creates a clone of the vector
@@ -78,5 +116,10 @@ public class IntVector2 {
         }
 
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("(%d, %d)", x, y);
     }
 }

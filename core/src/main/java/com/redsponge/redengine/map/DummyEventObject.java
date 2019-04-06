@@ -8,7 +8,7 @@ public class DummyEventObject {
         testField = -5;
     }
 
-    public void mySampleMethod(int a, float b, String c) {
+    public void mySampleMethod(int a, String s, float b, String c) {
         System.out.println(c + (a + b));
     }
 }
