@@ -1,0 +1,88 @@
+{
+com.badlogic.gdx.graphics.g2d.BitmapFont: {
+	pixelmix: {
+		file: pixelmix.fnt
+	}
+	pixelmix10: {
+		file: pixelmix10.fnt
+	}
+	pixelmix16: {
+		file: pixelmix16.fnt
+	}
+	pixelmix_8: {
+		file: pixelmix_8.fnt
+	}
+}
+com.badlogic.gdx.graphics.Color: {
+	disabled_gray: {
+		r: 0.5133333
+		g: 0.5133333
+		b: 0.5133333
+		a: 1
+	}
+	white: {
+		r: 1
+		g: 1
+		b: 1
+		a: 1
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
+	default: {
+		up: button_reg
+		down: button_hold
+		over: button_hover
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
+	default: {
+		checkboxOn: checkbox_on
+		checkboxOff: checkbox_off
+		checkboxOnOver: checkbox_on
+		checkboxOver: checkbox_off
+		font: pixelmix16
+		disabledFontColor: disabled_gray
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
+	default: {
+		font: pixelmix16
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
+	default: {
+		background: window_background
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
+	default: {
+		font: pixelmix16
+		fontColor: white
+		disabledFontColor: disabled_gray
+		up: button_reg
+		down: button_hold
+		over: button_hover
+		disabled: button_hold
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
+	default: {
+		font: pixelmix10
+		fontColor: white
+		background: textfield
+		cursor: cursor
+		selection: selection
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {
+	default: {
+		label: default
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
+	default: {
+		background: window_background
+		titleFont: pixelmix16
+	}
+}
+}

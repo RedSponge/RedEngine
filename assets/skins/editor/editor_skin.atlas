@@ -1,0 +1,103 @@
+
+editor_skin.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+button_hold
+  rotate: false
+  xy: 35, 87
+  size: 32, 32
+  split: 7, 7, 7, 7
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+button_hover
+  rotate: false
+  xy: 1, 53
+  size: 32, 32
+  split: 7, 7, 7, 7
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+button_reg
+  rotate: false
+  xy: 1, 87
+  size: 32, 32
+  split: 7, 7, 7, 7
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+checkbox_off
+  rotate: false
+  xy: 35, 53
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+checkbox_on
+  rotate: false
+  xy: 69, 87
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+cursor
+  rotate: false
+  xy: 35, 35
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+pixelmix10
+  rotate: false
+  xy: 1, 121
+  size: 505, 39
+  orig: 505, 39
+  offset: 0, 0
+  index: -1
+pixelmix16
+  rotate: false
+  xy: 1, 162
+  size: 505, 75
+  orig: 505, 75
+  offset: 0, 0
+  index: -1
+pixelmix_8
+  rotate: false
+  xy: 1, 478
+  size: 506, 29
+  orig: 506, 29
+  offset: 0, 0
+  index: -1
+selection
+  rotate: false
+  xy: 1, 19
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+textfield
+  rotate: false
+  xy: 1, 1
+  size: 16, 16
+  split: 2, 2, 2, 2
+  pad: 3, 3, 3, 3
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+window_background
+  rotate: false
+  xy: 69, 77
+  size: 8, 8
+  split: 3, 3, 3, 3
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+pixelmix
+  rotate: false
+  xy: 1, 239
+  size: 505, 237
+  orig: 505, 237
+  offset: 0, 0
+  index: -1
