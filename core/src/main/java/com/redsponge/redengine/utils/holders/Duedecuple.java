@@ -29,4 +29,11 @@ public class Duedecuple<A, B, C, D, E, F, G, H, I, J, K, L> {
 		this.k = k;
 		this.l = l;
 	}
+
+
+        @Override
+        public String toString() {
+            return "[" + a + ", " + b + ", " + c + ", " + d + ", " + e + ", " + f + ", " + g + ", " + h + ", " + i + ", " + j + ", " + k + ", " + l + "]";
+        }
+    
 }

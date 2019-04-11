@@ -23,4 +23,11 @@ public class Nontuple<A, B, C, D, E, F, G, H, I> {
 		this.h = h;
 		this.i = i;
 	}
+
+
+        @Override
+        public String toString() {
+            return "[" + a + ", " + b + ", " + c + ", " + d + ", " + e + ", " + f + ", " + g + ", " + h + ", " + i + "]";
+        }
+    
 }

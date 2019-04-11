@@ -19,4 +19,11 @@ public class Septuple<A, B, C, D, E, F, G> {
 		this.f = f;
 		this.g = g;
 	}
+
+
+        @Override
+        public String toString() {
+            return "[" + a + ", " + b + ", " + c + ", " + d + ", " + e + ", " + f + ", " + g + "]";
+        }
+    
 }

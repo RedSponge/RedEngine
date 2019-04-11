@@ -13,4 +13,11 @@ public class Quadruple<A, B, C, D> {
 		this.c = c;
 		this.d = d;
 	}
+
+
+        @Override
+        public String toString() {
+            return "[" + a + ", " + b + ", " + c + ", " + d + "]";
+        }
+    
 }

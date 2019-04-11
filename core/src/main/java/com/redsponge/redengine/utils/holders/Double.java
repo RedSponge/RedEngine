@@ -1,21 +1,19 @@
 package com.redsponge.redengine.utils.holders;
 
-public class Triple<A, B, C> {
+public class Double<A, B> {
 
 	public final A a;
 	public final B b;
-	public final C c;
 
-	public Triple(A a, B b, C c) {
+	public Double(A a, B b) {
 		this.a = a;
 		this.b = b;
-		this.c = c;
 	}
 
 
         @Override
         public String toString() {
-            return "[" + a + ", " + b + ", " + c + "]";
+            return "[" + a + ", " + b + "]";
         }
     
 }

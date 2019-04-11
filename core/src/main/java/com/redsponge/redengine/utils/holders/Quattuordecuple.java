@@ -33,4 +33,11 @@ public class Quattuordecuple<A, B, C, D, E, F, G, H, I, J, K, L, M, N> {
 		this.m = m;
 		this.n = n;
 	}
+
+
+        @Override
+        public String toString() {
+            return "[" + a + ", " + b + ", " + c + ", " + d + ", " + e + ", " + f + ", " + g + ", " + h + ", " + i + ", " + j + ", " + k + ", " + l + ", " + m + ", " + n + "]";
+        }
+    
 }

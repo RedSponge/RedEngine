@@ -46,16 +46,23 @@ public abstract class EngineGame extends Game {
 
     @Override
     public void render() {
-        final AbstractScreen currentScreen = (AbstractScreen) screen;
+        // Try catch to keep intellij from freezing when error is detected
+        try {
+            final AbstractScreen currentScreen = (AbstractScreen) screen;
 
-        assets.updateAssetManager();
-        if(screen != null) {
-            currentScreen.tick(Gdx.graphics.getDeltaTime());
-            currentScreen.render();
-        }
+            assets.updateAssetManager();
+            if (screen != null) {
+                currentScreen.tick(Gdx.graphics.getDeltaTime());
+                currentScreen.render();
+            }
 
-        if(transitionManager.isActive()) {
-            transitionManager.render(Gdx.graphics.getDeltaTime());
+            if (transitionManager.isActive()) {
+                transitionManager.render(Gdx.graphics.getDeltaTime());
+            }
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            Gdx.app.exit();
         }
     }
 

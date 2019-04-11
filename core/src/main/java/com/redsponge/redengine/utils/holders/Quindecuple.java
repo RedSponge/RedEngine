@@ -35,4 +35,11 @@ public class Quindecuple<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O> {
 		this.n = n;
 		this.o = o;
 	}
+
+
+        @Override
+        public String toString() {
+            return "[" + a + ", " + b + ", " + c + ", " + d + ", " + e + ", " + f + ", " + g + ", " + h + ", " + i + ", " + j + ", " + k + ", " + l + ", " + m + ", " + n + ", " + o + "]";
+        }
+    
 }

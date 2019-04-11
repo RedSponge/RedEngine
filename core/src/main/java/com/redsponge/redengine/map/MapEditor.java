@@ -17,6 +17,7 @@ import com.badlogic.gdx.utils.Array.ArrayIterator;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.redsponge.redengine.map.events.EventTile;
+import com.redsponge.redengine.map.events.EventChangeListener;
 import com.redsponge.redengine.utils.IntVector2;
 import com.redsponge.redengine.utils.Logger;
 
@@ -39,6 +40,8 @@ public class MapEditor extends InputAdapter implements Disposable {
 
     private boolean eventMode;
     private boolean creatingEvent;
+
+    private EventChangeListener eventChangeListener;
 
     private int newEventX, newEventY, newEventW, newEventH;
 
@@ -93,7 +96,7 @@ public class MapEditor extends InputAdapter implements Disposable {
         batch.begin();
         renderLayer(mapGrid, batch);
 
-        for(EventTile e : new ArrayIterator<EventTile>(events)) {
+        for(EventTile e : events) {
             e.renderOnMap(batch, cellSize);
         }
         if(selectedEvent != null) {
@@ -111,12 +114,6 @@ public class MapEditor extends InputAdapter implements Disposable {
 
     private void processKeys() {
         if(eventMode) {
-            if (Gdx.input.isKeyJustPressed(Keys.DEL) || Gdx.input.isKeyJustPressed(Keys.FORWARD_DEL)) {
-                if (selectedEvent != null) {
-                    events.removeValue(selectedEvent, true);
-                    selectedEvent = null;
-                }
-            }
             if(Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
                 if(creatingEvent) {
                     creatingEvent = false;
@@ -212,12 +209,19 @@ public class MapEditor extends InputAdapter implements Disposable {
 
     private void selectEvent() {
         IntVector2 projected = new IntVector2(viewport.unproject(new Vector2(lastX, lastY)));
-        for (EventTile e : new ArrayIterator<EventTile>(events)) {
+        for (EventTile e : events) {
             if (e.mouseInside(projected.x, projected.y, cellSize)) {
+                if(selectedEvent != null) {
+                    eventChangeListener.deselectedEvent(selectedEvent);
+                }
                 selectedEvent = e;
+                eventChangeListener.selectedNewEvent(selectedEvent, false);
                 Logger.log(this, "Selected event!");
                 return;
             }
+        }
+        if(selectedEvent != null) {
+            eventChangeListener.deselectedEvent(selectedEvent);
         }
         selectedEvent = null;
     }
@@ -249,6 +253,9 @@ public class MapEditor extends InputAdapter implements Disposable {
         EventTile newEvent = new EventTile(newEventX, newEventY, newEventW, newEventH, eventNP);
         events.add(newEvent);
         selectedEvent = newEvent;
+        if(eventChangeListener != null) {
+            eventChangeListener.selectedNewEvent(selectedEvent, true);
+        }
         Logger.log(this, newEventX, newEventY, newEventW, newEventH);
     }
 
@@ -287,6 +294,14 @@ public class MapEditor extends InputAdapter implements Disposable {
     public TileGroup[] getGroups() {
         return groups;
     }
+
+    public EventTile getSelectedEvent() {
+        return selectedEvent;
+    }
+
+    public boolean isEventSelected() {
+        return selectedEvent != null;
+    }
     // endregion
 
     @Override
@@ -294,5 +309,15 @@ public class MapEditor extends InputAdapter implements Disposable {
         tileBatch.dispose();
     }
 
+    public void removeSelectedEvent() {
+        events.removeValue(selectedEvent, true);
+        if(eventChangeListener != null) {
+            eventChangeListener.deletedEvent(selectedEvent);
+        }
+        selectedEvent = null;
+    }
 
+    public void setEventChangeListener(EventChangeListener eventChangeListener) {
+        this.eventChangeListener = eventChangeListener;
+    }
 }

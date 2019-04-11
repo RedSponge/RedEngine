@@ -27,4 +27,11 @@ public class Undecuple<A, B, C, D, E, F, G, H, I, J, K> {
 		this.j = j;
 		this.k = k;
 	}
+
+
+        @Override
+        public String toString() {
+            return "[" + a + ", " + b + ", " + c + ", " + d + ", " + e + ", " + f + ", " + g + ", " + h + ", " + i + ", " + j + ", " + k + "]";
+        }
+    
 }

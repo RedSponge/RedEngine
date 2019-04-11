@@ -17,4 +17,11 @@ public class Sextuple<A, B, C, D, E, F> {
 		this.e = e;
 		this.f = f;
 	}
+
+
+        @Override
+        public String toString() {
+            return "[" + a + ", " + b + ", " + c + ", " + d + ", " + e + ", " + f + "]";
+        }
+    
 }

@@ -9,17 +9,10 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.redsponge.redengine.assets.AssetDescBin;
 import com.redsponge.redengine.assets.AssetDescBin.Skins;
 import com.redsponge.redengine.input.InputTranslator;
 import com.redsponge.redengine.input.MapInputTranslator;
@@ -27,7 +20,11 @@ import com.redsponge.redengine.map.EraserTile;
 import com.redsponge.redengine.map.MapEditor;
 import com.redsponge.redengine.map.TileSelectButton;
 import com.redsponge.redengine.map.TileSelector;
+import com.redsponge.redengine.map.events.EventChangeListener;
+import com.redsponge.redengine.map.events.EventEditor;
+import com.redsponge.redengine.map.events.EventTile;
 import com.redsponge.redengine.utils.GameAccessor;
+import com.redsponge.redengine.utils.Logger;
 
 public class MapEditScreen extends AbstractScreen{
 
@@ -42,9 +39,7 @@ public class MapEditScreen extends AbstractScreen{
     private TileSelector tileSelector;
 
     private InputMultiplexer multiplexer;
-    private Skin mapEditorSkin;
-
-    private Window window;
+    private EventEditor eventEditor;
 
     public MapEditScreen(GameAccessor ga) {
         super(ga);
@@ -71,36 +66,37 @@ public class MapEditScreen extends AbstractScreen{
         tileSelector.addActor(new TileSelectButton(editor.getGroups()[0], editor));
         tileSelector.addActor(new TileSelectButton(editor.getGroups()[1], editor));
 
-        mapEditorSkin = assets.get(Skins.mapEditor);
+        Skin mapEditorSkin = assets.get(Skins.mapEditor);
 
+        eventEditor = new EventEditor(mapEditorSkin, guiViewport, editor);
+        eventEditor.setVisible(false);
+        editor.setEventChangeListener(new EventChangeListener() {
+            @Override
+            public void selectedNewEvent(EventTile newEvent, boolean created) {
+                eventEditor.setVisible(true);
+                eventEditor.fillData(newEvent);
 
-        window = new Window("", mapEditorSkin);
-        window.setDebug(true);
-        window.setSize(400, 250);
-        System.out.println(guiViewport.getWorldWidth());
+                Logger.log(this, "Selected new event", newEvent);
+            }
 
-        window.setPosition(guiViewport.getWorldWidth() - window.getWidth(), 0);
+            @Override
+            public void deselectedEvent(EventTile lastEvent) {
+                eventEditor.setVisible(false);
+                eventEditor.saveData(lastEvent);
 
-        Label title = new Label("Edit Event", mapEditorSkin);
-        title.setHeight(window.getHeight() * 0.1f);
-        title.setPosition(window.getWidth() / 2, window.getHeight() - title.getPrefHeight() - 5, Align.center);
-        window.addActor(title);
+                Logger.log(this, "Deselected event", lastEvent);
+            }
 
-        Table table = new Table();
-        table.setDebug(true);
-        table.add(new Label("Event Id: ", mapEditorSkin));
-        table.add(new TextField("", mapEditorSkin));
+            @Override
+            public void deletedEvent(EventTile deleted) {
+                eventEditor.setVisible(false);
 
-        table.setFillParent(true);
+                Logger.log(this, "Deleted event", deleted);
+            }
+        });
+        stage.addActor(eventEditor);
 
-        ScrollPane pane = new ScrollPane(table, mapEditorSkin);
-
-        pane.setWidth(window.getWidth());
-        pane.setHeight(window.getHeight() * 0.9f);
-        window.addActor(pane);
-        stage.addActor(window);
-
-        window.addListener(new ClickListener() {
+        eventEditor.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
@@ -135,12 +131,15 @@ public class MapEditScreen extends AbstractScreen{
 
     @Override
     public void tick(float delta) {
-        viewport.getCamera().position.x += 200 * delta * ((OrthographicCamera) viewport.getCamera()).zoom * input.getHorizontal();
-        viewport.getCamera().position.y -= 200 * delta * ((OrthographicCamera) viewport.getCamera()).zoom * input.getVertical();
+        if(!editor.isEventSelected()) {
+            viewport.getCamera().position.x += 200 * delta * ((OrthographicCamera) viewport.getCamera()).zoom * input.getHorizontal();
+            viewport.getCamera().position.y -= 200 * delta * ((OrthographicCamera) viewport.getCamera()).zoom * input.getVertical();
+        }
 
         if(Gdx.input.isKeyJustPressed(Keys.TAB)) {
             tileSelector.toggle();
         }
+
 
         stage.act(delta);
     }
@@ -172,6 +171,6 @@ public class MapEditScreen extends AbstractScreen{
     public void resize(int width, int height) {
         viewport.update(width, height, false);
         guiViewport.update(width, height, true);
-        window.setPosition(guiViewport.getWorldWidth() - window.getWidth(), 0);
+        eventEditor.setPosition(guiViewport.getWorldWidth() - eventEditor.getWidth(), 0);
     }
 }

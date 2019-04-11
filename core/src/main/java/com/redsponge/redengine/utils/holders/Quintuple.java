@@ -15,4 +15,11 @@ public class Quintuple<A, B, C, D, E> {
 		this.d = d;
 		this.e = e;
 	}
+
+
+        @Override
+        public String toString() {
+            return "[" + a + ", " + b + ", " + c + ", " + d + ", " + e + "]";
+        }
+    
 }

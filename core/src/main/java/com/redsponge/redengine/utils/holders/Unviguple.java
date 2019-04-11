@@ -47,4 +47,11 @@ public class Unviguple<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, 
 		this.t = t;
 		this.u = u;
 	}
+
+
+        @Override
+        public String toString() {
+            return "[" + a + ", " + b + ", " + c + ", " + d + ", " + e + ", " + f + ", " + g + ", " + h + ", " + i + ", " + j + ", " + k + ", " + l + ", " + m + ", " + n + ", " + o + ", " + p + ", " + q + ", " + r + ", " + s + ", " + t + ", " + u + "]";
+        }
+    
 }

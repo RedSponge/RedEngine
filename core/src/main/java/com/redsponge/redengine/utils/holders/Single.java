@@ -7,4 +7,11 @@ public class Single<A> {
 	public Single(A a) {
 		this.a = a;
 	}
+
+
+        @Override
+        public String toString() {
+            return "[" + a + "]";
+        }
+    
 }

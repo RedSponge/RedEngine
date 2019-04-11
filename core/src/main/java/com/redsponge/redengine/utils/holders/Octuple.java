@@ -21,4 +21,11 @@ public class Octuple<A, B, C, D, E, F, G, H> {
 		this.g = g;
 		this.h = h;
 	}
+
+
+        @Override
+        public String toString() {
+            return "[" + a + ", " + b + ", " + c + ", " + d + ", " + e + ", " + f + ", " + g + ", " + h + "]";
+        }
+    
 }

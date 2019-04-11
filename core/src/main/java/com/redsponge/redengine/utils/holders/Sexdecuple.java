@@ -37,4 +37,11 @@ public class Sexdecuple<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P> {
 		this.o = o;
 		this.p = p;
 	}
+
+
+        @Override
+        public String toString() {
+            return "[" + a + ", " + b + ", " + c + ", " + d + ", " + e + ", " + f + ", " + g + ", " + h + ", " + i + ", " + j + ", " + k + ", " + l + ", " + m + ", " + n + ", " + o + ", " + p + "]";
+        }
+    
 }

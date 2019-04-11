@@ -49,4 +49,11 @@ public class Duoviguple<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S,
 		this.u = u;
 		this.v = v;
 	}
+
+
+        @Override
+        public String toString() {
+            return "[" + a + ", " + b + ", " + c + ", " + d + ", " + e + ", " + f + ", " + g + ", " + h + ", " + i + ", " + j + ", " + k + ", " + l + ", " + m + ", " + n + ", " + o + ", " + p + ", " + q + ", " + r + ", " + s + ", " + t + ", " + u + ", " + v + "]";
+        }
+    
 }

@@ -9,7 +9,9 @@ public class EventTile {
 
     private int x, y;
     private int width, height;
+
     private boolean happenOnce;
+
     private String eventId;
     private HashMap<String, Object> params;
     private NinePatch texR;
@@ -21,6 +23,7 @@ public class EventTile {
         this.width = width;
         this.height = height;
         this.texR = texR;
+        this.params = new HashMap<String, Object>();
 
         if(width < 0) {
             this.x += width;
@@ -38,5 +41,22 @@ public class EventTile {
 
     public boolean mouseInside(int mx, int my, int tileSize) {
         return mx > this.x * tileSize && mx < this.x * tileSize + this.width * tileSize && my > this.y * tileSize && my < this.y * tileSize + this.height * tileSize;
+    }
+
+    public String getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(String eventId) {
+        this.eventId = eventId;
+    }
+
+    public HashMap<String, Object> getParameters() {
+        return params;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Event %s", eventId);
     }
 }

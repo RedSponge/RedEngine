@@ -33,7 +33,7 @@ public class PhysicsWorld {
      * Removes all things that should be removed
      */
     public void update(float delta) {
-        for(PActor actor : new ArrayIterator<>(actors)) {
+        for(PActor actor : actors) {
             if(actor instanceof IUpdated) {
                 ((IUpdated) actor).update(delta);
             }
@@ -42,7 +42,7 @@ public class PhysicsWorld {
             }
         }
 
-        for(PSolid solid : new ArrayIterator<>(solids)) {
+        for(PSolid solid : solids) {
             if(solid instanceof IUpdated) {
                 ((IUpdated) solid).update(delta);
             }

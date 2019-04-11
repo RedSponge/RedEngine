@@ -25,4 +25,11 @@ public class Decuple<A, B, C, D, E, F, G, H, I, J> {
 		this.i = i;
 		this.j = j;
 	}
+
+
+        @Override
+        public String toString() {
+            return "[" + a + ", " + b + ", " + c + ", " + d + ", " + e + ", " + f + ", " + g + ", " + h + ", " + i + ", " + j + "]";
+        }
+    
 }
