@@ -51,6 +51,7 @@ public class EventParams extends Table {
     public void clearParams() {
         this.clearChildren();
         add(addParameter).colspan(2).center();
+        params.clear();
     }
 
     public Array<Pair<String, String>> getPairs() {
@@ -61,5 +62,10 @@ public class EventParams extends Table {
             out.add(added);
         }
         return out;
+    }
+
+
+    public TextButton getAddParameter() {
+        return addParameter;
     }
 }
