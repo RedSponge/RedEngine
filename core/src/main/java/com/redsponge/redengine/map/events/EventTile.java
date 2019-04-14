@@ -55,6 +55,14 @@ public class EventTile {
         return params;
     }
 
+    public void setHappenOnce(boolean happenOnce) {
+        this.happenOnce = happenOnce;
+    }
+
+    public boolean doesHappenOnce() {
+        return happenOnce;
+    }
+
     @Override
     public String toString() {
         return String.format("Event %s", eventId);

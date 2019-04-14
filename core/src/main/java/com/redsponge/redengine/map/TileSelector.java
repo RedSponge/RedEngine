@@ -1,5 +1,6 @@
 package com.redsponge.redengine.map;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
@@ -28,6 +29,7 @@ public class TileSelector extends Group {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
+        batch.setColor(new Color(1, 1, 1, parentAlpha));
         setSize(getStage().getViewport().getWorldWidth() / 8, getStage().getViewport().getWorldHeight());
         selector.draw(batch, getX(), getY(), getWidth(), getHeight());
         super.draw(batch, parentAlpha);

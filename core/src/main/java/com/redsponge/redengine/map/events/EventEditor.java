@@ -1,23 +1,27 @@
 package com.redsponge.redengine.map.events;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.Value;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.redsponge.redengine.map.MapEditor;
 import com.redsponge.redengine.utils.Logger;
 import com.redsponge.redengine.utils.holders.Pair;
+import com.redsponge.redengine.utils.holders.Triple;
 
 import java.util.HashMap;
 
@@ -25,6 +29,7 @@ public class EventEditor extends Table {
 
     private EventParams params;
     private TextField eventId;
+    private CheckBox runOnce;
 
     public EventEditor(Skin skin, Viewport viewport, MapEditor mapEditor) {
         super(skin);
@@ -41,6 +46,9 @@ public class EventEditor extends Table {
         Label eventIdLabel = new Label("Json Id: ", skin);
         eventId = new TextField("", skin);
         edited.add(eventIdLabel, eventId);
+        edited.row();
+        runOnce = new CheckBox("Run Event Once", skin);
+        edited.add(runOnce).colspan(2).center();
 
         params = new EventParams(skin);
 
@@ -76,6 +84,7 @@ public class EventEditor extends Table {
             this.params.createParameter(key, params.get(key).toString());
             Logger.log(this, "Loaded parameter", key, ":", params.get(key), "for event", event);
         }
+        runOnce.setChecked(event.doesHappenOnce());
     }
 
     public void saveData(EventTile event) {
@@ -84,13 +93,14 @@ public class EventEditor extends Table {
 
         HashMap<String, Object> params = event.getParameters();
         params.clear();
-        Array<Pair<String, String>> paramPairs = this.params.getPairs();
+        Array<Triple<String, String, EventParamType>> paramData = this.params.getData();
 
-        for (Pair<String, String> paramPair : paramPairs) {
+        for (Triple<String, String, EventParamType> paramPair : paramData) {
             if(!paramPair.a.trim().isEmpty()) {
                 params.put(paramPair.a, paramPair.b);
                 Logger.log(this, "Saved pair", paramPair, "for event", event);
             }
         }
+        event.setHappenOnce(runOnce.isChecked());
     }
 }

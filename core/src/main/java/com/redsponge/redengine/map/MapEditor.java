@@ -13,11 +13,10 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Array.ArrayIterator;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.redsponge.redengine.map.events.EventTile;
 import com.redsponge.redengine.map.events.EventChangeListener;
+import com.redsponge.redengine.map.events.EventTile;
 import com.redsponge.redengine.utils.IntVector2;
 import com.redsponge.redengine.utils.Logger;
 
@@ -92,6 +91,7 @@ public class MapEditor extends InputAdapter implements Disposable {
      * @param renderer The {@link ShapeRenderer} to use
      */
     public void render(SpriteBatch batch, ShapeRenderer renderer) {
+        batch.setColor(Color.WHITE);
         processKeys();
         batch.begin();
         renderLayer(mapGrid, batch);

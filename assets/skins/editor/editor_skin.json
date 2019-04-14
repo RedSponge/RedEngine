@@ -49,9 +49,27 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 		font: pixelmix16
 	}
 }
+com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
+	default: {
+		font: pixelmix16
+		fontColorSelected: white
+		fontColorUnselected: disabled_gray
+		selection: button_hover
+		background: window_background
+	}
+}
 com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
 	default: {
 		background: window_background
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.SelectBox$SelectBoxStyle: {
+	default: {
+		font: pixelmix16
+		fontColor: white
+		background: button_reg
+		scrollStyle: default
+		listStyle: default
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {

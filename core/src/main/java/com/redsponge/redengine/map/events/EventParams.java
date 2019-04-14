@@ -1,24 +1,28 @@
 package com.redsponge.redengine.map.events;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
-import com.redsponge.redengine.utils.holders.Pair;
+import com.redsponge.redengine.utils.holders.Triple;
 
 public class EventParams extends Table {
 
-    private Array<Pair<TextField, TextField>> params;
+    private Array<Triple<TextField, TextField, SelectBox<EventParamType>>> params;
     private TextButton addParameter;
 
     public EventParams(Skin skin) {
         super(skin);
         setDebug(true);
-        params = new Array<Pair<TextField, TextField>>();
+        params = new Array<Triple<TextField, TextField, SelectBox<EventParamType>>>();
 
         addParameter = new TextButton("Add New Parameter", skin);
         addParameter.addListener(new ClickListener() {
@@ -32,20 +36,32 @@ public class EventParams extends Table {
         add(addParameter).colspan(2).center();
     }
 
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+        super.draw(batch, parentAlpha);
+    }
+
     public void createParameter(String name, String value) {
         row();
         Label nameL = new Label("Name", getSkin());
         Label valueL= new Label("Value", getSkin());
+        Label typeL= new Label("Type", getSkin());
         add(nameL).padTop(10);
         add(valueL).padTop(10);
+        add(typeL).padTop(10);
         row();
         TextField nameF = new TextField(name, getSkin());
         TextField valueF = new TextField(value, getSkin());
-        add(nameF).padTop(10);
-        add(valueF).padTop(10);
+        SelectBox<EventParamType> typeSelectBox = new SelectBox<EventParamType>(getSkin());
+
+        typeSelectBox.setItems(EventParamType.values());
+
+        add(nameF).padTop(10).width(Value.percentWidth(0.4f, this));
+        add(valueF).padTop(10).width(Value.percentWidth(0.4f, this));
+        add(typeSelectBox).padTop(10).width(Value.percentWidth(0.2f, this));
         row();
 
-        params.add(new Pair<TextField, TextField>(nameF, valueF));
+        params.add(new Triple<TextField, TextField, SelectBox<EventParamType>>(nameF, valueF, typeSelectBox));
     }
 
     public void clearParams() {
@@ -54,11 +70,11 @@ public class EventParams extends Table {
         params.clear();
     }
 
-    public Array<Pair<String, String>> getPairs() {
-        Array<Pair<String, String>> out = new Array<Pair<String, String>>();
+    public Array<Triple<String, String, EventParamType>> getData() {
+        Array<Triple<String, String, EventParamType>> out = new Array<Triple<String, String, EventParamType>>();
 
-        for(Pair<TextField, TextField> param : this.params) {
-            Pair<String, String> added = new Pair<String, String>(param.a.getText(), param.b.getText());
+        for(Triple<TextField, TextField, SelectBox<EventParamType>> param : this.params) {
+            Triple<String, String, EventParamType> added = new Triple<String, String, EventParamType>(param.a.getText(), param.b.getText(), (EventParamType) param.c.getSelected());
             out.add(added);
         }
         return out;
