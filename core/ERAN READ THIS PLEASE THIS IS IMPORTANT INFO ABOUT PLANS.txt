@@ -1,0 +1,63 @@
+OK OK SO THIS IS HOW WE'RE GOING TO IMPLEMENT ASSETS:
+
+After a lot of annoyance with having to access the bin over and over what we're gonna do is something like this:
+
+The AbstractScreen constructor takes in a class which implements AssetHolder.
+That class will look something like this:
+
+
+@TextureAsset(path="textures/my_player_texture.png")
+public final Texture playerTexture;
+etc...
+
+These are the types of assets:
+
+@TextureAsset(path = "textures/my_cool_texture.png")
+private Texture myAwesomeTexture;
+
+
+@AtlasAsset(path = "animations/myatlas.atlas")
+private TextureAtlas myAnimationAtlas
+
+
+@AtlasRegionAsset(atlas = myAnimationAtlas, name = "logo", index = -1)
+private AtlasRegion myAtlasLogo;
+
+
+@TextureAsset(path = "textures/my_innefficient_animation_frame_0.png")
+private Texture frame0;
+
+
+@TextureAsset(path = "textures/my_innefficient_animation_frame_1.png")
+private Texture frame1;
+
+
+@FrameAnimationAsset(frames = {frame0, frame1}, type = Texture.class)
+private Animation<Texture> textureAnimations;
+
+
+@AtlasAnimationAsset(atlas = myAnimationAtlas, animationName = "run", frames = 8, startAt = 1)
+private Animation<AtlasRegion> myCoolAnimation;
+
+
+@SoundAsset(path = "my_awesome_sound.ogg")
+private SoundHolder myCoolSound;
+// SoundHolder will hold any sound and be an interface for doing things like random pitches
+
+
+@MusicAsset(path = "my_awesome_track.ogg")
+private MusicHolder myAwesomeMusic;
+// SoundHolder will hold any music and be an interface for playing it, stopping it, and LOADING it!
+
+
+@ParticleAsset(path = "my_coolest_particle.p")
+private ParticleHolder myCoolParticle;
+// ParticleHolder will hold a particle and be used to spawn it and manage all pooled instances of it
+
+
+An AbstractScreen has an array of `ScreenComponent`s. anything that shows up on the screen is one.
+A screen component has access to the AssetHolder of the screen (protected access). whenever you need a new asset, just add it in there.
+from there you can access it.
+
+A screen component can also render and tick. if you choose to give it a renderer that's your choice
+

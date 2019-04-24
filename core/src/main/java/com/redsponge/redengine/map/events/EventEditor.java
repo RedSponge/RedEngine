@@ -81,7 +81,7 @@ public class EventEditor extends Table {
 
         HashMap<String, Object> params = event.getParameters();
         for(String key : params.keySet()) {
-            this.params.createParameter(key, params.get(key).toString());
+            this.params.createParameter(key, params.get(key).toString(), EventParamType.getForClass(params.get(key).getClass()));
             Logger.log(this, "Loaded parameter", key, ":", params.get(key), "for event", event);
         }
         runOnce.setChecked(event.doesHappenOnce());
@@ -97,7 +97,23 @@ public class EventEditor extends Table {
 
         for (Triple<String, String, EventParamType> paramPair : paramData) {
             if(!paramPair.a.trim().isEmpty()) {
-                params.put(paramPair.a, paramPair.b);
+                Object value;
+                try {
+                    switch (paramPair.c) {
+                        case FLOAT:
+                            value = Float.parseFloat(paramPair.b);
+                            break;
+                        case INTEGER:
+                            value = Integer.parseInt(paramPair.b);
+                            break;
+                        default:
+                            value = paramPair.b;
+                    }
+                } catch (NumberFormatException e) {
+                    value = paramPair.b;
+                }
+
+                params.put(paramPair.a, value);
                 Logger.log(this, "Saved pair", paramPair, "for event", event);
             }
         }

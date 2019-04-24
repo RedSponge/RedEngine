@@ -1,14 +1,24 @@
 package com.redsponge.redengine.map.events;
 
 public enum EventParamType {
-    INTEGER("Int"),
-    FLOAT("Float"),
-    STRING("Text");
+    INTEGER("Int", Integer.class),
+    FLOAT("Float", Float.class),
+    STRING("Text", String.class);
 
     private String name;
-
-    EventParamType(String name) {
+    private Class<?> representingClass;
+    EventParamType(String name, Class<?> representingClass) {
         this.name = name;
+        this.representingClass = representingClass;
+    }
+
+    public static EventParamType getForClass(Class<?> clazz) {
+        for(EventParamType type : values()) {
+            if(clazz == type.representingClass) {
+                return type;
+            }
+        }
+        return STRING;
     }
 
     @Override

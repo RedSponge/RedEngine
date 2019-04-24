@@ -284,6 +284,16 @@ public class MapEditor extends InputAdapter implements Disposable {
         ((OrthographicCamera) viewport.getCamera()).zoom += amount * 0.05f;
         return true;
     }
+
+    @Override
+    public boolean keyTyped(char character) {
+        System.out.println(character);
+        if(character == 'e' || character == 'E') {
+            eventMode = !eventMode;
+        }
+        return true;
+    }
+
     // endregion
 
 

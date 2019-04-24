@@ -29,7 +29,7 @@ public class EventParams extends Table {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                createParameter("", "");
+                createParameter("", "", EventParamType.STRING);
             }
         });
 
@@ -41,7 +41,7 @@ public class EventParams extends Table {
         super.draw(batch, parentAlpha);
     }
 
-    public void createParameter(String name, String value) {
+    public void createParameter(String name, String value, EventParamType type) {
         row();
         Label nameL = new Label("Name", getSkin());
         Label valueL= new Label("Value", getSkin());
@@ -53,8 +53,8 @@ public class EventParams extends Table {
         TextField nameF = new TextField(name, getSkin());
         TextField valueF = new TextField(value, getSkin());
         SelectBox<EventParamType> typeSelectBox = new SelectBox<EventParamType>(getSkin());
-
         typeSelectBox.setItems(EventParamType.values());
+        typeSelectBox.setSelected(type);
 
         add(nameF).padTop(10).width(Value.percentWidth(0.4f, this));
         add(valueF).padTop(10).width(Value.percentWidth(0.4f, this));
