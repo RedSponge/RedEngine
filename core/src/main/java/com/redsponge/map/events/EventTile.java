@@ -1,4 +1,4 @@
-package com.redsponge.redengine.map.events;
+package com.redsponge.map.events;
 
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

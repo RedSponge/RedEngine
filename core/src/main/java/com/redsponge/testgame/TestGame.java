@@ -2,16 +2,15 @@ package com.redsponge.testgame;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.redsponge.map.events.Event;
+import com.redsponge.map.events.EventDataHolder;
 import com.redsponge.redengine.EngineGame;
-import com.redsponge.redengine.map.events.Event;
-import com.redsponge.redengine.map.events.EventDataHolder;
-import com.redsponge.redengine.screen.MapEditScreen;
 
 public class TestGame extends EngineGame {
 
     @Override
     public void init() {
-        setScreen(new MapEditScreen(ga));
+        setScreen(new Screen2(ga));
 
         if(true) return;
         try {

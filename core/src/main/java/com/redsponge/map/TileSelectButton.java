@@ -1,4 +1,4 @@
-package com.redsponge.redengine.map;
+package com.redsponge.map;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;

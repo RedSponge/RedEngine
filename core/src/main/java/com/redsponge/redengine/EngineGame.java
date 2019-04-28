@@ -3,11 +3,13 @@ package com.redsponge.redengine;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Interpolation;
 import com.redsponge.redengine.assets.Assets;
+import com.redsponge.redengine.exceptions.IncompatibleScreenException;
 import com.redsponge.redengine.screen.AbstractScreen;
 import com.redsponge.redengine.transitions.Transition;
 import com.redsponge.redengine.transitions.TransitionManager;
@@ -22,6 +24,8 @@ public abstract class EngineGame extends Game {
     protected Assets assets;
     protected TransitionManager transitionManager;
     protected Discord discord;
+
+    private boolean assetLoadingComplete;
 
     /**
      * Initialization - Called when the program boots up
@@ -40,24 +44,40 @@ public abstract class EngineGame extends Game {
 
         transitionManager.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-        discord = new Discord("553575233018265601", "");
+        discord = new Discord("571763236807114753", "");
         init();
     }
 
     @Override
     public void render() {
+        float delta = Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f);
         // Try catch to keep intellij from freezing when error is detected
         try {
+
+            if(!assetLoadingComplete) {
+                Gdx.gl.glClearColor(0, 0, 0, 1);
+                Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+                if(this.assets.updateAssetManager()) {
+                    assetLoadingComplete = true;
+                    transitionManager.beginExit();
+
+                    this.screen.show();
+                    this.screen.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+                }
+
+                return;
+            }
+
             final AbstractScreen currentScreen = (AbstractScreen) screen;
 
             assets.updateAssetManager();
             if (screen != null) {
-                currentScreen.tick(Gdx.graphics.getDeltaTime());
+                currentScreen.tick(delta);
                 currentScreen.render();
             }
 
             if (transitionManager.isActive()) {
-                transitionManager.render(Gdx.graphics.getDeltaTime());
+                transitionManager.render(delta);
             }
         } catch (Exception e) {
 
@@ -80,12 +100,24 @@ public abstract class EngineGame extends Game {
     }
 
 
+    /**
+     * Sets a new screen for the game
+     * @param screen The new screen, must extend {@link AbstractScreen}
+     * @throws IncompatibleClassChangeError If the screen doesn't extend {@link AbstractScreen}
+     */
     @Override
     public void setScreen(Screen screen) {
-        assert screen instanceof AbstractScreen;
+        if(!(screen instanceof AbstractScreen)) {
+            throw new IncompatibleScreenException(screen.getClass());
+        }
+
         setScreen((AbstractScreen) screen);
     }
 
+    /**
+     * Sets a new screen for the game and unloads the last one.
+     * @param screen The new screen to load
+     */
     public void setScreen(AbstractScreen screen) {
         if(this.screen != null) {
             this.screen.hide();
@@ -100,16 +132,15 @@ public abstract class EngineGame extends Game {
 
         if(screen != null) {
             this.assets.load(screen);
-            this.assets.finishLoading();
-
-            this.screen.show();
-            this.screen.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            assetLoadingComplete = false;
         }
     }
 
     @Override
     public void resize(int width, int height) {
-        super.resize(width, height);
+        if(assetLoadingComplete) {
+            super.resize(width, height);
+        }
         transitionManager.resize(width, height);
     }
 

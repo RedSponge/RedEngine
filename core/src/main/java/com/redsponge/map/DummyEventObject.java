@@ -1,4 +1,4 @@
-package com.redsponge.redengine.map;
+package com.redsponge.map;
 
 public class DummyEventObject {
 

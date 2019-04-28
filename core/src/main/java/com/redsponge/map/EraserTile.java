@@ -1,4 +1,4 @@
-package com.redsponge.redengine.map;
+package com.redsponge.map;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;

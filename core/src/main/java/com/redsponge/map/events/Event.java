@@ -1,4 +1,4 @@
-package com.redsponge.redengine.map.events;
+package com.redsponge.map.events;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.JsonReader;

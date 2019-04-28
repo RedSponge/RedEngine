@@ -1,4 +1,4 @@
-package com.redsponge.redengine.map.events;
+package com.redsponge.map.events;
 
 public enum EventParamType {
     INTEGER("Int", Integer.class),

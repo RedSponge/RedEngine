@@ -1,4 +1,4 @@
-package com.redsponge.redengine.map;
+package com.redsponge.map;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -15,8 +15,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.redsponge.redengine.map.events.EventChangeListener;
-import com.redsponge.redengine.map.events.EventTile;
+import com.redsponge.map.events.EventChangeListener;
+import com.redsponge.map.events.EventTile;
 import com.redsponge.redengine.utils.IntVector2;
 import com.redsponge.redengine.utils.Logger;
 

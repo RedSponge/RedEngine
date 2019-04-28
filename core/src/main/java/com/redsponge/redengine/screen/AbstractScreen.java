@@ -1,9 +1,9 @@
 package com.redsponge.redengine.screen;
 
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.utils.DelayedRemovalArray;
 import com.redsponge.redengine.assets.Assets;
 import com.redsponge.redengine.assets.IAssetRequirer;
 import com.redsponge.redengine.utils.GameAccessor;
@@ -16,6 +16,8 @@ public abstract class AbstractScreen extends ScreenAdapter implements IAssetRequ
 
     protected GameAccessor ga;
     protected boolean transitioning;
+
+    private DelayedRemovalArray<ScreenObject> screenObjects;
 
     public AbstractScreen(GameAccessor ga) {
         this.ga = ga;
@@ -31,7 +33,7 @@ public abstract class AbstractScreen extends ScreenAdapter implements IAssetRequ
 
     @Override
     public final void render(float delta) {
-        throw new RuntimeException("The default render method shouldn'item be called when using an AbstractScreen!");
+        throw new RuntimeException("The default render method shouldn't be called when using an AbstractScreen!");
     }
 
     /**
