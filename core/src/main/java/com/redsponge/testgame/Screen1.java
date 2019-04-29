@@ -3,14 +3,18 @@ package com.redsponge.testgame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.graphics.GL20;
-import com.redsponge.redengine.assets.AssetDescBin;
+import com.badlogic.gdx.graphics.Texture;
 import com.redsponge.redengine.assets.AssetDescBin.Fonts;
 import com.redsponge.redengine.assets.AssetDescBin.Skins;
 import com.redsponge.redengine.assets.AssetDescBin.SplashScreen;
+import com.redsponge.redengine.assets.AssetDescriptorAnnotation.TextureAsset;
 import com.redsponge.redengine.screen.AbstractScreen;
 import com.redsponge.redengine.utils.GameAccessor;
 
 public class Screen1 extends AbstractScreen {
+
+    @TextureAsset(path = "eraser.png")
+    private Texture myTexture;
 
     public Screen1(GameAccessor ga) {
         super(ga);
