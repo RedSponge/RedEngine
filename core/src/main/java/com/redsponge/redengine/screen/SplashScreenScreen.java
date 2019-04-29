@@ -2,8 +2,9 @@ package com.redsponge.redengine.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.redsponge.redengine.assets.Asset;
 import com.redsponge.redengine.screen.splashscreen.SplashScreenRenderer;
 import com.redsponge.redengine.transitions.TransitionTemplates;
 import com.redsponge.redengine.utils.GameAccessor;
@@ -15,6 +16,9 @@ public class SplashScreenScreen extends AbstractScreen {
 
     private SplashScreenRenderer splashScreenRenderer;
     private boolean skipped;
+
+    @Asset(path = "splashscreen/splashscreen.atlas")
+    private TextureAtlas atlas;
 
     public SplashScreenScreen(GameAccessor ga) {
         super(ga);
@@ -54,11 +58,6 @@ public class SplashScreenScreen extends AbstractScreen {
     @Override
     public void resize(int width, int height) {
         splashScreenRenderer.resize(width, height);
-    }
-
-    @Override
-    public AssetDescriptor[] getRequiredAssets() {
-        return splashScreenRenderer.getRequiredAssets();
     }
 
     @Override

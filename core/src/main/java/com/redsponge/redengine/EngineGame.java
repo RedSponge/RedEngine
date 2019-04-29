@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Interpolation;
 import com.redsponge.redengine.assets.Assets;
+import com.redsponge.redengine.assets.IAssetRequirer;
 import com.redsponge.redengine.exceptions.IncompatibleScreenException;
 import com.redsponge.redengine.screen.AbstractScreen;
 import com.redsponge.redengine.transitions.Transition;
@@ -60,6 +61,7 @@ public abstract class EngineGame extends Game {
                 if(this.assets.updateAssetManager()) {
                     assetLoadingComplete = true;
                     transitionManager.beginExit();
+                    assets.injectAssets((IAssetRequirer) screen);
 
                     this.screen.show();
                     this.screen.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -125,13 +127,13 @@ public abstract class EngineGame extends Game {
                 this.screen.dispose();
             }
 
-            assets.unload((AbstractScreen) this.screen);
+            assets.unload();
         }
 
         this.screen = screen;
 
         if(screen != null) {
-            this.assets.load(screen);
+            this.assets.prepareAssetsRecursively(screen);
             assetLoadingComplete = false;
         }
     }

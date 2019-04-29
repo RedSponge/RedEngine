@@ -21,9 +21,4 @@ public class OtherScreen extends AbstractScreen {
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
-
-    @Override
-    public AssetDescriptor[] getRequiredAssets() {
-        return new AssetDescriptor[0];
-    }
 }

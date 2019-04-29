@@ -1,7 +1,6 @@
 package com.redsponge.testgame;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -71,11 +70,6 @@ public class MyCoolScreen extends AbstractScreen {
         viewport.apply();
 
         debugRenderer.render(world, viewport.getCamera().combined);
-    }
-
-    @Override
-    public AssetDescriptor[] getRequiredAssets() {
-        return new AssetDescriptor[0];
     }
 
     @Override

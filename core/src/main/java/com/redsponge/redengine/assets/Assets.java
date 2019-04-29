@@ -3,33 +3,26 @@ package com.redsponge.redengine.assets;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.utils.Disposable;
-import com.redsponge.redengine.screen.AbstractScreen;
 import com.redsponge.redengine.utils.Logger;
+import com.redsponge.redengine.utils.holders.Pair;
+import com.redsponge.testgame.MyAssetHolder;
+
+import java.lang.reflect.Field;
+import java.util.HashMap;
 
 /**
  * Handles all assets - loads and disposes
  */
 public class Assets implements Disposable {
 
-    public AssetManager am;
-
+    public final AssetManager am;
     private boolean updateStatus;
+
+    private HashMap<Field, Pair<AssetDescriptor, Object>> waitingValues;
 
     public Assets() {
         am = new AssetManager();
-    }
-
-    /**
-     * Loads in files into the {@link AssetManager} based on the passed screen's {@link AbstractScreen#getRequiredAssets()}
-     * @param screen The screen to load from
-     */
-    public void load(AbstractScreen screen) {
-        Logger.log(this, "[Loading assets for screen] ", screen);
-        for(AssetDescriptor a : screen.getRequiredAssets()) {
-            Logger.log(this, "[Loading]: ", a.fileName);
-            am.load(a);
-        }
-        Logger.log(this, "[Finished loading assets for screen] ", screen);
+        waitingValues = new HashMap<>();
     }
 
     /**
@@ -53,16 +46,14 @@ public class Assets implements Disposable {
 
 
     /**
-     * Unloads files from the {@link AssetManager} based on the passed requirer's {@link IAssetRequirer#getRequiredAssets()}
-     * @param requirer The screen to unload from
+     * Unloads files from the {@link AssetManager} based on what's in {@link Assets#waitingValues}
      */
-    public void unload(IAssetRequirer requirer) {
-        Logger.log(this, "Unloading assets for screen ", requirer);
-        for(AssetDescriptor a : requirer.getRequiredAssets()) {
-            Logger.log(this, "Unloading: ", a.fileName);
-            am.unload(a.fileName);
+    public void unload() {
+        for (Pair<AssetDescriptor, Object> value : waitingValues.values()) {
+            Logger.log(this, "Unloading", value.a.fileName);
+            am.unload(value.a.fileName);
         }
-        Logger.log(this, "Finished unloading assets for screen ", requirer);
+        waitingValues.clear();
     }
 
 
@@ -96,9 +87,77 @@ public class Assets implements Disposable {
         am.finishLoading();
     }
 
+    /**
+     * Searches for fields annotated with {@link Asset} and loads them
+     * @param requierer The requierer to search in
+     */
+    public void prepareAssets(IAssetRequirer requierer) {
+        waitingValues.clear();
+
+        Logger.log(this, "Began Loading", requierer);
+
+        Class<?> cls = requierer.getClass();
+        for (Field field : cls.getDeclaredFields()) {
+
+            Asset assetAnnotation = field.getAnnotation(Asset.class);
+            if(assetAnnotation != null) {
+                AssetDescriptor descriptor = new AssetDescriptor<>(assetAnnotation.path(), field.getType());
+                Logger.log(this, "Loading", descriptor.fileName);
+                am.load(descriptor);
+                waitingValues.put(field, new Pair<>(descriptor, requierer));
+            }
+        }
+
+        Logger.log(this, "Finished Loading", requierer);
+    }
+
+    /**
+     * Injects all fields loaded using {@link Assets#prepareAssets(IAssetRequirer)}
+     * @param requierer The requierer to inject to
+     */
+    @SuppressWarnings("unchecked")
+    public void injectAssets(IAssetRequirer requierer) {
+        for (Field field : waitingValues.keySet()) {
+            Pair<AssetDescriptor, Object> pair = waitingValues.get(field);
+            Object value = get(pair.a);
+            try {
+                Logger.log(this, "Injecting", value);
+                field.setAccessible(true);
+                field.set(pair.b, value);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void prepareAssetsRecursively(IAssetRequirer root) {
+        Class<?> cls = root.getClass();
+        for (Field field : cls.getDeclaredFields()) {
+
+            Asset assetAnnotation = field.getAnnotation(Asset.class);
+            if(assetAnnotation != null) {
+                AssetDescriptor descriptor = new AssetDescriptor<>(assetAnnotation.path(), field.getType());
+                Logger.log(this, "Loading", descriptor.fileName);
+                am.load(descriptor);
+                waitingValues.put(field, new Pair<>(descriptor, root));
+            }
+
+            if(IAssetRequirer.class.isAssignableFrom(field.getType())) {
+                try {
+                    field.setAccessible(true);
+                    prepareAssetsRecursively((IAssetRequirer) field.get(root));
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     @Override
     public void dispose() {
         am.dispose();
     }
+
+
 
 }

@@ -20,6 +20,7 @@ private Texture myAwesomeTexture;
 private TextureAtlas myAnimationAtlas
 
 
+NO:
 @AtlasRegionAsset(atlas = myAnimationAtlas, name = "logo", index = -1)
 private AtlasRegion myAtlasLogo;
 

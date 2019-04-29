@@ -1,6 +1,5 @@
 package com.redsponge.redengine.screen.splashscreen;
 
-import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -12,10 +11,9 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.redsponge.redengine.assets.AssetDescBin;
 import com.redsponge.redengine.assets.AssetDescBin.SplashScreen;
-import com.redsponge.redengine.assets.IAssetRequirer;
 import com.redsponge.redengine.assets.Assets;
+import com.redsponge.redengine.assets.IAssetRequirer;
 
 public class SplashScreenRenderer implements Disposable, IAssetRequirer {
 
@@ -118,13 +116,6 @@ public class SplashScreenRenderer implements Disposable, IAssetRequirer {
 
     public boolean isComplete() {
         return complete;
-    }
-
-    @Override
-    public AssetDescriptor[] getRequiredAssets() {
-        return new AssetDescriptor[] {
-                SplashScreen.atlas
-        };
     }
 
     @Override

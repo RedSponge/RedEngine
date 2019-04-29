@@ -4,12 +4,11 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.DelayedRemovalArray;
-import com.redsponge.redengine.assets.IAssetUser;
-import com.redsponge.redengine.assets.Assets;
 import com.redsponge.redengine.assets.IAssetRequirer;
+import com.redsponge.redengine.assets.Assets;
 import com.redsponge.redengine.utils.GameAccessor;
 
-public abstract class AbstractScreen extends ScreenAdapter implements IAssetRequirer, IAssetUser {
+public abstract class AbstractScreen extends ScreenAdapter implements IAssetRequirer {
 
     protected ShapeRenderer shapeRenderer;
     protected SpriteBatch batch;
