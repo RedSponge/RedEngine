@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.TimeUtils;
 import com.sun.scenario.Settings;
 
 import java.lang.reflect.Array;
+import java.lang.reflect.Field;
 import java.util.Random;
 
 public class GeneralUtils {
@@ -108,5 +109,9 @@ public class GeneralUtils {
             capitalizeWord.append(first.toUpperCase()).append(afterFirst.toLowerCase()).append(" ");
         }
         return capitalizeWord.toString().trim();
+    }
+
+    public static String getFieldName(Field field) {
+        return String.format("%s#%s", field.getDeclaringClass().getSimpleName(), field.getName());
     }
 }

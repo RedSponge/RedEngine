@@ -6,6 +6,8 @@ import com.redsponge.redengine.assets.IAssetRequirer;
 
 public class MyAssetHolder implements IAssetRequirer {
 
+    private AnotherAssetHolder anotherAssetHolder;
+
     @Asset(path = "noise.png")
     public Texture myTexture;
 

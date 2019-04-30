@@ -61,7 +61,7 @@ public abstract class EngineGame extends Game {
                 if(this.assets.updateAssetManager()) {
                     assetLoadingComplete = true;
                     transitionManager.beginExit();
-                    assets.injectAssets((IAssetRequirer) screen);
+                    assets.injectAssets();
 
                     this.screen.show();
                     this.screen.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -133,7 +133,7 @@ public abstract class EngineGame extends Game {
         this.screen = screen;
 
         if(screen != null) {
-            this.assets.prepareAssetsRecursively(screen);
+            this.assets.prepareAssets(screen);
             assetLoadingComplete = false;
         }
     }
