@@ -9,16 +9,12 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonWriter;
 import com.redsponge.redengine.utils.Logger;
 
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
 
 public class SaveFile {
 
     private FileHandle file;
     private JsonValue values;
-    private Json json;
 
     public SaveFile(String path) {
         final boolean newFile;
@@ -45,17 +41,42 @@ public class SaveFile {
         else {
             values = new JsonReader().parse(file);
         }
-        System.out.println(values);
     }
 
     public JsonValue getRoot() {
         return values;
     }
 
-    public void setValue(String dotPath, JsonValue value) {
-        String output = dotPath.
+    public void setValue(String dotPath, boolean value) {
+        getValueFromPath(dotPath, JsonValue.ValueType.booleanValue).set(value);
+    }
 
-        end
+    public void setValue(String dotPath, float value) {
+        getValueFromPath(dotPath, JsonValue.ValueType.doubleValue).set(value, null);
+    }
+
+    public void setValue(String dotPath, int value) {
+        getValueFromPath(dotPath, JsonValue.ValueType.longValue).set(value, null);
+    }
+
+    public void setValue(String dotPath, String value) {
+        getValueFromPath(dotPath, JsonValue.ValueType.stringValue).set(value);
+    }
+
+    public JsonValue getValueFromPath(String dotPath, JsonValue.ValueType type) {
+        String[] parts = dotPath.split("\\.");
+
+        JsonValue out = values;
+
+        for (String s : parts) {
+            JsonValue next = out.get(s);
+            if(next == null) {
+                next = new JsonValue(s.equals(parts[parts.length - 1]) ? type : JsonValue.ValueType.object);
+                out.addChild(s, next);
+            }
+            out = next;
+        }
+        return out;
     }
 
     public JsonValue getValue(String dotPath) {
@@ -66,10 +87,21 @@ public class SaveFile {
         return end;
     }
 
+    public JsonValue deleteValue(String dotPath) {
+        JsonValue deleted = getValueFromPath(dotPath, null);
+
+
+        Logger.log(this, "Removed", deleted.name);
+
+        deleted.parent.remove(deleted.name);
+
+        System.out.println(deleted.parent);
+
+        return deleted;
+    }
+
     public void saveToFile() {
-        System.out.println(values.prettyPrint(JsonWriter.OutputType.json, 1));
         String json = values.toJson(JsonWriter.OutputType.json);
-        System.out.println(json);
         file.writeString(json, false);
     }
 }

@@ -11,7 +11,19 @@ public class TestGame extends EngineGame {
     public void init() {
         try {
             SaveFile mySaveFile = new SaveFile("hello.sav");
-            mySaveFile.getRoot().addChild("name", new JsonValue("howdy"));
+            mySaveFile.setValue("players.eran.foods.favorite", "Sushi");
+            mySaveFile.setValue("players.eran.name", "Eran");
+            mySaveFile.setValue("players.eran.age", 14);
+
+            mySaveFile.saveToFile();
+
+            mySaveFile.deleteValue("players.eran.name");
+            mySaveFile.saveToFile();
+
+            mySaveFile.deleteValue("players.eran.age");
+
+//            mySaveFile.deleteValue("players.eran.age");
+//            mySaveFile.deleteValue("players.eran.name");
             mySaveFile.saveToFile();
             setScreen(new Screen2(ga));
         } catch (Exception e) {
