@@ -11,8 +11,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.redsponge.redengine.assets.AssetDescBin.SplashScreen;
-import com.redsponge.redengine.assets.Assets;
+import com.redsponge.redengine.assets.Asset;
 import com.redsponge.redengine.assets.IAssetRequirer;
 
 public class SplashScreenRenderer implements Disposable, IAssetRequirer {
@@ -22,11 +21,12 @@ public class SplashScreenRenderer implements Disposable, IAssetRequirer {
     private SpriteBatch batch;
     private boolean complete;
     private Image icon;
-    private Assets assets;
 
-    public SplashScreenRenderer(SpriteBatch batch, Assets assets) {
+    @Asset(path = "splashscreen/splashscreen.atlas")
+    private TextureAtlas atlas;
+
+    public SplashScreenRenderer(SpriteBatch batch) {
         this.batch = batch;
-        this.assets = assets;
     }
 
     /**
@@ -38,8 +38,6 @@ public class SplashScreenRenderer implements Disposable, IAssetRequirer {
         this.complete = false;
 
         float waitBeforeFallDown = 2;
-
-        TextureAtlas atlas = this.assets.get(SplashScreen.atlas);
 
         createIcon(atlas, waitBeforeFallDown);
         createLetters(atlas, waitBeforeFallDown);

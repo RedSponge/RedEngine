@@ -6,9 +6,9 @@ import com.redsponge.redengine.assets.IAssetRequirer;
 
 public class MyAssetHolder implements IAssetRequirer {
 
-    private AnotherAssetHolder anotherAssetHolder;
+    public AnotherAssetHolder anotherAssetHolder;
 
-    @Asset(path = "noise.png")
+    @Asset(path = "noise.png", shouldDispose = false)
     public Texture myTexture;
 
     @Asset(path = "world_tiles.png")

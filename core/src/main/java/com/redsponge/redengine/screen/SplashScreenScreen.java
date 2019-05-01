@@ -17,12 +17,9 @@ public class SplashScreenScreen extends AbstractScreen {
     private SplashScreenRenderer splashScreenRenderer;
     private boolean skipped;
 
-    @Asset(path = "splashscreen/splashscreen.atlas")
-    private TextureAtlas atlas;
-
     public SplashScreenScreen(GameAccessor ga) {
         super(ga);
-        splashScreenRenderer = new SplashScreenRenderer(batch, assets);
+        splashScreenRenderer = new SplashScreenRenderer(batch);
     }
 
     @Override

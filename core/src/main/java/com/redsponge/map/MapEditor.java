@@ -17,6 +17,7 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.redsponge.map.events.EventChangeListener;
 import com.redsponge.map.events.EventTile;
+import com.redsponge.redengine.assets.Asset;
 import com.redsponge.redengine.utils.IntVector2;
 import com.redsponge.redengine.utils.Logger;
 
@@ -34,8 +35,14 @@ public class MapEditor extends InputAdapter implements Disposable {
     private TileGroup[] groups;
 
     private int selectedTile;
+
+    @Asset(path = "event_tile.png")
     private Texture eventTex;
+
     private NinePatch eventNP;
+
+    @Asset(path = "world_tiles.png")
+    private Texture worldTiles;
 
     private boolean eventMode;
     private boolean creatingEvent;
@@ -49,7 +56,6 @@ public class MapEditor extends InputAdapter implements Disposable {
         this.mapGrid = new short[width][height];
         this.eventMode = false;
 
-        eventTex = new Texture("event_tile.png");
         eventNP = new NinePatch(eventTex, 1, 1, 1, 1);
 
         events = new Array<EventTile>();
@@ -60,7 +66,7 @@ public class MapEditor extends InputAdapter implements Disposable {
 
         this.cellSize = cellSize;
 
-        tileBatch = new TileBatch(new Texture("world_tiles.png"), cellSize / 2);
+        tileBatch = new TileBatch(worldTiles, cellSize / 2);
 
         groups = new TileGroup[] {
                 new TileGroup(0, 0, tileBatch, 1),

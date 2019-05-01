@@ -57,7 +57,7 @@ public class Assets implements Disposable {
             for (Pair<Field, Object> requirer : waitingValues.get(descriptor)) {
 
                 Asset annotation = requirer.a.getAnnotation(Asset.class);
-                if(annotation.shouldDispose()) {
+                if(!annotation.shouldDispose()) {
                     keepingField = requirer.a;
                     break;
                 }
@@ -68,7 +68,7 @@ public class Assets implements Disposable {
                 Logger.log(this, "Unloading", descriptor.fileName);
                 am.unload(descriptor.fileName);
             } else {
-                Logger.log(this, "Skipped Unloading", descriptor.fileName, "Since field", keepingField, "Wants it loaded!");
+                Logger.log(this, "Skipped Unloading", descriptor.fileName, "Since field", GeneralUtils.getFieldName(keepingField), "Wants it loaded!");
             }
         }
 

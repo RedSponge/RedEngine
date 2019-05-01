@@ -1,12 +1,7 @@
 package com.redsponge.redengine.utils;
 
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.sun.scenario.Settings;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;

@@ -40,6 +40,9 @@ public class Screen1 extends AbstractScreen {
         batch.draw(myTexture, 100, 100);
         batch.draw(myAssetHolder.myTexture, 200, 200);
         batch.draw(myAssetHolder.worldTiles, 300, 300);
+
+        batch.draw(myAssetHolder.anotherAssetHolder.mySecondTexture, 350, 300);
+        batch.draw(myAssetHolder.anotherAssetHolder.myThirdTexture, 400, 300);
         batch.end();
     }
 }
