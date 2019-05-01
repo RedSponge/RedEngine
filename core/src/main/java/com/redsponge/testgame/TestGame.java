@@ -2,6 +2,8 @@ package com.redsponge.testgame;
 
 import com.badlogic.gdx.Gdx;
 import com.redsponge.redengine.EngineGame;
+import com.redsponge.redengine.save.Player;
+import com.redsponge.redengine.save.Save;
 import com.redsponge.redengine.save.SaveFile;
 import com.redsponge.redengine.screen.SplashScreenScreen;
 
@@ -10,21 +12,28 @@ public class TestGame extends EngineGame {
     @Override
     public void init() {
         try {
-            SaveFile mySaveFile = new SaveFile("hello.sav");
-            mySaveFile.setValue("players.eran.foods.favorite", "Sushi");
-            mySaveFile.setValue("players.eran.name", "Eran");
-            mySaveFile.setValue("players.eran.age", 14);
+//            Save save = new Save();
+//            Player special = new Player("Special", 10);
+//            save.getPlayers().add(new Player("Food", 20));
+//            save.getPlayers().add(new Player("Meow", 20));
+//            save.getPlayers().add(special);
+//
+//            special.setStat("dumb", "over 9k");
+//
+//            save.getAchievements().setBeingDumb(true);
 
-            mySaveFile.saveToFile();
+            SaveFile<Save> mySaveFile = new SaveFile<Save>("hello.sav");
+            Save save = mySaveFile.get(Save.class);
 
-            mySaveFile.deleteValue("players.eran.name");
-            mySaveFile.saveToFile();
+            System.out.println(save.getAchievements().isBeingDumb());
+            System.out.println(save.getAchievements().isNotBeingDumb());
 
-            mySaveFile.deleteValue("players.eran.age");
+            for (Player player : save.getPlayers()) {
+                System.out.println(player.getName() + " " + player.getAge() + " " + player.getStats());
+            }
+//            mySaveFile.saveToFile(save);
 
-//            mySaveFile.deleteValue("players.eran.age");
-//            mySaveFile.deleteValue("players.eran.name");
-            mySaveFile.saveToFile();
+//            System.out.println(save.getPlayers().get(0).getName());
         } catch (Exception e) {
             e.printStackTrace();
             Gdx.app.exit();
