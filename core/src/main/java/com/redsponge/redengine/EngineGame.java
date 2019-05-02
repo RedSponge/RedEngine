@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Interpolation;
 import com.redsponge.redengine.assets.Assets;
-import com.redsponge.redengine.assets.IAssetRequirer;
 import com.redsponge.redengine.exceptions.IncompatibleScreenException;
 import com.redsponge.redengine.screen.AbstractScreen;
 import com.redsponge.redengine.transitions.Transition;
