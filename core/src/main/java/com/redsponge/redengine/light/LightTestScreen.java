@@ -2,33 +2,35 @@ package com.redsponge.redengine.light;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.Texture.TextureFilter;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.redsponge.redengine.assets.Asset;
 import com.redsponge.redengine.screen.AbstractScreen;
 import com.redsponge.redengine.utils.GameAccessor;
 
+/**
+ * An example to test the {@link LightSystem}
+ */
 public class LightTestScreen extends AbstractScreen implements InputProcessor {
 
-    private LightRenderer lightRenderer;
+    private LightSystem lightSystem;
     private FitViewport viewport;
 
     private Vector2 pos;
 
     @Asset(path = "world_tiles.png")
     private Texture testBackground;
-    private float time;
+
+    private PointLight light;
 
     public LightTestScreen(GameAccessor ga) {
         super(ga);
         viewport = new FitViewport(500, 500);
-        lightRenderer = new LightRenderer(500, 500, batch, assets, viewport);
+        lightSystem = new LightSystem(batch, shapeRenderer, assets, true, viewport);
+        lightSystem.setAmbianceColor(new Color(0.1f, 0.1f, 0.57f, 1f));
     }
 
     @Override
@@ -36,14 +38,14 @@ public class LightTestScreen extends AbstractScreen implements InputProcessor {
         pos = new Vector2();
 
         Gdx.input.setInputProcessor(this);
-        time = 0;
-        lightRenderer.addLight(new FlickeringPointLight(200, 200, 100, 50, 50));
+        lightSystem.addLight((light = new FlickeringPointLight(200, 200, 100, 5, 5)));
+        lightSystem.addBlocker(new RectangularLightBlocker(100, 100, 20, 20));
     }
 
     @Override
     public void tick(float delta) {
-        time += delta;
-        lightRenderer.update(delta);
+        lightSystem.update(delta);
+        light.getPosition().set(pos);
     }
 
     @Override
@@ -51,7 +53,7 @@ public class LightTestScreen extends AbstractScreen implements InputProcessor {
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        lightRenderer.render();
+        lightSystem.prepare();
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -63,13 +65,19 @@ public class LightTestScreen extends AbstractScreen implements InputProcessor {
         batch.end();
 
 
+        // Set correct blend function
         batch.setBlendFunction(GL20.GL_DST_COLOR, GL20.GL_ZERO);
 
         batch.begin();
-        batch.draw(lightRenderer.getLightMap(), 0, 0);
+        batch.draw(lightSystem.getLightMap(), 0, 0);
         batch.end();
 
         batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+    }
+
+    @Override
+    public void dispose() {
+        lightSystem.dispose();
     }
 
     @Override
@@ -126,6 +134,7 @@ public class LightTestScreen extends AbstractScreen implements InputProcessor {
 
     @Override
     public boolean scrolled(int amount) {
+        light.setRadius(light.getRadius() + amount * -30);
         return false;
     }
 }

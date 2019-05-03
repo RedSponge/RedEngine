@@ -28,4 +28,16 @@ public class PointLight implements IAssetRequirer, Light {
     public void load(Assets assets) {
         light = assets.get("light/point_light.png", Texture.class);
     }
+
+    public void setRadius(float radius) {
+        this.radius = radius;
+    }
+
+    public float getRadius() {
+        return radius;
+    }
+
+    public Vector2 getPosition() {
+        return pos;
+    }
 }

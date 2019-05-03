@@ -7,8 +7,6 @@ public class TestGame extends EngineGame {
 
     @Override
     public void init() {
-
-
         setScreen(new LightTestScreen(ga));
     }
 }
