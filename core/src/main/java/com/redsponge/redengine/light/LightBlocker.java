@@ -1,9 +1,12 @@
 package com.redsponge.redengine.light;
 
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
+import com.redsponge.redengine.utils.Line;
 
-public interface LightBlocker {
+public class LightBlocker {
 
-    void render(ShapeRenderer shapeRenderer);
+    public Rectangle getBlocker() {
+        return new Rectangle(100, 100, 20, 20);
+    }
 
 }

@@ -4,9 +4,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.redsponge.redengine.assets.Assets;
-import com.redsponge.redengine.assets.IAssetRequirer;
 
-public class PointLight implements IAssetRequirer, Light {
+public class PointLight implements Light {
 
     protected Vector2 pos;
     protected float radius;
@@ -33,10 +32,12 @@ public class PointLight implements IAssetRequirer, Light {
         this.radius = radius;
     }
 
+    @Override
     public float getRadius() {
         return radius;
     }
 
+    @Override
     public Vector2 getPosition() {
         return pos;
     }

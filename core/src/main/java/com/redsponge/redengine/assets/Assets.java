@@ -187,8 +187,10 @@ public class Assets implements Disposable {
                         prepareAssets((IAssetRequirer) field.get(root));
                     }
 
-                } catch (IllegalAccessException | InstantiationException e) {
+                } catch (IllegalAccessException e) {
                     e.printStackTrace();
+                } catch (InstantiationException e) {
+                    Logger.log(this, "Couldn't load field", GeneralUtils.getFieldName(field));
                 }
             }
         }

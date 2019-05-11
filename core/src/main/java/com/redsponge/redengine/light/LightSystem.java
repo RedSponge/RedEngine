@@ -1,6 +1,5 @@
 package com.redsponge.redengine.light;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap.Format;
@@ -8,13 +7,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.utils.DelayedRemovalArray;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.redsponge.redengine.assets.Asset;
 import com.redsponge.redengine.assets.Assets;
 import com.redsponge.redengine.assets.IAssetRequirer;
+import com.redsponge.redengine.utils.RenderUtils;
 
 /**
  * A system that manages light. creates a light-map based on contained {@link Light} array.
@@ -26,15 +25,11 @@ public class LightSystem implements Disposable, IAssetRequirer {
      */
     private FrameBuffer lightMap;
 
-    private FrameBuffer shadeMap;
-
     /**
      * The array containing the lights
      */
     private DelayedRemovalArray<Light> lights;
     private DelayedRemovalArray<LightBlocker> blockers;
-
-    private boolean hasShade;
 
     private SpriteBatch batch;
     private ShapeRenderer shapeRenderer;
@@ -58,10 +53,9 @@ public class LightSystem implements Disposable, IAssetRequirer {
      * @param batch The batch to draw with
      * @param shapeRenderer The shape renderer to draw with
      * @param assets The assets holder
-*      @param hasShade Should the light system have a shade map
      * @param viewport The viewport to draw for
      */
-    public LightSystem(SpriteBatch batch, ShapeRenderer shapeRenderer, Assets assets, boolean hasShade, FitViewport viewport) {
+    public LightSystem(SpriteBatch batch, ShapeRenderer shapeRenderer, Assets assets, FitViewport viewport) {
         this.batch = batch;
         this.shapeRenderer = shapeRenderer;
         this.assets = assets;
@@ -70,11 +64,6 @@ public class LightSystem implements Disposable, IAssetRequirer {
         this.lights = new DelayedRemovalArray<>();
         this.blockers = new DelayedRemovalArray<>();
         this.ambianceColor = new Color(0, 0, 0, 1);
-        this.hasShade = hasShade;
-
-        if(hasShade) {
-            shadeMap = new FrameBuffer(Format.RGBA8888, (int) viewport.getWorldWidth(), (int) viewport.getWorldHeight(), true);
-        }
     }
 
     public void update(float delta) {
@@ -84,57 +73,28 @@ public class LightSystem implements Disposable, IAssetRequirer {
     }
 
     /**
-     * Draws the light-map on the frame buffer, and retrieves it
+     * Draws the light-map on the frame buffer, making it ready for drawing
      */
     public void prepare() {
         viewport.apply();
+
+        lightMap.begin();
         batch.setProjectionMatrix(viewport.getCamera().combined);
         shapeRenderer.setProjectionMatrix(viewport.getCamera().combined);
 
-        if(hasShade) {
-            drawShadeMap();
-        }
-
-        lightMap.begin();
-        Gdx.gl.glClearColor(ambianceColor.r, ambianceColor.g, ambianceColor.b, ambianceColor.a);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
+        batch.setBlendFunction(GL20.GL_DST_COLOR, GL20.GL_ZERO);
         batch.begin();
         for (Light light : lights) {
             light.render(batch);
         }
-
-        if(hasShade) {
-            Texture shade = shadeMap.getColorBufferTexture();
-
-            batch.setBlendFunction(GL20.GL_ZERO, GL20.GL_SRC_COLOR);
-            batch.draw(shade, 0, 0);
-            batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-
-        }
-
         batch.end();
-
+        batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         lightMap.end();
     }
 
-    private void drawShadeMap() {
-        shadeMap.begin();
-        Gdx.gl.glClearColor(1, 1, 1, 0);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        shapeRenderer.begin(ShapeType.Filled);
-
-        shapeRenderer.setColor(ambianceColor);
-
-        for (LightBlocker blocker : blockers) {
-            blocker.render(shapeRenderer);
-        }
-
-        shapeRenderer.end();
-
-        shadeMap.end();
+    public void render() {
     }
+
 
     public void addLight(Light light) {
         light.load(assets);
@@ -176,8 +136,5 @@ public class LightSystem implements Disposable, IAssetRequirer {
     @Override
     public void dispose() {
         lightMap.dispose();
-        if(hasShade) {
-            shadeMap.dispose();
-        }
     }
 }

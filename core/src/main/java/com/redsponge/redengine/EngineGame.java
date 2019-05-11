@@ -15,6 +15,7 @@ import com.redsponge.redengine.transitions.Transition;
 import com.redsponge.redengine.transitions.TransitionManager;
 import com.redsponge.redengine.utils.Discord;
 import com.redsponge.redengine.utils.GameAccessor;
+import com.redsponge.redengine.utils.RenderUtils;
 
 public abstract class EngineGame extends Game {
 
@@ -35,6 +36,7 @@ public abstract class EngineGame extends Game {
     @Override
     public final void create() {
         ShaderProgram.pedantic = false;
+        RenderUtils.init();
 
         batch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
@@ -139,6 +141,7 @@ public abstract class EngineGame extends Game {
 
     @Override
     public void resize(int width, int height) {
+        RenderUtils.resize(width, height);
         if(assetLoadingComplete) {
             super.resize(width, height);
         }
