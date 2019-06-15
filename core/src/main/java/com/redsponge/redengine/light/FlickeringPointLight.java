@@ -1,6 +1,9 @@
 package com.redsponge.redengine.light;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class FlickeringPointLight extends PointLight {
 
@@ -20,7 +23,8 @@ public class FlickeringPointLight extends PointLight {
     }
 
     @Override
-    public void render(SpriteBatch batch) {
+    public void render(SpriteBatch batch, Viewport viewport) {
+        Vector2 pos = viewport.project(this.pos);
         float rad = (float) (radius + Math.sin(time * flickerSpeed) * flickerSize);
         batch.draw(light, pos.x - rad / 2, pos.y - rad / 2, rad, rad);
     }

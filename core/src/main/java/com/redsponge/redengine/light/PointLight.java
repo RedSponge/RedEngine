@@ -3,6 +3,7 @@ package com.redsponge.redengine.light;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.redsponge.redengine.assets.Assets;
 
 public class PointLight implements Light {
@@ -19,8 +20,14 @@ public class PointLight implements Light {
     @Override
     public void update(float delta) {}
 
-    public void render(SpriteBatch batch) {
+    @Override
+    public void render(SpriteBatch batch, Viewport viewport) {
         batch.draw(light, pos.x - radius / 2, pos.y - radius / 2, radius, radius);
+    }
+
+    @Override
+    public boolean isInsideView(Viewport viewport) {
+        return viewport.getCamera().frustum.sphereInFrustum(pos.x, pos.y, 0, radius);
     }
 
     @Override
