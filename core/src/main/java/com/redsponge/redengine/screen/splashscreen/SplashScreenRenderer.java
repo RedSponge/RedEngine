@@ -12,9 +12,10 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.redsponge.redengine.assets.Asset;
+import com.redsponge.redengine.assets.AssetRequirerAdapter;
 import com.redsponge.redengine.assets.IAssetRequirer;
 
-public class SplashScreenRenderer implements Disposable, IAssetRequirer {
+public class SplashScreenRenderer extends AssetRequirerAdapter implements Disposable {
 
     private FitViewport viewport;
     private Stage stage;

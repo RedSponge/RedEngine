@@ -21,10 +21,12 @@ public class Assets implements Disposable {
     public final AssetManager am;
 
     private HashMap<AssetDescriptor, Array<Pair<Field, Object>>> waitingValues;
+    private Array<IAssetRequirer> assetRequirers;
 
     public Assets() {
         am = new AssetManager();
         waitingValues = new HashMap<>();
+        assetRequirers = new Array<>();
     }
 
     /**
@@ -73,6 +75,12 @@ public class Assets implements Disposable {
         }
 
         waitingValues.clear();
+
+        for (IAssetRequirer assetRequirer : assetRequirers) {
+            assetRequirer.onAssetsUnloaded();
+        }
+
+        assetRequirers.clear();
     }
 
 
@@ -135,6 +143,10 @@ public class Assets implements Disposable {
                 }
             }
         }
+
+        for (IAssetRequirer assetRequirer : assetRequirers) {
+            assetRequirer.onAssetsLoaded();
+        }
     }
 
     /**
@@ -146,6 +158,10 @@ public class Assets implements Disposable {
      */
     public void prepareAssets(IAssetRequirer root) {
         Logger.log(this, "Began Loading For", root);
+        if(!assetRequirers.contains(root, true)) {
+            assetRequirers.add(root);
+        }
+
         Class<?> cls = root.getClass();
         for (Field field : cls.getDeclaredFields()) {
 

@@ -7,15 +7,14 @@ import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.DelayedRemovalArray;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.redsponge.redengine.assets.Asset;
+import com.redsponge.redengine.assets.AssetRequirerAdapter;
 import com.redsponge.redengine.assets.Assets;
-import com.redsponge.redengine.assets.IAssetRequirer;
 
-public class LightSystem implements Disposable, IAssetRequirer {
+public class LightSystem extends AssetRequirerAdapter implements Disposable {
 
     private FrameBuffer fbo;
     private SpriteBatch batch;

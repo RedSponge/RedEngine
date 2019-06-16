@@ -58,4 +58,10 @@ public abstract class AbstractScreen extends ScreenAdapter implements IAssetRequ
     public void beginTransition() {
         transitioning = true;
     }
+
+    @Override
+    public void onAssetsLoaded() {}
+
+    @Override
+    public void onAssetsUnloaded() {}
 }

@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.redsponge.redengine.screen.AbstractScreen;
-import com.redsponge.redengine.screen.MapEditScreen;
 import com.redsponge.redengine.transitions.TransitionTemplates;
 import com.redsponge.redengine.utils.GameAccessor;
 

@@ -12,4 +12,13 @@ public class AnotherAssetHolder implements IAssetRequirer {
     @Asset(path = "event_tile.png")
     public Texture myThirdTexture;
 
+    @Override
+    public void onAssetsLoaded() {
+
+    }
+
+    @Override
+    public void onAssetsUnloaded() {
+
+    }
 }

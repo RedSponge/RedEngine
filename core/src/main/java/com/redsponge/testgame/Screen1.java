@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.redsponge.redengine.assets.Asset;
 import com.redsponge.redengine.screen.AbstractScreen;
-import com.redsponge.redengine.screen.MapEditScreen;
 import com.redsponge.redengine.transitions.TransitionTemplates;
 import com.redsponge.redengine.utils.GameAccessor;
 
@@ -26,7 +25,7 @@ public class Screen1 extends AbstractScreen {
     @Override
     public void tick(float delta) {
         if(Gdx.input.isKeyJustPressed(Keys.SPACE)) {
-            ga.transitionTo(new MapEditScreen(ga), TransitionTemplates.sineSlide(1));
+            ga.transitionTo(new Screen2(ga), TransitionTemplates.sineSlide(1));
         }
     }
 
