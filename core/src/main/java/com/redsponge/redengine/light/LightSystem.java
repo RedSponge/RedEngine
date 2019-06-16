@@ -45,16 +45,13 @@ public class LightSystem implements Disposable, IAssetRequirer {
 
     public void render() {
         viewport.apply();
-        batch.setProjectionMatrix(viewport.getCamera().combined);
+//        batch.setProjectionMatrix(viewport.getCamera().combined);
         fbo.begin();
         Gdx.gl.glClearColor(ambianceColor.r, ambianceColor.g, ambianceColor.b, ambianceColor.a);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
         for (Light light : lights) {
-            Vector2 test = new Vector2(light.getPosition());
-            System.out.println(viewport.project(test));
-
             light.render(batch, viewport);
         }
         batch.end();

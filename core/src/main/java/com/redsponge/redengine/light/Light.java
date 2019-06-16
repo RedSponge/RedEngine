@@ -9,8 +9,6 @@ public interface Light {
 
     void update(float delta);
 
-    boolean isInsideView(Viewport viewport);
-
     void render(SpriteBatch batch, Viewport viewport);
 
     void load(Assets assets);
@@ -18,4 +16,6 @@ public interface Light {
     float getRadius();
 
     Vector2 getPosition();
+
+    Vector2 getTransformedPosition(Viewport viewport, Vector2 outPos);
 }

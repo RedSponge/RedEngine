@@ -1,5 +1,6 @@
 package com.redsponge.redengine.light;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -11,10 +12,14 @@ public class PointLight implements Light {
     protected Vector2 pos;
     protected float radius;
     protected Texture light;
+    private Vector2 calculatedPos;
+    protected Color color;
 
     public PointLight(float x, float y, float radius) {
         this.pos = new Vector2(x, y);
         this.radius = radius;
+        calculatedPos = new Vector2();
+        this.color = new Color(Color.WHITE);
     }
 
     @Override
@@ -22,12 +27,27 @@ public class PointLight implements Light {
 
     @Override
     public void render(SpriteBatch batch, Viewport viewport) {
-        batch.draw(light, pos.x - radius / 2, pos.y - radius / 2, radius, radius);
+        getTransformedPosition(viewport, calculatedPos);
+        batch.setColor(this.color);
+        batch.draw(light, calculatedPos.x - radius / 2, calculatedPos.y - radius / 2, radius, radius);
+        batch.setColor(Color.WHITE);
     }
 
     @Override
-    public boolean isInsideView(Viewport viewport) {
-        return viewport.getCamera().frustum.sphereInFrustum(pos.x, pos.y, 0, radius);
+    public Vector2 getTransformedPosition(Viewport viewport, Vector2 outPos) {
+        outPos.set(pos);
+        outPos.x += viewport.getWorldWidth() / 2 - viewport.getCamera().position.x;
+        outPos.y += viewport.getWorldHeight() / 2 - viewport.getCamera().position.y;
+
+        return outPos;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 
     @Override
