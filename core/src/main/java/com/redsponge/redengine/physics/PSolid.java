@@ -1,7 +1,9 @@
 package com.redsponge.redengine.physics;
 
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.redsponge.redengine.utils.GeneralUtils;
+import com.redsponge.redengine.utils.MathUtilities;
 
 /**
  * A solid in a {@link PhysicsWorld}. cannot interact with other solids
@@ -38,7 +40,7 @@ public class PSolid extends PEntity {
 
                 if (moveX > 0) {
                     for (PActor actor : worldIn.getActors()) {
-                        if (GeneralUtils.rectanglesIntersect(this.pos, this.size, actor.pos, actor.size)) {
+                        if (MathUtilities.rectanglesIntersect(this.pos, this.size, actor.pos, actor.size)) {
                             actor.moveX(this.pos.x + this.size.x - actor.pos.x, actor::squish); // Push
                         } else if (ridingActors.contains(actor, true)) {
                             actor.moveX(moveX, null); // Carry
@@ -46,7 +48,7 @@ public class PSolid extends PEntity {
                     }
                 } else {
                     for (PActor actor : worldIn.getActors()) {
-                        if (GeneralUtils.rectanglesIntersect(this.pos, this.size, actor.pos, actor.size)) {
+                        if (MathUtilities.rectanglesIntersect(this.pos, this.size, actor.pos, actor.size)) {
                             actor.moveX(this.pos.x - (actor.pos.x + actor.size.x), actor::squish); // Push
                         } else if (ridingActors.contains(actor, true)) {
                             actor.moveX(moveX, null); // Carry
@@ -58,7 +60,7 @@ public class PSolid extends PEntity {
             if(moveY != 0) {
                 if (moveY > 0) {
                     for (PActor actor : worldIn.getActors()) {
-                        if (GeneralUtils.rectanglesIntersect(this.pos, this.size, actor.pos, actor.size)) {
+                        if (MathUtilities.rectanglesIntersect(this.pos, this.size, actor.pos, actor.size)) {
                             actor.moveY(this.pos.y + this.size.y - actor.pos.y, actor::squish); // Push
                         } else if (ridingActors.contains(actor, true)) {
                             actor.moveY(moveY, null); // Carry
@@ -66,7 +68,7 @@ public class PSolid extends PEntity {
                     }
                 } else {
                     for (PActor actor : worldIn.getActors()) {
-                        if (GeneralUtils.rectanglesIntersect(this.pos, this.size, actor.pos, actor.size)) {
+                        if (MathUtilities.rectanglesIntersect(this.pos, this.size, actor.pos, actor.size)) {
                             actor.moveY(this.pos.y - (actor.pos.y + actor.size.y), actor::squish); // Push
                         } else if (ridingActors.contains(actor, true)) {
                             actor.moveY(moveY, null); // Carry

@@ -9,13 +9,14 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Interpolation;
 import com.redsponge.redengine.assets.Assets;
+import com.redsponge.redengine.assets.Fonts;
 import com.redsponge.redengine.exceptions.IncompatibleScreenException;
 import com.redsponge.redengine.screen.AbstractScreen;
 import com.redsponge.redengine.transitions.Transition;
 import com.redsponge.redengine.transitions.TransitionManager;
 import com.redsponge.redengine.utils.Discord;
 import com.redsponge.redengine.utils.GameAccessor;
-import com.redsponge.redengine.utils.RenderUtils;
+import com.redsponge.redengine.utils.ScreenFiller;
 
 public abstract class EngineGame extends Game {
 
@@ -36,7 +37,7 @@ public abstract class EngineGame extends Game {
     @Override
     public final void create() {
         ShaderProgram.pedantic = false;
-        RenderUtils.init();
+        ScreenFiller.init();
 
         batch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
@@ -47,12 +48,14 @@ public abstract class EngineGame extends Game {
         transitionManager.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         discord = new Discord("571763236807114753", "");
+        Fonts.load();
+
         init();
     }
 
     @Override
     public void render() {
-        float delta = Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f);
+        float delta = Math.min(Gdx.graphics.getDeltaTime(), 1 / 60f);
         // Try catch to keep intellij from freezing when error is detected
         try {
 
@@ -141,7 +144,7 @@ public abstract class EngineGame extends Game {
 
     @Override
     public void resize(int width, int height) {
-        RenderUtils.resize(width, height);
+        ScreenFiller.resize(width, height);
         if(assetLoadingComplete) {
             super.resize(width, height);
         }

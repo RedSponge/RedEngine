@@ -3,6 +3,7 @@ package com.redsponge.redengine.physics;
 import com.redsponge.redengine.utils.GeneralUtils;
 import com.redsponge.redengine.utils.IntVector2;
 import com.redsponge.redengine.utils.Logger;
+import com.redsponge.redengine.utils.MathUtilities;
 
 /**
  * An actor in the world, must never overlap a solid
@@ -78,7 +79,7 @@ public class PActor extends PEntity {
      */
     protected boolean collideAt(IntVector2 pos) {
         for(PSolid solid : worldIn.getSolids()) {
-            if(solid.isCollidable() && GeneralUtils.rectanglesIntersect(pos, this.size, solid.pos, solid.size)) {
+            if(solid.isCollidable() && MathUtilities.rectanglesIntersect(pos, this.size, solid.pos, solid.size)) {
                 return true;
             }
         }
@@ -92,7 +93,7 @@ public class PActor extends PEntity {
      */
     protected PSolid collideFirst(IntVector2 pos) {
         for(PSolid solid : worldIn.getSolids()) {
-            if(solid.isCollidable() && GeneralUtils.rectanglesIntersect(pos, this.size, solid.pos, solid.size)) {
+            if(solid.isCollidable() && MathUtilities.rectanglesIntersect(pos, this.size, solid.pos, solid.size)) {
                 return solid;
             }
         }

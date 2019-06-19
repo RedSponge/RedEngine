@@ -2,6 +2,9 @@ package com.redsponge.redengine.utils;
 
 import com.badlogic.gdx.math.Vector2;
 
+/**
+ * A {@link Vector2} with integer only values
+ */
 public class IntVector2 {
 
     public int x, y;

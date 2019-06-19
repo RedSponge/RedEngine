@@ -17,8 +17,6 @@ public abstract class AbstractScreen extends ScreenAdapter implements IAssetRequ
     protected GameAccessor ga;
     protected boolean transitioning;
 
-    private DelayedRemovalArray<ScreenObject> screenObjects;
-
     public AbstractScreen(GameAccessor ga) {
         this.ga = ga;
         this.shapeRenderer = ga.getShapeRenderer();

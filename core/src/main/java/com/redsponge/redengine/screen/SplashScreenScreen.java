@@ -3,9 +3,8 @@ package com.redsponge.redengine.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.redsponge.redengine.assets.Asset;
 import com.redsponge.redengine.screen.splashscreen.SplashScreenRenderer;
+import com.redsponge.redengine.transitions.TransitionTemplate;
 import com.redsponge.redengine.transitions.TransitionTemplates;
 import com.redsponge.redengine.utils.GameAccessor;
 
@@ -16,9 +15,13 @@ public class SplashScreenScreen extends AbstractScreen {
 
     private SplashScreenRenderer splashScreenRenderer;
     private boolean skipped;
+    private AbstractScreen nextScreen;
+    private TransitionTemplate transition;
 
-    public SplashScreenScreen(GameAccessor ga) {
+    public SplashScreenScreen(GameAccessor ga, AbstractScreen nextScreen, TransitionTemplate transition) {
         super(ga);
+        this.nextScreen = nextScreen;
+        this.transition = transition;
         splashScreenRenderer = new SplashScreenRenderer(batch);
     }
 
@@ -46,7 +49,7 @@ public class SplashScreenScreen extends AbstractScreen {
         splashScreenRenderer.render();
 
         if((splashScreenRenderer.isComplete() || skipped) && !transitioning) {
-            ga.transitionTo(new OtherScreen(ga), TransitionTemplates.linearDissolve(batch, 1));
+            ga.transitionTo(nextScreen, transition);
         }
     }
 

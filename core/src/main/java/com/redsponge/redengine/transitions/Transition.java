@@ -3,9 +3,10 @@ package com.redsponge.redengine.transitions;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 /**
- * Describes a transition.
+ * Describes a transition between two screens. a transition is a mask that is drawn on
  */
 public interface Transition extends Disposable {
 
@@ -20,7 +21,7 @@ public interface Transition extends Disposable {
     void render(float secondsSinceStart, Interpolation interFrom, Interpolation interTo, float length, ShapeRenderer shapeRenderer);
 
     /**
-     * used to update {@link com.badlogic.gdx.utils.viewport.Viewport}-s
+     * used to update {@link Viewport}s
      */
     void resize(int width, int height);
 }

@@ -29,6 +29,9 @@ import static com.badlogic.gdx.graphics.g2d.Batch.Y2;
 import static com.badlogic.gdx.graphics.g2d.Batch.Y3;
 import static com.badlogic.gdx.graphics.g2d.Batch.Y4;
 
+/**
+ * A {@link OrthogonalTiledMapRenderer} with an offset so that you can draw moving maps
+ */
 public class OffsettedOrthogonalTiledMapRenderer extends OrthogonalTiledMapRenderer {
     private float offsetX;
     private float offsetY;
@@ -47,22 +50,6 @@ public class OffsettedOrthogonalTiledMapRenderer extends OrthogonalTiledMapRende
 
     public OffsettedOrthogonalTiledMapRenderer(TiledMap map, float unitScale, Batch batch) {
         super(map, unitScale, batch);
-    }
-
-    public void setOffsetX(float offsetX) {
-        this.offsetX = offsetX;
-    }
-
-    public void setOffsetY(float offsetY) {
-        this.offsetY = offsetY;
-    }
-
-    public float getOffsetX() {
-        return offsetX;
-    }
-
-    public float getOffsetY() {
-        return offsetY;
     }
 
     @Override
@@ -213,5 +200,21 @@ public class OffsettedOrthogonalTiledMapRenderer extends OrthogonalTiledMapRende
             }
             y -= layerTileHeight;
         }
+    }
+
+    public void setOffsetX(float offsetX) {
+        this.offsetX = offsetX;
+    }
+
+    public void setOffsetY(float offsetY) {
+        this.offsetY = offsetY;
+    }
+
+    public float getOffsetX() {
+        return offsetX;
+    }
+
+    public float getOffsetY() {
+        return offsetY;
     }
 }
