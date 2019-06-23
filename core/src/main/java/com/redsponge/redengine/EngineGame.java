@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Interpolation;
 import com.redsponge.redengine.assets.Assets;
 import com.redsponge.redengine.assets.Fonts;
+import com.redsponge.redengine.desktop.DesktopMoveAction;
+import com.redsponge.redengine.desktop.DesktopUtil;
 import com.redsponge.redengine.exceptions.IncompatibleScreenException;
 import com.redsponge.redengine.screen.AbstractScreen;
 import com.redsponge.redengine.transitions.Transition;
@@ -17,6 +19,8 @@ import com.redsponge.redengine.transitions.TransitionManager;
 import com.redsponge.redengine.utils.Discord;
 import com.redsponge.redengine.utils.GameAccessor;
 import com.redsponge.redengine.utils.ScreenFiller;
+
+import java.util.function.BiConsumer;
 
 public abstract class EngineGame extends Game {
 
@@ -28,6 +32,16 @@ public abstract class EngineGame extends Game {
     protected Discord discord;
 
     private boolean assetLoadingComplete;
+
+
+    public EngineGame() {
+    }
+
+    public EngineGame(boolean desktop, BiConsumer<Integer, Integer> desktopMoveAction) {
+        if(desktop) {
+            DesktopUtil.init(desktopMoveAction);
+        }
+    }
 
     /**
      * Initialization - Called when the program boots up

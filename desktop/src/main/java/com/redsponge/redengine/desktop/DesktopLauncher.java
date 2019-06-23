@@ -4,6 +4,7 @@ import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.redsponge.redengine.DefaultEngineGame;
+import org.lwjgl.opengl.Display;
 
 /** Launches the desktop (LWJGL) application. */
 public class DesktopLauncher {
@@ -12,7 +13,7 @@ public class DesktopLauncher {
     }
 
     private static LwjglApplication createApplication() {
-        return new LwjglApplication(new DefaultEngineGame(), getDefaultConfiguration());
+        return new LwjglApplication(new DefaultEngineGame(true, Display::setLocation), getDefaultConfiguration());
     }
 
     private static LwjglApplicationConfiguration getDefaultConfiguration() {
@@ -21,6 +22,7 @@ public class DesktopLauncher {
         for (int size : new int[] { 128, 64, 32, 16 }) {
             configuration.addIcon("libgdx" + size + ".png", FileType.Internal);
         }
+        configuration.resizable = false;
         return configuration;
     }
 }

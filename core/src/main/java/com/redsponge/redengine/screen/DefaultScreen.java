@@ -5,15 +5,14 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.rafaskoberg.gdx.typinglabel.TypingLabel;
 import com.redsponge.redengine.assets.Fonts;
+import com.redsponge.redengine.desktop.DesktopUtil;
 import com.redsponge.redengine.utils.GameAccessor;
-import com.redsponge.redengine.utils.RenderUtils;
 
 public class DefaultScreen extends AbstractScreen {
 
@@ -21,6 +20,8 @@ public class DefaultScreen extends AbstractScreen {
     private FitViewport viewport;
     private TypingLabel typingLabel;
     private Stage stage;
+
+    private float timeSinceStart;
 
     public static final String TEXT = "{GRADIENT=red;orange;2;2}{WAVE=0.5;1;1}This is the default screen mate\n\nyou should probably extend your own";
 
@@ -41,11 +42,15 @@ public class DefaultScreen extends AbstractScreen {
         typingLabel.setAlignment(Align.center);
 
         stage.addActor(typingLabel);
+        timeSinceStart = 0;
     }
 
     @Override
     public void tick(float delta) {
+        timeSinceStart += delta;
+
         stage.act(delta);
+        DesktopUtil.moveWindow(Gdx.graphics.getDisplayMode().width / 2 - Gdx.graphics.getWidth() / 2, (int) (Gdx.graphics.getDisplayMode().height / 2 - Gdx.graphics.getHeight() / 2 + Math.sin(timeSinceStart * 2) * 40));
     }
 
     @Override
