@@ -17,9 +17,9 @@ public @interface Asset {
     /**
      * The path of the asset, this is what the {@link Assets} will load when it reaches a field with the annotation.
      *
-     * @return The path to the file to load
+     * @return The value to the file to load
      */
-    String path();
+    String value();
 
     /**
      * Should the asset be disposed when {@link Assets#unload()} is called.

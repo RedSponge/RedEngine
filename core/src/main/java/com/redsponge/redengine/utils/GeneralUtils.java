@@ -1,9 +1,13 @@
 package com.redsponge.redengine.utils;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 
-import java.lang.reflect.Array;
+import com.badlogic.gdx.utils.Array;
 import java.lang.reflect.Field;
 import java.util.Random;
 
@@ -31,7 +35,7 @@ public class GeneralUtils {
             size += ts.length;
         }
 
-        T[] out = (T[]) Array.newInstance(c, size);
+        T[] out = (T[]) java.lang.reflect.Array.newInstance(c, size);
 
         int offset = 0;
         for (T[] arr : arrs) {
@@ -83,7 +87,15 @@ public class GeneralUtils {
         return capitalizeWord.toString().trim();
     }
 
-    public static String getFieldName(Field field) {
+    public static String fieldToString(Field field) {
         return String.format("%s#%s", field.getDeclaringClass().getSimpleName(), field.getName());
+    }
+
+    public static Animation<TextureRegion> getAnimation(TextureAtlas atlas, String name, int startsWith, int length, float duration, PlayMode playMode) {
+        Array<TextureRegion> frames = new Array<TextureRegion>(length);
+        for (int i = 0; i < length; i++) {
+            frames.add(atlas.findRegion(name, i + startsWith));
+        }
+        return new Animation<TextureRegion>(duration, frames, playMode);
     }
 }

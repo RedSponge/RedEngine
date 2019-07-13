@@ -11,11 +11,9 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.redsponge.redengine.assets.Asset;
-import com.redsponge.redengine.assets.AssetRequirerAdapter;
-import com.redsponge.redengine.assets.IAssetRequirer;
+import com.redsponge.redengine.assets.AssetSpecifier;
 
-public class SplashScreenRenderer extends AssetRequirerAdapter implements Disposable {
+public class SplashScreenRenderer implements Disposable {
 
     private FitViewport viewport;
     private Stage stage;
@@ -23,11 +21,11 @@ public class SplashScreenRenderer extends AssetRequirerAdapter implements Dispos
     private boolean complete;
     private Image icon;
 
-    @Asset(path = "splashscreen/splashscreen.atlas")
     private TextureAtlas atlas;
 
-    public SplashScreenRenderer(SpriteBatch batch) {
+    public SplashScreenRenderer(SpriteBatch batch, AssetSpecifier assets) {
         this.batch = batch;
+        this.atlas = assets.get("splashScreenAtlas", TextureAtlas.class);
     }
 
     /**

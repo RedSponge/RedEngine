@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.rafaskoberg.gdx.typinglabel.TypingLabel;
+import com.redsponge.redengine.assets.AssetSpecifier;
 import com.redsponge.redengine.assets.Fonts;
 import com.redsponge.redengine.desktop.DesktopUtil;
 import com.redsponge.redengine.utils.GameAccessor;
@@ -68,5 +69,10 @@ public class DefaultScreen extends AbstractScreen {
     @Override
     public void resize(int width, int height) {
         viewport.update(width, height, true);
+    }
+
+    @Override
+    public Class<? extends AssetSpecifier> getAssetSpecsType() {
+        return null;
     }
 }

@@ -1,11 +1,13 @@
-package com.redsponge.redengine.screen;
+package com.redsponge.redengine.screen.splashscreen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
+import com.redsponge.redengine.assets.AssetSpecifier;
+import com.redsponge.redengine.screen.AbstractScreen;
+import com.redsponge.redengine.screen.splashscreen.SplashScreenAssets;
 import com.redsponge.redengine.screen.splashscreen.SplashScreenRenderer;
 import com.redsponge.redengine.transitions.TransitionTemplate;
-import com.redsponge.redengine.transitions.TransitionTemplates;
 import com.redsponge.redengine.utils.GameAccessor;
 
 /**
@@ -22,11 +24,12 @@ public class SplashScreenScreen extends AbstractScreen {
         super(ga);
         this.nextScreen = nextScreen;
         this.transition = transition;
-        splashScreenRenderer = new SplashScreenRenderer(batch);
     }
 
     @Override
     public void show() {
+        splashScreenRenderer = new SplashScreenRenderer(batch, assets);
+
         splashScreenRenderer.begin();
         skipped = false;
     }
@@ -63,5 +66,10 @@ public class SplashScreenScreen extends AbstractScreen {
     @Override
     public void dispose() {
         splashScreenRenderer.dispose();
+    }
+
+    @Override
+    public Class<? extends AssetSpecifier> getAssetSpecsType() {
+        return SplashScreenAssets.class;
     }
 }

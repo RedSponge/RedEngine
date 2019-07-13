@@ -3,14 +3,14 @@ package com.redsponge.redengine;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Interpolation;
-import com.redsponge.redengine.assets.Assets;
+import com.redsponge.redengine.assets.AssetSpecifier;
 import com.redsponge.redengine.assets.Fonts;
-import com.redsponge.redengine.desktop.DesktopMoveAction;
 import com.redsponge.redengine.desktop.DesktopUtil;
 import com.redsponge.redengine.exceptions.IncompatibleScreenException;
 import com.redsponge.redengine.screen.AbstractScreen;
@@ -18,6 +18,7 @@ import com.redsponge.redengine.transitions.Transition;
 import com.redsponge.redengine.transitions.TransitionManager;
 import com.redsponge.redengine.utils.Discord;
 import com.redsponge.redengine.utils.GameAccessor;
+import com.redsponge.redengine.utils.Logger;
 import com.redsponge.redengine.utils.ScreenFiller;
 
 import java.util.function.BiConsumer;
@@ -27,7 +28,7 @@ public abstract class EngineGame extends Game {
     protected GameAccessor ga;
     protected SpriteBatch batch;
     protected ShapeRenderer shapeRenderer;
-    protected Assets assets;
+    protected AssetManager am;
     protected TransitionManager transitionManager;
     protected Discord discord;
 
@@ -53,10 +54,10 @@ public abstract class EngineGame extends Game {
         ShaderProgram.pedantic = false;
         ScreenFiller.init();
 
+        am = new AssetManager();
         batch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
         ga = new GameAccessor(this);
-        assets = new Assets();
         transitionManager = new TransitionManager(this, shapeRenderer);
 
         transitionManager.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -76,10 +77,14 @@ public abstract class EngineGame extends Game {
             if(!assetLoadingComplete) {
                 Gdx.gl.glClearColor(0, 0, 0, 1);
                 Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-                if(this.assets.updateAssetManager()) {
+                if(am.update()) {
+                    AssetSpecifier specs = ((AbstractScreen) screen).getAssets();
+                    if(specs != null) {
+                        specs.postLoad();
+                    }
+
                     assetLoadingComplete = true;
                     transitionManager.beginExit();
-                    assets.injectAssets();
 
                     this.screen.show();
                     this.screen.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -90,7 +95,7 @@ public abstract class EngineGame extends Game {
 
             final AbstractScreen currentScreen = (AbstractScreen) screen;
 
-            assets.updateAssetManager();
+            am.update();
             if (screen != null) {
                 currentScreen.tick(delta);
                 currentScreen.render();
@@ -100,7 +105,6 @@ public abstract class EngineGame extends Game {
                 transitionManager.render(delta);
             }
         } catch (Exception e) {
-
             e.printStackTrace();
             Gdx.app.exit();
         }
@@ -142,17 +146,26 @@ public abstract class EngineGame extends Game {
         if(this.screen != null) {
             this.screen.hide();
             if(((AbstractScreen) this.screen).shouldDispose()) {
+                ((AbstractScreen) this.screen).unloadAssetHolder();
                 this.screen.dispose();
             }
-
-            assets.unload();
         }
 
         this.screen = screen;
 
         if(screen != null) {
-            this.assets.prepareAssets(screen);
             assetLoadingComplete = false;
+            try {
+                Class<? extends AssetSpecifier> specsClass = screen.getAssetSpecsType();
+                if(specsClass != null) {
+                    AssetSpecifier specs = specsClass.getConstructor(AssetManager.class).newInstance(am);
+                    specs.load();
+
+                    screen.setAssets(specs);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -173,15 +186,12 @@ public abstract class EngineGame extends Game {
         return shapeRenderer;
     }
 
-    public Assets getAssets() {
-        return assets;
-    }
-
     @Override
     public void dispose() {
+        setScreen(null);
         discord.dispose();
         batch.dispose();
         shapeRenderer.dispose();
-        assets.dispose();
+        am.clear();
     }
 }

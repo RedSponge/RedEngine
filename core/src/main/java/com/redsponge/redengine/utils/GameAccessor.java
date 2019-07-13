@@ -4,7 +4,6 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Interpolation;
-import com.redsponge.redengine.assets.Assets;
 import com.redsponge.redengine.EngineGame;
 import com.redsponge.redengine.screen.AbstractScreen;
 import com.redsponge.redengine.transitions.Transition;
@@ -54,9 +53,5 @@ public class GameAccessor {
 
     public void setScreen(ScreenAdapter screen) {
         game.setScreen(screen);
-    }
-
-    public Assets getAssets() {
-        return game.getAssets();
     }
 }

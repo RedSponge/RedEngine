@@ -1,0 +1,764 @@
+
+game_textures.png
+size: 64,64
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+dead
+  rotate: false
+  xy: 2, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+
+game_textures2.png
+size: 1024,128
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+elecball/exist
+  rotate: false
+  xy: 2, 2
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 1
+elecball/exist
+  rotate: false
+  xy: 68, 2
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 2
+elecball/exist
+  rotate: false
+  xy: 134, 2
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 3
+elecball/exist
+  rotate: false
+  xy: 200, 2
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 4
+elecball/remove
+  rotate: false
+  xy: 266, 2
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 1
+elecball/remove
+  rotate: false
+  xy: 332, 2
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 2
+elecball/remove
+  rotate: false
+  xy: 398, 2
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 3
+elecball/spawn
+  rotate: false
+  xy: 464, 2
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 1
+elecball/spawn
+  rotate: false
+  xy: 530, 2
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 2
+elecball/spawn
+  rotate: false
+  xy: 596, 2
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 3
+
+game_textures3.png
+size: 512,128
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+high/dash
+  rotate: false
+  xy: 134, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+high/dash
+  rotate: false
+  xy: 200, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+high/dash
+  rotate: false
+  xy: 134, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 3
+high/dash
+  rotate: false
+  xy: 168, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 4
+high/dash_prep
+  rotate: false
+  xy: 234, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+high/electric_activate
+  rotate: false
+  xy: 168, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+high/electric_activate
+  rotate: false
+  xy: 202, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+high/electric_activate
+  rotate: false
+  xy: 268, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 3
+high/electric_activate
+  rotate: false
+  xy: 202, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 4
+high/electric_activate
+  rotate: false
+  xy: 236, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 5
+high/electric_activate
+  rotate: false
+  xy: 302, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 6
+high/electric_activate
+  rotate: false
+  xy: 236, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 7
+high/hot_punch
+  rotate: false
+  xy: 2, 70
+  size: 64, 32
+  orig: 64, 32
+  offset: 0, 0
+  index: 1
+high/hot_punch
+  rotate: false
+  xy: 2, 36
+  size: 64, 32
+  orig: 64, 32
+  offset: 0, 0
+  index: 2
+high/hot_punch
+  rotate: false
+  xy: 68, 70
+  size: 64, 32
+  orig: 64, 32
+  offset: 0, 0
+  index: 3
+high/hot_punch
+  rotate: false
+  xy: 2, 2
+  size: 64, 32
+  orig: 64, 32
+  offset: 0, 0
+  index: 4
+high/hot_punch
+  rotate: false
+  xy: 68, 36
+  size: 64, 32
+  orig: 64, 32
+  offset: 0, 0
+  index: 5
+high/hot_punch
+  rotate: false
+  xy: 134, 70
+  size: 64, 32
+  orig: 64, 32
+  offset: 0, 0
+  index: 6
+high/hot_punch
+  rotate: false
+  xy: 68, 2
+  size: 64, 32
+  orig: 64, 32
+  offset: 0, 0
+  index: 7
+high/idle
+  rotate: false
+  xy: 270, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+high/run
+  rotate: false
+  xy: 336, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+high/run
+  rotate: false
+  xy: 270, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+high/run
+  rotate: false
+  xy: 304, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 3
+high/run
+  rotate: false
+  xy: 304, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 9
+high/run
+  rotate: false
+  xy: 370, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 4
+high/run
+  rotate: false
+  xy: 304, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 5
+high/run
+  rotate: false
+  xy: 338, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 6
+high/run
+  rotate: false
+  xy: 404, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 7
+high/run
+  rotate: false
+  xy: 338, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 8
+high/run
+  rotate: false
+  xy: 372, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 10
+high/run
+  rotate: false
+  xy: 438, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 11
+high/run
+  rotate: false
+  xy: 372, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 12
+high/walljump
+  rotate: false
+  xy: 406, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+
+game_textures4.png
+size: 512,128
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+low/dash
+  rotate: false
+  xy: 134, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+low/dash
+  rotate: false
+  xy: 200, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+low/dash
+  rotate: false
+  xy: 134, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 3
+low/dash
+  rotate: false
+  xy: 168, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 4
+low/dash_prep
+  rotate: false
+  xy: 234, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+low/hot_punch
+  rotate: false
+  xy: 2, 70
+  size: 64, 32
+  orig: 64, 32
+  offset: 0, 0
+  index: 1
+low/hot_punch
+  rotate: false
+  xy: 2, 36
+  size: 64, 32
+  orig: 64, 32
+  offset: 0, 0
+  index: 2
+low/hot_punch
+  rotate: false
+  xy: 68, 70
+  size: 64, 32
+  orig: 64, 32
+  offset: 0, 0
+  index: 3
+low/hot_punch
+  rotate: false
+  xy: 2, 2
+  size: 64, 32
+  orig: 64, 32
+  offset: 0, 0
+  index: 4
+low/hot_punch
+  rotate: false
+  xy: 68, 36
+  size: 64, 32
+  orig: 64, 32
+  offset: 0, 0
+  index: 5
+low/hot_punch
+  rotate: false
+  xy: 134, 70
+  size: 64, 32
+  orig: 64, 32
+  offset: 0, 0
+  index: 6
+low/hot_punch
+  rotate: false
+  xy: 68, 2
+  size: 64, 32
+  orig: 64, 32
+  offset: 0, 0
+  index: 7
+low/idle
+  rotate: false
+  xy: 168, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+low/run
+  rotate: false
+  xy: 202, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+low/run
+  rotate: false
+  xy: 268, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+low/run
+  rotate: false
+  xy: 202, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 3
+low/run
+  rotate: false
+  xy: 236, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 4
+low/run
+  rotate: false
+  xy: 302, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 5
+low/run
+  rotate: false
+  xy: 236, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 6
+low/run
+  rotate: false
+  xy: 270, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 7
+low/run
+  rotate: false
+  xy: 336, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 8
+low/run
+  rotate: false
+  xy: 270, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 9
+low/run
+  rotate: false
+  xy: 304, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 10
+low/run
+  rotate: false
+  xy: 370, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 11
+low/run
+  rotate: false
+  xy: 304, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 12
+low/walljump
+  rotate: false
+  xy: 338, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+
+game_textures5.png
+size: 512,128
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+med/dash
+  rotate: false
+  xy: 134, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+med/dash
+  rotate: false
+  xy: 200, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+med/dash
+  rotate: false
+  xy: 134, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 3
+med/dash
+  rotate: false
+  xy: 168, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 4
+med/dash_prep
+  rotate: false
+  xy: 234, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+med/hot_punch
+  rotate: false
+  xy: 2, 70
+  size: 64, 32
+  orig: 64, 32
+  offset: 0, 0
+  index: 1
+med/hot_punch
+  rotate: false
+  xy: 2, 36
+  size: 64, 32
+  orig: 64, 32
+  offset: 0, 0
+  index: 2
+med/hot_punch
+  rotate: false
+  xy: 68, 70
+  size: 64, 32
+  orig: 64, 32
+  offset: 0, 0
+  index: 3
+med/hot_punch
+  rotate: false
+  xy: 2, 2
+  size: 64, 32
+  orig: 64, 32
+  offset: 0, 0
+  index: 4
+med/hot_punch
+  rotate: false
+  xy: 68, 36
+  size: 64, 32
+  orig: 64, 32
+  offset: 0, 0
+  index: 5
+med/hot_punch
+  rotate: false
+  xy: 134, 70
+  size: 64, 32
+  orig: 64, 32
+  offset: 0, 0
+  index: 6
+med/hot_punch
+  rotate: false
+  xy: 68, 2
+  size: 64, 32
+  orig: 64, 32
+  offset: 0, 0
+  index: 7
+med/idle
+  rotate: false
+  xy: 168, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+med/run
+  rotate: false
+  xy: 202, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+med/run
+  rotate: false
+  xy: 268, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+med/run
+  rotate: false
+  xy: 202, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 3
+med/run
+  rotate: false
+  xy: 236, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 4
+med/run
+  rotate: false
+  xy: 302, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 5
+med/run
+  rotate: false
+  xy: 236, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 6
+med/run
+  rotate: false
+  xy: 270, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 7
+med/run
+  rotate: false
+  xy: 336, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 8
+med/run
+  rotate: false
+  xy: 270, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 9
+med/run
+  rotate: false
+  xy: 304, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 10
+med/run
+  rotate: false
+  xy: 370, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 11
+med/run
+  rotate: false
+  xy: 304, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 12
+med/walljump
+  rotate: false
+  xy: 338, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+
+game_textures6.png
+size: 256,64
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+none/run
+  rotate: false
+  xy: 2, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+none/run
+  rotate: false
+  xy: 36, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+none/run
+  rotate: false
+  xy: 70, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 3
+none/run
+  rotate: false
+  xy: 104, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 4
+none/run
+  rotate: false
+  xy: 138, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 5
+none/run
+  rotate: false
+  xy: 138, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 7
+none/run
+  rotate: false
+  xy: 172, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 6
+none/walljump
+  rotate: false
+  xy: 206, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
