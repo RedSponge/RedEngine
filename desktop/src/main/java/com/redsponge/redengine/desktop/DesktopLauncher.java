@@ -22,7 +22,7 @@ public class DesktopLauncher {
         for (int size : new int[] { 128, 64, 32, 16 }) {
             configuration.addIcon("libgdx" + size + ".png", FileType.Internal);
         }
-        configuration.resizable = false;
+//        configuration.resizable = false;
         return configuration;
     }
 }

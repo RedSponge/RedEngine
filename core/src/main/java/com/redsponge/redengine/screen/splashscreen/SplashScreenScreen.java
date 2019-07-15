@@ -5,9 +5,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.redsponge.redengine.assets.AssetSpecifier;
 import com.redsponge.redengine.screen.AbstractScreen;
-import com.redsponge.redengine.screen.splashscreen.SplashScreenAssets;
-import com.redsponge.redengine.screen.splashscreen.SplashScreenRenderer;
-import com.redsponge.redengine.transitions.TransitionTemplate;
+import com.redsponge.redengine.transitions.Transition;
 import com.redsponge.redengine.utils.GameAccessor;
 
 /**
@@ -18,9 +16,9 @@ public class SplashScreenScreen extends AbstractScreen {
     private SplashScreenRenderer splashScreenRenderer;
     private boolean skipped;
     private AbstractScreen nextScreen;
-    private TransitionTemplate transition;
+    private Transition transition;
 
-    public SplashScreenScreen(GameAccessor ga, AbstractScreen nextScreen, TransitionTemplate transition) {
+    public SplashScreenScreen(GameAccessor ga, AbstractScreen nextScreen, Transition transition) {
         super(ga);
         this.nextScreen = nextScreen;
         this.transition = transition;

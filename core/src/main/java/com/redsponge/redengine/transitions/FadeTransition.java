@@ -2,6 +2,7 @@ package com.redsponge.redengine.transitions;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Interpolation;
@@ -10,17 +11,18 @@ import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.redsponge.redengine.utils.Logger;
 
-public class TransitionFade implements Transition {
+public class FadeTransition extends Transition {
 
     private Viewport viewport;
 
-    public TransitionFade() {
+    public FadeTransition(Interpolation interFrom, Interpolation interTo, SpriteBatch batch, ShapeRenderer shapeRenderer, float length) {
+        super(interFrom, interTo, batch, shapeRenderer, length);
         viewport = new ScalingViewport(Scaling.fill, 1, 1);
     }
 
     @Override
-    public void render(float secondsSinceStart, Interpolation interFrom, Interpolation interTo, float length, ShapeRenderer shapeRenderer) {
-        float progress = TransitionUtils.getProgress(secondsSinceStart, interFrom, interTo, length);
+    public void render(float time) {
+        float progress = getProgress(time, true);
 
         Gdx.gl.glEnable(GL20.GL_BLEND);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
@@ -33,7 +35,6 @@ public class TransitionFade implements Transition {
         shapeRenderer.end();
 
         Gdx.gl.glDisable(GL20.GL_BLEND);
-
     }
 
     @Override

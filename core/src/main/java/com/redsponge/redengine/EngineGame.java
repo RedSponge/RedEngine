@@ -16,6 +16,7 @@ import com.redsponge.redengine.exceptions.IncompatibleScreenException;
 import com.redsponge.redengine.screen.AbstractScreen;
 import com.redsponge.redengine.transitions.Transition;
 import com.redsponge.redengine.transitions.TransitionManager;
+import com.redsponge.redengine.transitions.TransitionTextures;
 import com.redsponge.redengine.utils.Discord;
 import com.redsponge.redengine.utils.GameAccessor;
 import com.redsponge.redengine.utils.Logger;
@@ -58,7 +59,7 @@ public abstract class EngineGame extends Game {
         batch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
         ga = new GameAccessor(this);
-        transitionManager = new TransitionManager(this, shapeRenderer);
+        transitionManager = new TransitionManager(this);
 
         transitionManager.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
@@ -118,8 +119,8 @@ public abstract class EngineGame extends Game {
      * @param interFrom The interpolation in the 1st half
      * @param interTo The interpolation in the 2nd half
      */
-    public void transitionToScreen(AbstractScreen screen, Transition transition, float length, Interpolation interFrom, Interpolation interTo) {
-        transitionManager.startTransition(screen, transition, length, interFrom, interTo);
+    public void transitionToScreen(AbstractScreen screen, Transition transition) {
+        transitionManager.startTransition(screen, transition);
         transitionManager.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
 

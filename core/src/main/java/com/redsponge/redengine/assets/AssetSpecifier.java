@@ -40,7 +40,6 @@ public class AssetSpecifier implements Disposable {
 
     public void postLoad() {
         for (Field field : this.getClass().getDeclaredFields()) {
-            System.out.println(field);
             AtlasFrame atlasFrame = field.getAnnotation(AtlasFrame.class);
             AtlasAnimation atlasAnimation = field.getAnnotation(AtlasAnimation.class);
 

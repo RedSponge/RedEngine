@@ -1,6 +1,5 @@
 package com.redsponge.redengine;
 
-import com.redsponge.redengine.screen.DefaultScreen;
 import com.redsponge.test.TestScreen;
 
 import java.util.function.BiConsumer;

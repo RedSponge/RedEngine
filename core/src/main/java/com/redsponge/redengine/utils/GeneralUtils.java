@@ -1,9 +1,11 @@
 package com.redsponge.redengine.utils;
 
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 
@@ -97,5 +99,14 @@ public class GeneralUtils {
             frames.add(atlas.findRegion(name, i + startsWith));
         }
         return new Animation<TextureRegion>(duration, frames, playMode);
+    }
+
+    public static ShaderProgram tryLoadShader(FileHandle vertex, FileHandle fragment) {
+        ShaderProgram shader = new ShaderProgram(vertex, fragment);
+        if(!shader.isCompiled()) {
+            shader.dispose();
+            throw new RuntimeException("Couldn't Load Shader! Log:\n" + shader.getLog() + "\n");
+        }
+        return shader;
     }
 }

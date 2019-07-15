@@ -1,15 +1,20 @@
 package com.redsponge.test;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.redsponge.redengine.assets.AssetSpecifier;
+import com.redsponge.redengine.render.util.NoiseGenerator;
 import com.redsponge.redengine.screen.AbstractScreen;
+import com.redsponge.redengine.transitions.Transitions;
 import com.redsponge.redengine.utils.GameAccessor;
 
 public class TestScreen extends AbstractScreen {
 
     private FitViewport viewport;
+    private Texture noise;
 
     public TestScreen(GameAccessor ga) {
         super(ga);
@@ -21,11 +26,15 @@ public class TestScreen extends AbstractScreen {
 
         addEntity(new Player(batch, shapeRenderer));
         addEntity(new Background(batch, shapeRenderer));
+        noise = NoiseGenerator.createNoiseTexture(640, 360);
     }
 
     @Override
     public void tick(float delta) {
         tickEntities(delta);
+        if(Gdx.input.isKeyPressed(Keys.SPACE) && !transitioning) {
+            ga.transitionTo(new TestSc2(ga), Transitions.linearTest(3, batch, shapeRenderer));
+        }
     }
 
     @Override
@@ -38,6 +47,7 @@ public class TestScreen extends AbstractScreen {
 
         batch.begin();
         renderEntities();
+        batch.draw(noise, 0, 0);
         batch.end();
     }
 

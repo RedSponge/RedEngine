@@ -12,15 +12,8 @@ import com.redsponge.redengine.utils.Logger;
 public class TransitionManager {
 
     private Transition transition;
-
-    private Interpolation interFrom, interTo;
-
     private AbstractScreen pendingScreen;
 
-    private ShapeRenderer shapeRenderer;
-
-    private long transitionBegin;
-    private float length;
 
     private boolean switched;
     private boolean transitioning;
@@ -30,9 +23,8 @@ public class TransitionManager {
 
     private EngineGame game;
 
-    public TransitionManager(EngineGame game, ShapeRenderer shapeRenderer) {
+    public TransitionManager(EngineGame game) {
         this.game = game;
-        this.shapeRenderer = shapeRenderer;
     }
 
     public void render(float delta) {
@@ -43,7 +35,7 @@ public class TransitionManager {
         float timeSince = timeCounter;
 
 
-        if(timeSince > length / 2 && !switched) {
+        if(timeSince > transition.getLength() / 2 && !switched) {
             Logger.log(this, "Transition Switched!!");
             game.setScreen(pendingScreen);
             switched = true;
@@ -53,7 +45,7 @@ public class TransitionManager {
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         }
 
-        if(timeSince > length && transitioning) {
+        if(transition.isDone(timeSince) && transitioning) {
             transition.dispose();
             transition = null;
             transitioning = false;
@@ -61,7 +53,7 @@ public class TransitionManager {
         }
 
         if(transition != null) {
-            transition.render(timeSince, interFrom, interTo, length, shapeRenderer);
+            transition.render(timeSince);
         }
     }
 
@@ -69,15 +61,11 @@ public class TransitionManager {
         shouldProcessExit = true;
     }
 
-    public void startTransition(AbstractScreen next, Transition transition, float length, Interpolation interFrom, Interpolation interTo) {
+    public void startTransition(AbstractScreen next, Transition transition) {
         this.pendingScreen = next;
         this.transition = transition;
-        this.length = length;
-        this.transitionBegin = TimeUtils.nanoTime();
         this.switched = false;
         this.transitioning = true;
-        this.interFrom = interFrom;
-        this.interTo = interTo;
         this.shouldProcessExit = false;
         this.timeCounter = 0;
     }
