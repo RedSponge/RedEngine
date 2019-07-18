@@ -59,6 +59,7 @@ public abstract class EngineGame extends Game {
         batch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
         ga = new GameAccessor(this);
+
         transitionManager = new TransitionManager(this);
 
         transitionManager.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -115,9 +116,6 @@ public abstract class EngineGame extends Game {
      * Sets a transition to a new screen
      * @param screen The new screen to be displayed
      * @param transition The transition to use
-     * @param length The length of the transition
-     * @param interFrom The interpolation in the 1st half
-     * @param interTo The interpolation in the 2nd half
      */
     public void transitionToScreen(AbstractScreen screen, Transition transition) {
         transitionManager.startTransition(screen, transition);
@@ -194,5 +192,6 @@ public abstract class EngineGame extends Game {
         batch.dispose();
         shapeRenderer.dispose();
         am.clear();
+        TransitionTextures.disposeInstance();
     }
 }

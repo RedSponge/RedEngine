@@ -21,13 +21,17 @@ public class Transitions {
         return new FadeTransition(Interpolation.linear, Interpolation.linear, batch, shapeRenderer, length);
     }
 
-    public static Transition expCircle(float length, SpriteBatch batch, ShapeRenderer shapeRenderer) {
+    public static Transition sineCircle(float length, SpriteBatch batch, ShapeRenderer shapeRenderer) {
         return new TextureTransition(Interpolation.sineIn, Interpolation.sineIn, batch, shapeRenderer, length, TransitionTextures.getInstance().circleIn, false);
     }
 
-
-    public static Transition linearTest(float length, SpriteBatch batch, ShapeRenderer shapeRenderer) {
-        return new TextureTransition(Interpolation.linear, Interpolation.linear, batch, shapeRenderer, length, TransitionTextures.getInstance().test);
+    public static Transition sineRadial(float length, SpriteBatch batch, ShapeRenderer shapeRenderer) {
+        return new TextureTransition(Interpolation.sineIn, Interpolation.sineIn, batch, shapeRenderer, length, TransitionTextures.getInstance().radial);
     }
+
+
+//    public static Transition linearTest(float length, SpriteBatch batch, ShapeRenderer shapeRenderer) {
+//        return new TextureTransition(Interpolation.linear, Interpolation.linear, batch, shapeRenderer, length, TransitionTextures.getInstance().test);
+//    }
 
 }

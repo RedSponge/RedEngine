@@ -33,7 +33,7 @@ public class TestScreen extends AbstractScreen {
     public void tick(float delta) {
         tickEntities(delta);
         if(Gdx.input.isKeyPressed(Keys.SPACE) && !transitioning) {
-            ga.transitionTo(new TestSc2(ga), Transitions.linearTest(3, batch, shapeRenderer));
+            ga.transitionTo(new TestSc2(ga), Transitions.sineSlide(1, batch, shapeRenderer));
         }
     }
 

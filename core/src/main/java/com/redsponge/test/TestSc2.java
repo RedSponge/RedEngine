@@ -56,7 +56,7 @@ public class TestSc2 extends AbstractScreen {
         batch.setProjectionMatrix(viewport.getCamera().combined);
 
         batch.begin();
-        batch.draw(fb.getColorBufferTexture(), 0, 0, 50, 50);
+//        batch.draw(fb.getColorBufferTexture(), 0, 0, 50, 50);
         batch.end();
     }
 
