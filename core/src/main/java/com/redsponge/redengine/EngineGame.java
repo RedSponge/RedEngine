@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Interpolation;
 import com.redsponge.redengine.assets.AssetSpecifier;
 import com.redsponge.redengine.assets.Fonts;
 import com.redsponge.redengine.desktop.DesktopUtil;
@@ -19,8 +18,7 @@ import com.redsponge.redengine.transitions.TransitionManager;
 import com.redsponge.redengine.transitions.TransitionTextures;
 import com.redsponge.redengine.utils.Discord;
 import com.redsponge.redengine.utils.GameAccessor;
-import com.redsponge.redengine.utils.Logger;
-import com.redsponge.redengine.utils.ScreenFiller;
+import com.redsponge.redengine.render.util.ScreenFiller;
 
 import java.util.function.BiConsumer;
 

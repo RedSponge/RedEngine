@@ -16,6 +16,7 @@ public class TestScreen extends AbstractScreen {
     private FitViewport viewport;
     private Texture noise;
 
+
     public TestScreen(GameAccessor ga) {
         super(ga);
     }
@@ -42,12 +43,8 @@ public class TestScreen extends AbstractScreen {
         Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        viewport.apply();
-        batch.setProjectionMatrix(viewport.getCamera().combined);
-
         batch.begin();
         renderEntities();
-        batch.draw(noise, 0, 0);
         batch.end();
     }
 

@@ -22,5 +22,4 @@ public class TestSpecs extends AssetSpecifier {
 
     @Asset("test/untitled.png")
     private Texture background;
-
 }

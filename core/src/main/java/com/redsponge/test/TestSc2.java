@@ -11,7 +11,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.redsponge.redengine.assets.AssetSpecifier;
 import com.redsponge.redengine.screen.AbstractScreen;
 import com.redsponge.redengine.utils.GameAccessor;
-import com.redsponge.redengine.utils.ScreenFiller;
 
 public class TestSc2 extends AbstractScreen {
 

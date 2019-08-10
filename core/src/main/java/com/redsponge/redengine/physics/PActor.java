@@ -9,6 +9,8 @@ import com.redsponge.redengine.utils.MathUtilities;
  * An actor in the world, must never overlap a solid
  */
 public class PActor extends PEntity {
+
+    protected boolean collidable;
     private float remainderX, remainderY;
 
     public PActor(PhysicsWorld worldIn) {

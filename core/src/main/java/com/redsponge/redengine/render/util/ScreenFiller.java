@@ -1,4 +1,4 @@
-package com.redsponge.redengine.utils;
+package com.redsponge.redengine.render.util;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;

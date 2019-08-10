@@ -17,7 +17,7 @@ public class TransitionTextures {
     public final Texture dissolve;
     public final Texture circleOut;
     public final Texture circleIn;
-//    public final Texture test;
+
     public Texture radial;
 
     private TransitionTextures() {
@@ -28,7 +28,6 @@ public class TransitionTextures {
         circleIn = new Texture("transition/circleIn.png");
         radial = new Texture("transition/radial.png");
 
-//        test = new Texture("transition/test.png");
     }
 
     private static TransitionTextures instance;;

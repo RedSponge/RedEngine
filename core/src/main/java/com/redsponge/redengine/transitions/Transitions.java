@@ -29,9 +29,4 @@ public class Transitions {
         return new TextureTransition(Interpolation.sineIn, Interpolation.sineIn, batch, shapeRenderer, length, TransitionTextures.getInstance().radial);
     }
 
-
-//    public static Transition linearTest(float length, SpriteBatch batch, ShapeRenderer shapeRenderer) {
-//        return new TextureTransition(Interpolation.linear, Interpolation.linear, batch, shapeRenderer, length, TransitionTextures.getInstance().test);
-//    }
-
 }
