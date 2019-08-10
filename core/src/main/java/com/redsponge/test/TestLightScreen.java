@@ -17,7 +17,7 @@ public class TestLightScreen extends AbstractScreen {
 
     @Override
     public void show() {
-        ls = new LightSystem()
+        ls = new LightSystem();
     }
 
     @Override
