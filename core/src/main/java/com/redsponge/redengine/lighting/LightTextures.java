@@ -3,6 +3,9 @@ package com.redsponge.redengine.lighting;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Disposable;
 
+/**
+ * A class containing all textures related to light
+ */
 public class LightTextures implements Disposable {
 
     private static LightTextures instance;

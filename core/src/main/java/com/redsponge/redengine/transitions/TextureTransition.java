@@ -8,6 +8,9 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 
+/**
+ * A transition using a black-to-white texture to determine its pattern
+ */
 public class TextureTransition extends Transition {
 
     private Texture texture;

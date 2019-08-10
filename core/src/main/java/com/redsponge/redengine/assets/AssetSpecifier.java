@@ -13,6 +13,10 @@ import com.redsponge.redengine.utils.Logger;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 
+/**
+ * Specifies the assets that shall be loaded for a certain screen. To use it extend it and write as fields with
+ * {@link Asset} annotations what you wish to load.
+ */
 public class AssetSpecifier implements Disposable {
 
     private AssetManager am;
@@ -28,6 +32,9 @@ public class AssetSpecifier implements Disposable {
         atlasCuts = new HashMap<>();
     }
 
+    /**
+     * Loads all assets from this class's fields
+     */
     public void load() {
         for (Field field : this.getClass().getDeclaredFields()) {
             Asset assetAnnotation = field.getAnnotation(Asset.class);

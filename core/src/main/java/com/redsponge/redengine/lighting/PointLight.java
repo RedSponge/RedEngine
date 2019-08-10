@@ -4,6 +4,9 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
+/**
+ * A point-light implementation of the light, draws a circle shape with a defined radius.
+ */
 public class PointLight implements Light {
 
     public final Vector2 pos;

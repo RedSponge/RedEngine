@@ -41,6 +41,9 @@ public class LightSystem {
         tempState = new SpriteBatchState();
     }
 
+    /**
+     * Draws on the light-map to prepare it for rendering
+     */
     public void prepareMap() {
         lightMap.begin();
 
@@ -54,6 +57,9 @@ public class LightSystem {
         lightMap.end();
     }
 
+    /**
+     * Renders the light-map onto the screen with the correct blending, requires batch to be stopped
+     */
     public void renderToScreen() {
         tempState.extractState(batch);
 

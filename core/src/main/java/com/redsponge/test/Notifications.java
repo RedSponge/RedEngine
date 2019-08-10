@@ -1,5 +1,8 @@
 package com.redsponge.test;
 
+/**
+ * Constant notifications class
+ */
 public class Notifications {
 
     public static final int PLAYER_MOVE_RIGHT = 1;

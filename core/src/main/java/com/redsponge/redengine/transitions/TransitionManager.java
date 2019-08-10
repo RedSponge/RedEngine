@@ -2,13 +2,13 @@ package com.redsponge.redengine.transitions;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.utils.TimeUtils;
 import com.redsponge.redengine.EngineGame;
 import com.redsponge.redengine.screen.AbstractScreen;
 import com.redsponge.redengine.utils.Logger;
 
+/**
+ * The transition manager, renders and handles screen switches with transitions
+ */
 public class TransitionManager {
 
     private Transition transition;
