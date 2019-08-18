@@ -29,6 +29,7 @@ public class SpriteBatchState {
     }
 
     public SpriteBatchState() {
+        color = new Color();
     }
 
     /**
@@ -54,7 +55,7 @@ public class SpriteBatchState {
      */
     public SpriteBatchState extractState(SpriteBatch batch) {
         shaderProgram = batch.getShader();
-        color = batch.getColor();
+        color.set(batch.getColor());
         projectionMatrix = batch.getProjectionMatrix();
         transformMatrix = batch.getTransformMatrix();
 

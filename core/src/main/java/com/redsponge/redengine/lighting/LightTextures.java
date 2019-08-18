@@ -17,14 +17,20 @@ public class LightTextures implements Disposable {
         return instance;
     }
 
-    public final Texture pointLight;
+    public final Texture featheredPointLight;
+    public final Texture flatPointLight;
+    public final Texture starPointLight;
 
     private LightTextures() {
-        pointLight = new Texture("light/point_light.png");
+        featheredPointLight = new Texture("light/feathered_point_light.png");
+        flatPointLight = new Texture("light/flat_point_light.png");
+        starPointLight = new Texture("light/star_point_light.png");
     }
 
     public void dispose() {
-        pointLight.dispose();
+        featheredPointLight.dispose();
+        flatPointLight.dispose();
+        starPointLight.dispose();
     }
 
     public static void disposeAssets() {

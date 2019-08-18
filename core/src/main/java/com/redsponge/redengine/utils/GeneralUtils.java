@@ -109,4 +109,11 @@ public class GeneralUtils {
         }
         return shader;
     }
+
+    /**
+     * Prints the stacktrace to this call
+     */
+    public static void showStackTrace() {
+        new Exception().printStackTrace();
+    }
 }
