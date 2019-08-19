@@ -6,8 +6,12 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.DelayedRemovalArray;
 import com.redsponge.redengine.assets.AssetSpecifier;
 import com.redsponge.redengine.utils.GameAccessor;
+import com.redsponge.redengine.utils.GeneralUtils;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.stream.Stream;
 
 public abstract class AbstractScreen extends ScreenAdapter implements INotified {
 
@@ -21,6 +25,8 @@ public abstract class AbstractScreen extends ScreenAdapter implements INotified 
     private DelayedRemovalArray<ScreenEntity> entities;
     private DelayedRemovalArray<INotified> notifiedEntities;
 
+    private HashMap<Class<? extends ScreenSystem>, ScreenSystem> screenSystems;
+
     private Comparator<ScreenEntity> zComparator = Comparator.comparingInt(ScreenEntity::getZ);
 
     public AbstractScreen(GameAccessor ga) {
@@ -30,6 +36,7 @@ public abstract class AbstractScreen extends ScreenAdapter implements INotified 
 
         this.entities = new DelayedRemovalArray<>();
         this.notifiedEntities = new DelayedRemovalArray<>();
+        this.screenSystems = new HashMap<>();
     }
 
     public void addEntity(ScreenEntity entity) {
@@ -41,6 +48,7 @@ public abstract class AbstractScreen extends ScreenAdapter implements INotified 
         entity.setScreen(this);
         entity.setAssets(assets);
         this.entities.sort(zComparator);
+        entity.added();
     }
 
     public void removeEntity(ScreenEntity entity) {
@@ -50,6 +58,23 @@ public abstract class AbstractScreen extends ScreenAdapter implements INotified 
         }
         entity.removed();
         this.entities.sort(zComparator);
+    }
+
+    public <T extends ScreenSystem> void addSystem(Class<T> system, Object... args) {
+        try {
+            T sys = system.getConstructor(Stream.of(args).map(Object::getClass).map(GeneralUtils::replaceWrappersWithPrimitives).toArray(Class[]::new)).newInstance(args);
+            screenSystems.put(system, sys);
+        } catch (ReflectiveOperationException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public <T extends ScreenSystem> T getSystem(Class<T> system) {
+        return (T) screenSystems.get(system);
+    }
+
+    public void removeSystem(Class<? extends ScreenSystem> system) {
+        screenSystems.remove(system).dispose();
     }
 
     @Override
@@ -111,6 +136,14 @@ public abstract class AbstractScreen extends ScreenAdapter implements INotified 
 
     public void setAssets(AssetSpecifier assets) {
         this.assets = assets;
+    }
+
+    public ShapeRenderer getShapeRenderer() {
+        return shapeRenderer;
+    }
+
+    public SpriteBatch getBatch() {
+        return batch;
     }
 
     public void unloadAssetHolder() {

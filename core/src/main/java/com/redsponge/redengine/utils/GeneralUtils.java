@@ -11,7 +11,11 @@ import com.badlogic.gdx.utils.TimeUtils;
 
 import com.badlogic.gdx.utils.Array;
 import java.lang.reflect.Field;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * General utility methods
@@ -19,6 +23,23 @@ import java.util.Random;
 public class GeneralUtils {
 
     private static final Random random = new Random();
+
+    private static final HashMap<Class<?>, Class<?>> PRIMITIVES = new HashMap<>();
+
+    static {
+        PRIMITIVES.put(Integer.class, int.class);
+        PRIMITIVES.put(Double.class, double.class);
+        PRIMITIVES.put(Float.class, float.class);
+        PRIMITIVES.put(Boolean.class, boolean.class);
+        PRIMITIVES.put(Byte.class, byte.class);
+        PRIMITIVES.put(Long.class, long.class);
+        PRIMITIVES.put(Short.class, short.class);
+        PRIMITIVES.put(Character.class, char.class);
+    }
+
+    public static Class<?> replaceWrappersWithPrimitives(Class<?> c) {
+        return PRIMITIVES.getOrDefault(c, c);
+    }
 
     public static float secondsSince(long time) {
         return (TimeUtils.nanoTime() - time) / 1000000000f;

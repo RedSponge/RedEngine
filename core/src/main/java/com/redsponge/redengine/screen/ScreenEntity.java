@@ -3,6 +3,7 @@ package com.redsponge.redengine.screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.redsponge.redengine.assets.AssetSpecifier;
+import com.redsponge.redengine.utils.Logger;
 
 public abstract class ScreenEntity {
 
@@ -27,6 +28,13 @@ public abstract class ScreenEntity {
 
     public final void remove() {
         screen.removeEntity(this);
+    }
+
+    /**
+     * Called when the entity is added to the screen.
+     */
+    public void added() {
+        Logger.log(this, "Default Added Method");
     }
 
     public abstract void tick(float delta);

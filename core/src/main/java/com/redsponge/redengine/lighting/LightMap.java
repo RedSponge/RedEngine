@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.utils.DelayedRemovalArray;
 import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.redsponge.redengine.render.util.SpriteBatchState;
 
 public class LightMap implements Disposable {
@@ -40,7 +41,7 @@ public class LightMap implements Disposable {
         lights.removeValue(light, true);
     }
 
-    public void prepareMap(LightSystem ls, SpriteBatch batch) {
+    public void prepareMap(LightSystem ls, SpriteBatch batch, Viewport renderedViewport) {
         tmpState.extractState(batch);
 
         map.begin();
@@ -49,7 +50,7 @@ public class LightMap implements Disposable {
 
         batch.begin();
         for (Light light : lights) {
-            light.render(ls, batch);
+            light.render(ls, batch, renderedViewport);
         }
         batch.end();
 
@@ -65,8 +66,9 @@ public class LightMap implements Disposable {
         batch.setProjectionMatrix(ls.getDrawingViewport().getCamera().combined);
 
         batch.setBlendFunction(lightType.getSrcBlend(), lightType.getDstBlend());
+
         batch.begin();
-        batch.draw(tr, 0, 0);
+        batch.draw(tr, 0, 0, tr.getRegionWidth(), tr.getRegionHeight());
         batch.end();
 
         tmpState.applyState(batch);

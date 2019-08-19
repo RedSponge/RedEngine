@@ -4,11 +4,14 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
+import com.redsponge.redengine.screen.AbstractScreen;
+import com.redsponge.redengine.screen.ScreenSystem;
 import com.redsponge.redengine.utils.Logger;
 
 import java.util.HashMap;
 
-public class LightSystem implements Disposable {
+public class LightSystem implements ScreenSystem {
 
     private static final Color DEFAULT_AMBIANCE_COLOR = new Color(0, 0, 0, 0);
 
@@ -48,9 +51,13 @@ public class LightSystem implements Disposable {
 
     /**
      * Draws on the light-map to prepare it for rendering
+     * @param lightType The type of the map to use, must be registered
+     * @param renderedViewport The regularly used viewport, its camera positions will be used for
+     *                         transforming the positions of the light
      */
-    public void prepareMap(LightType lightType) {
-        lightMaps.get(lightType).prepareMap(this, batch);
+    public void prepareMap(LightType lightType, Viewport renderedViewport) {
+        drawingViewport.apply();
+        lightMaps.get(lightType).prepareMap(this, batch, renderedViewport);
     }
 
     public FitViewport getDrawingViewport() {
@@ -61,6 +68,8 @@ public class LightSystem implements Disposable {
      * Renders the light-map onto the screen with the correct blending, requires batch to be stopped
      */
     public void renderToScreen(LightType lightType) {
+        drawingViewport.apply();
+        batch.setProjectionMatrix(drawingViewport.getCamera().combined);
         lightMaps.get(lightType).renderMap(this, batch);
     }
 

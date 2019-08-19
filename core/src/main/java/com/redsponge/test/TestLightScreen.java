@@ -1,6 +1,7 @@
 package com.redsponge.test;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -23,8 +24,8 @@ public class TestLightScreen extends AbstractScreen implements InputProcessor {
     private PointLight light;
     private PointLight innerLight;
 
-    private static final int WIDTH = 320 * 2;
-    private static final int HEIGHT = 180 * 2;
+    private static final int WIDTH = 320;
+    private static final int HEIGHT = 180;
 
     private Texture sad;
 
@@ -35,20 +36,26 @@ public class TestLightScreen extends AbstractScreen implements InputProcessor {
     @Override
     public void show() {
         viewport = new FitViewport(WIDTH, HEIGHT);
-        ls = new LightSystem(WIDTH, HEIGHT, batch);
 
-        light = new PointLight(50, 50, 200, LightTextures.getInstance().starPointLight);
+        addSystem(LightSystem.class, WIDTH, HEIGHT, batch);
+        ls = getSystem(LightSystem.class);
+
+        light = new PointLight(200, 100, 200, LightTextures.getInstance().starPointLight);
         light.getColor().set(1, 1, 1, 1);
 
-        innerLight = new PointLight(50, 50, 100, LightTextures.getInstance().starPointLight);
-        innerLight.getColor().set(0.5f, 0.5f, 0.5f, 1);
+        innerLight = new PointLight(200, 100, 100, LightTextures.getInstance().featheredPointLight);
+        innerLight.getColor().set(0.8f, 0.8f, 0.8f, 0.8f);
 
-        ls.registerLightType(LightType.MULTIPLICATIVE);
-        ls.setAmbianceColor(new Color(0.1f, 0.1f, 0.2f, 1.0f), LightType.MULTIPLICATIVE);
-        ls.addLight(light, LightType.MULTIPLICATIVE);
+
 
         ls.registerLightType(LightType.ADDITIVE);
         ls.addLight(innerLight, LightType.ADDITIVE);
+
+        ls.registerLightType(LightType.MULTIPLICATIVE);
+        ls.setAmbianceColor(new Color(0.3f, 0.3f, 0.3f, 1.0f), LightType.MULTIPLICATIVE);
+        ls.addLight(light, LightType.MULTIPLICATIVE);
+
+        addEntity(new EntityDude(batch, shapeRenderer));
 
         sad = assets.get("sad", Texture.class);
         Gdx.input.setInputProcessor(this);
@@ -56,12 +63,11 @@ public class TestLightScreen extends AbstractScreen implements InputProcessor {
 
     @Override
     public void tick(float delta) {
-        int x = Gdx.input.getX();
-        int y = Gdx.input.getY();
+        if(Gdx.input.isKeyPressed(Keys.SPACE)) {
+            viewport.getCamera().position.x += 5;
+        }
 
-
-        viewport.unproject(light.pos.set(x, y));
-        innerLight.pos.set(light.pos);
+        tickEntities(delta);
     }
 
     @Override
@@ -74,12 +80,15 @@ public class TestLightScreen extends AbstractScreen implements InputProcessor {
         batch.setProjectionMatrix(viewport.getCamera().combined);
         batch.begin();
         batch.draw(sad, 0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
+
+        renderEntities();
         batch.end();
 
-        ls.prepareMap(LightType.MULTIPLICATIVE);
-        ls.renderToScreen(LightType.MULTIPLICATIVE);
 
-        ls.prepareMap(LightType.ADDITIVE);
+        ls.prepareMap(LightType.MULTIPLICATIVE, viewport);
+        ls.prepareMap(LightType.ADDITIVE, viewport);
+
+        ls.renderToScreen(LightType.MULTIPLICATIVE);
         ls.renderToScreen(LightType.ADDITIVE);
     }
 

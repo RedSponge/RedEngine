@@ -13,4 +13,7 @@ public class TestScreenLightAssets extends AssetSpecifier {
 
     @Asset("masking/sad.png")
     private Texture sad;
+
+    @Asset("masking/happy.png")
+    private Texture happy;
 }
