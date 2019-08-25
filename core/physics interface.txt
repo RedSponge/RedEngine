@@ -1,0 +1,50 @@
+private PBody body;
+private PShape shp;
+private PhysicsSystem ps;
+
+create:
+	body = new PBody(this);
+
+	body.setType(BodyType.ACTOR);
+	body.setType(BodyType.SOLID);
+
+	shp = new Circle();
+	shp.rad = 20;
+	body.setShape(shp);
+
+	ps = screen.getSystem(PhysicsSystem.class);
+	body.setPosition(100, 100);
+	body.setCollisionHandler(this::onCollide);
+	body.setIsCollidableChecker(this::canCollide);
+	ps.addBody(body);
+
+
+private void onCollide(Body self, Body other) {
+    if(other.userData == TYPE_FLOOR) {
+        onGround = true;
+    }
+}
+
+private boolean canCollide(Body self, Body other) {
+    if(other.getEntity instanceof Platform) {
+        return true;
+    }
+    return false;
+}
+
+when a body wishes to move:
+    do while movement.
+        if touches something:
+            body.onCollide(body, other);
+            other.onCollide(other, body);
+
+            if allowed to collide (a.canCollide && b.canCollide):
+                stop moving
+
+
+if a.canCollide(b) && b.canCollide(a) {
+    // resolve collision!
+}
+
+a.onCollide(a, b);
+b.onCollide(b, a);

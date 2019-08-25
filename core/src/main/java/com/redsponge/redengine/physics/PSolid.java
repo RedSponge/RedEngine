@@ -1,8 +1,6 @@
 package com.redsponge.redengine.physics;
 
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
-import com.redsponge.redengine.utils.GeneralUtils;
 import com.redsponge.redengine.utils.MathUtilities;
 
 /**

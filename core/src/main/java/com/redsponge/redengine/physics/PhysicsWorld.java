@@ -1,6 +1,5 @@
 package com.redsponge.redengine.physics;
 
-import com.badlogic.gdx.utils.Array.ArrayIterator;
 import com.badlogic.gdx.utils.DelayedRemovalArray;
 
 public class PhysicsWorld {

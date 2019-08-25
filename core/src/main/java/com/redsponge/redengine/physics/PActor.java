@@ -1,6 +1,5 @@
 package com.redsponge.redengine.physics;
 
-import com.redsponge.redengine.utils.GeneralUtils;
 import com.redsponge.redengine.utils.IntVector2;
 import com.redsponge.redengine.utils.Logger;
 import com.redsponge.redengine.utils.MathUtilities;
