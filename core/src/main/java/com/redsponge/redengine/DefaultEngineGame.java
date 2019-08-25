@@ -1,7 +1,6 @@
 package com.redsponge.redengine;
 
 import com.redsponge.test.TestLightScreen;
-import com.redsponge.test.TestPhysicsScreen;
 
 import java.util.function.BiConsumer;
 
@@ -13,6 +12,6 @@ public class DefaultEngineGame extends EngineGame {
 
     @Override
     public void init() {
-        setScreen(new TestPhysicsScreen(ga));
+        setScreen(new TestLightScreen(ga));
     }
 }
