@@ -63,7 +63,7 @@ public class PActor extends PEntity {
                     move -= sign;
                 } else {
                     // Collided With A Solid!
-                    Logger.log(this, "Collision!");
+//                    Logger.log(this, "Collision!");
                     if(onCollide != null) {
                         onCollide.run();
                     }
