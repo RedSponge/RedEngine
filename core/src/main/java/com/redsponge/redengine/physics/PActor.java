@@ -34,7 +34,7 @@ public class PActor extends PEntity {
                     move -= sign;
                 } else {
                     // Collided With A Solid!
-                    Logger.log(this, "Collision!");
+//                    Logger.log(this, "Collision!");
                     if(onCollide != null) {
                         onCollide.run();
                     }
@@ -92,7 +92,7 @@ public class PActor extends PEntity {
      * @param pos The checking position
      * @return The first solid the actor will collide with when in this position. null if none
      */
-    protected PSolid collideFirst(IntVector2 pos) {
+    public PSolid collideFirst(IntVector2 pos) {
         for(PSolid solid : worldIn.getSolids()) {
             if(solid.isCollidable() && MathUtilities.rectanglesIntersect(pos, this.size, solid.pos, solid.size)) {
                 return solid;

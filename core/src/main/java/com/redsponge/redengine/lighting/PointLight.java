@@ -34,7 +34,7 @@ public class PointLight implements Light {
     @Override
     public void render(LightSystem ls, SpriteBatch batch, Viewport viewport) {
         transformPositionByViewport(viewport, pos, tmpPos);
-        Logger.log(this, radius, tmpPos);
+//        Logger.log(this, radius, tmpPos);
 
         batch.setColor(color);
         batch.draw(texture, tmpPos.x - radius / 2, tmpPos.y - radius / 2, radius, radius);
