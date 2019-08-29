@@ -56,6 +56,9 @@ public class PSolid extends PEntity {
             }
 
             if(moveY != 0) {
+                remainderY -= moveY;
+                pos.y +=  moveY;
+
                 if (moveY > 0) {
                     for (PActor actor : worldIn.getActors()) {
                         if (MathUtilities.rectanglesIntersect(this.pos, this.size, actor.pos, actor.size)) {
