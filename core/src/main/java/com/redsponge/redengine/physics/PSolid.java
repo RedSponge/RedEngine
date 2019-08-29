@@ -60,7 +60,8 @@ public class PSolid extends PEntity {
                 pos.y +=  moveY;
 
                 if (moveY > 0) {
-                    for (PActor actor : worldIn.getActors()) {
+                    for (int i = 0; i < worldIn.getActors().size; i++) {
+                        PActor actor = worldIn.getActors().get(i);
                         if (MathUtilities.rectanglesIntersect(this.pos, this.size, actor.pos, actor.size)) {
                             actor.moveY(this.pos.y + this.size.y - actor.pos.y, actor::squish); // Push
                         } else if (ridingActors.contains(actor, true)) {
@@ -68,7 +69,8 @@ public class PSolid extends PEntity {
                         }
                     }
                 } else {
-                    for (PActor actor : worldIn.getActors()) {
+                    for (int i = 0; i < worldIn.getActors().size; i++) {
+                        PActor actor = worldIn.getActors().get(i);
                         if (MathUtilities.rectanglesIntersect(this.pos, this.size, actor.pos, actor.size)) {
                             actor.moveY(this.pos.y - (actor.pos.y + actor.size.y), actor::squish); // Push
                         } else if (ridingActors.contains(actor, true)) {

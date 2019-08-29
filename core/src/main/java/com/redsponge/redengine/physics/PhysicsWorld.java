@@ -41,7 +41,8 @@ public class PhysicsWorld {
             }
         }
 
-        for(PSolid solid : solids) {
+        for (int i = 0; i < solids.size; i++) {
+            PSolid solid = solids.get(i);
             if(solid instanceof IUpdated) {
                 ((IUpdated) solid).update(delta);
             }
