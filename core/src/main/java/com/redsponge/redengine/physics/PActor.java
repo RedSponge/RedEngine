@@ -121,7 +121,7 @@ public class PActor extends PEntity {
      * Called when the actor is squished between two {@link PSolid}s
      * Defaults to destroying the actor
      */
-    public void squish() {
+    public void squish(PSolid solid) {
         Logger.log(this, "Got Squished!");
         this.remove();
     }

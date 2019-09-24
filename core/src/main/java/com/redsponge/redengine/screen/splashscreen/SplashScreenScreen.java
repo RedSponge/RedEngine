@@ -62,7 +62,7 @@ public class SplashScreenScreen extends AbstractScreen {
     }
 
     @Override
-    public void dispose() {
+    public void disposeAssets() {
         splashScreenRenderer.dispose();
     }
 
