@@ -1,4 +1,4 @@
-package com.redsponge.redengine.screen;
+package com.redsponge.redengine.screen.entity;
 
 import com.badlogic.gdx.utils.Disposable;
 

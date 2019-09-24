@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.redsponge.redengine.assets.AssetSpecifier;
 import com.redsponge.redengine.lighting.LightSystem;
-import com.redsponge.redengine.lighting.LightTextures;
+import com.redsponge.redengine.lighting.LightTextures.Point;
 import com.redsponge.redengine.lighting.LightType;
 import com.redsponge.redengine.lighting.PointLight;
 import com.redsponge.redengine.screen.AbstractScreen;
@@ -40,10 +40,10 @@ public class TestLightScreen extends AbstractScreen implements InputProcessor {
         addSystem(LightSystem.class, WIDTH, HEIGHT, batch);
         ls = getSystem(LightSystem.class);
 
-        light = new PointLight(200, 100, 200, LightTextures.getInstance().starPointLight);
+        light = new PointLight(200, 100, 200, Point.star);
         light.getColor().set(1, 1, 1, 1);
 
-        innerLight = new PointLight(200, 100, 100, LightTextures.getInstance().featheredPointLight);
+        innerLight = new PointLight(200, 100, 100, Point.star);
         innerLight.getColor().set(0.8f, 0.8f, 0.8f, 0.8f);
 
 

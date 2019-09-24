@@ -2,11 +2,9 @@ package com.redsponge.redengine.lighting;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.redsponge.redengine.screen.AbstractScreen;
-import com.redsponge.redengine.screen.ScreenSystem;
+import com.redsponge.redengine.screen.entity.ScreenSystem;
 import com.redsponge.redengine.utils.Logger;
 
 import java.util.HashMap;

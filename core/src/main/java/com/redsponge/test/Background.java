@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.redsponge.redengine.screen.INotified;
-import com.redsponge.redengine.screen.ScreenEntity;
+import com.redsponge.redengine.screen.entity.ScreenEntity;
 
 public class Background extends ScreenEntity implements INotified {
 

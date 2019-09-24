@@ -1,11 +1,10 @@
 package com.redsponge.redengine.lighting;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.redsponge.redengine.utils.Logger;
 
 /**
  * A point-light implementation of the light, draws a circle shape with a defined radius.
@@ -18,13 +17,13 @@ public class PointLight implements Light {
     private Color color = Color.WHITE.cpy();
     private float radius;
 
-    private Texture texture;
+    private AtlasRegion texture;
 
     public PointLight(float x, float y, float radius) {
-        this(x, y, radius, LightTextures.getInstance().flatPointLight);
+        this(x, y, radius, LightTextures.Point.flat);
     }
 
-    public PointLight(float x, float y, float radius, Texture texture) {
+    public PointLight(float x, float y, float radius, AtlasRegion texture) {
         this.radius = radius;
         this.texture = texture;
         this.pos = new Vector2(x, y);
@@ -58,11 +57,11 @@ public class PointLight implements Light {
         this.radius = radius;
     }
 
-    public void setTexture(Texture texture) {
+    public void setTexture(AtlasRegion texture) {
         this.texture = texture;
     }
 
-    public Texture getTexture() {
+    public AtlasRegion getTexture() {
         return texture;
     }
 }

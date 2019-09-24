@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.redsponge.redengine.screen.INotified;
-import com.redsponge.redengine.screen.ScreenEntity;
+import com.redsponge.redengine.screen.entity.ScreenEntity;
 
 public class Player extends ScreenEntity implements INotified {
 

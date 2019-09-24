@@ -1,8 +1,10 @@
-package com.redsponge.redengine.screen;
+package com.redsponge.redengine.screen.entity;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.redsponge.redengine.assets.AssetSpecifier;
+import com.redsponge.redengine.screen.AbstractScreen;
+import com.redsponge.redengine.screen.INotified;
 import com.redsponge.redengine.utils.Logger;
 
 public abstract class ScreenEntity {
@@ -12,6 +14,8 @@ public abstract class ScreenEntity {
 
     protected SpriteBatch batch;
     protected ShapeRenderer shapeRenderer;
+
+    private Object tag;
 
     public ScreenEntity(SpriteBatch batch, ShapeRenderer shapeRenderer) {
         this.batch = batch;
@@ -54,6 +58,14 @@ public abstract class ScreenEntity {
     public void setAssets(AssetSpecifier assets) {
         this.assets = assets;
         loadAssets();
+    }
+
+    public Object getTag() {
+        return tag;
+    }
+
+    public void setTag(Object tag) {
+        this.tag = tag;
     }
 
     public AbstractScreen getScreen() {

@@ -13,6 +13,6 @@ public class DefaultEngineGame extends EngineGame {
 
     @Override
     public void init() {
-        setScreen(new TestPScreen(ga));
+        setScreen(new TestLightScreen(ga));
     }
 }

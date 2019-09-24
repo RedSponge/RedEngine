@@ -1,0 +1,18 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+version 'unspecified'
+mainClassName = 'com.redsponge.redengine.texturepacker.RETexturePacker'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
+}

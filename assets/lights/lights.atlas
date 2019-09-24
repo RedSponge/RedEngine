@@ -1,0 +1,47 @@
+
+lights.png
+size: 1024,512
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+point/feathered
+  rotate: false
+  xy: 2, 2
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+point/flat
+  rotate: false
+  xy: 260, 2
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+point/star
+  rotate: false
+  xy: 518, 2
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+
+lights2.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+soft/cone
+  rotate: false
+  xy: 527, 150
+  size: 402, 865
+  orig: 402, 865
+  offset: 0, 0
+  index: -1
+soft/diagonal
+  rotate: false
+  xy: 2, 2
+  size: 523, 1013
+  orig: 523, 1013
+  offset: 0, 0
+  index: -1

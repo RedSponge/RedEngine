@@ -12,6 +12,7 @@ import com.redsponge.redengine.assets.AssetSpecifier;
 import com.redsponge.redengine.assets.Fonts;
 import com.redsponge.redengine.desktop.DesktopUtil;
 import com.redsponge.redengine.exceptions.IncompatibleScreenException;
+import com.redsponge.redengine.lighting.LightTextures;
 import com.redsponge.redengine.screen.AbstractScreen;
 import com.redsponge.redengine.transitions.Transition;
 import com.redsponge.redengine.transitions.TransitionManager;
@@ -52,6 +53,7 @@ public abstract class EngineGame extends Game {
     public final void create() {
         ShaderProgram.pedantic = false;
         ScreenFiller.init();
+        LightTextures.loadAssets();
 
         am = new AssetManager();
         batch = new SpriteBatch();
@@ -62,7 +64,7 @@ public abstract class EngineGame extends Game {
 
         transitionManager.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-        discord = new Discord("571763236807114753", "");
+        discord = new Discord(getDiscordAppId(), getSteamId());
         Fonts.load();
 
         init();
@@ -191,5 +193,14 @@ public abstract class EngineGame extends Game {
         shapeRenderer.dispose();
         am.clear();
         TransitionTextures.disposeInstance();
+        LightTextures.disposeAssets();
+    }
+
+    public String getDiscordAppId() {
+        return "";
+    }
+
+    public String getSteamId() {
+        return "";
     }
 }

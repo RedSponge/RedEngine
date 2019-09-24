@@ -21,7 +21,7 @@ public class PActor extends PEntity {
      * @param x The x amount to move
      * @param onCollide Called when the actor collides with a solid
      */
-    public final void moveX(float x, Runnable onCollide) {
+    public final void moveX(float x, OnCollide onCollide) {
         remainderX += x;
         int move = (int) remainderX;
         if(move != 0) {
@@ -29,14 +29,18 @@ public class PActor extends PEntity {
             int sign = (int) Math.signum(move);
 
             while(move != 0) {
-                if(!collideAt(pos.copy().add(sign, 0))) {
+                pos.add(sign, 0);
+                PSolid col = collideFirst(pos);
+                pos.add(-sign, 0);
+
+                if(col == null) {
                     pos.x += sign;
                     move -= sign;
                 } else {
                     // Collided With A Solid!
 //                    Logger.log(this, "Collision!");
                     if(onCollide != null) {
-                        onCollide.run();
+                        onCollide.onCollide(col);
                     }
                     move = 0; // Break out of the while loop
                 }
@@ -49,7 +53,7 @@ public class PActor extends PEntity {
      * @param y The y amount to move
      * @param onCollide Called when the actor collides with a solid
      */
-    public final void moveY(float y, Runnable onCollide) {
+    public final void moveY(float y, OnCollide onCollide) {
         remainderY += y;
         int move = Math.round(remainderY);
 
@@ -58,14 +62,17 @@ public class PActor extends PEntity {
             int sign = (int) Math.signum(move);
 
             while(move != 0) {
-                if(!collideAt(pos.copy().add(0, sign))) {
+                pos.add(0, sign);
+                PSolid col = collideFirst(pos);
+                pos.add(0, -sign);
+                if(col == null) {
                     pos.y += sign;
                     move -= sign;
                 } else {
                     // Collided With A Solid!
 //                    Logger.log(this, "Collision!");
                     if(onCollide != null) {
-                        onCollide.run();
+                        onCollide.onCollide(col);
                     }
                     move = 0; // Break out of the while loop
                 }

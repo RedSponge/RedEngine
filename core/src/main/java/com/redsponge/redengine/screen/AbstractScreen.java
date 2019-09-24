@@ -5,10 +5,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.DelayedRemovalArray;
 import com.redsponge.redengine.assets.AssetSpecifier;
+import com.redsponge.redengine.screen.entity.ScreenEntity;
+import com.redsponge.redengine.screen.entity.ScreenSystem;
 import com.redsponge.redengine.utils.GameAccessor;
 import com.redsponge.redengine.utils.GeneralUtils;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.stream.Stream;
@@ -60,12 +61,21 @@ public abstract class AbstractScreen extends ScreenAdapter implements INotified 
         this.entities.sort(zComparator);
     }
 
-    public <T extends ScreenSystem> void addSystem(Class<T> system, Object... args) {
+    /**
+     * Adds a new system to the screen
+     * @param system The new system's class
+     * @param args The args for the system's constructor
+     * @param <T> The System's type
+     * @return The newly added system
+     */
+    public <T extends ScreenSystem> T addSystem(Class<T> system, Object... args) {
         try {
             T sys = system.getConstructor(Stream.of(args).map(Object::getClass).map(GeneralUtils::replaceWrappersWithPrimitives).toArray(Class[]::new)).newInstance(args);
             screenSystems.put(system, sys);
+            return sys;
         } catch (ReflectiveOperationException e) {
             e.printStackTrace();
+            return null;
         }
     }
 
@@ -150,6 +160,19 @@ public abstract class AbstractScreen extends ScreenAdapter implements INotified 
         if(assets != null) {
             assets.dispose();
         }
+    }
+
+    @Override
+    public final void dispose() {
+        for (ScreenSystem value : screenSystems.values()) {
+            value.dispose();
+        }
+        screenSystems.clear();
+        disposeAssets();
+    }
+
+    public void disposeAssets() {
+
     }
 
     public abstract Class<? extends AssetSpecifier> getAssetSpecsType();

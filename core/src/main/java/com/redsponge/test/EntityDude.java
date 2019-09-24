@@ -10,8 +10,7 @@ import com.redsponge.redengine.lighting.LightSystem;
 import com.redsponge.redengine.lighting.LightTextures;
 import com.redsponge.redengine.lighting.LightType;
 import com.redsponge.redengine.lighting.PointLight;
-import com.redsponge.redengine.screen.ScreenEntity;
-import com.redsponge.redengine.utils.Logger;
+import com.redsponge.redengine.screen.entity.ScreenEntity;
 
 public class EntityDude extends ScreenEntity {
 
@@ -33,10 +32,10 @@ public class EntityDude extends ScreenEntity {
 
         ls = screen.getSystem(LightSystem.class);
 
-        light = new PointLight(50, 50, 100, LightTextures.getInstance().featheredPointLight);
+        light = new PointLight(50, 50, 100, LightTextures.Point.feathered);
         ls.addLight(light, LightType.MULTIPLICATIVE);
 
-        innerLight = new PointLight(50, 50, 50, LightTextures.getInstance().featheredPointLight);
+        innerLight = new PointLight(50, 50, 50, LightTextures.Point.feathered);
         innerLight.getColor().set(0.2f, 0.2f, 0.2f, 1.0f);
 
 //        ls.addLight(innerLight, LightType.ADDITIVE);
@@ -49,7 +48,7 @@ public class EntityDude extends ScreenEntity {
 
     @Override
     public void tick(float delta) {
-        float speed = 50;
+        float speed = 200;
         if(Gdx.input.isKeyPressed(Keys.RIGHT)) {
             pos.x += speed * delta;
         }
