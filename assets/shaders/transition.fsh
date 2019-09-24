@@ -18,7 +18,7 @@ void main() {
     vec4 color = texture2D(u_texture, v_texCoords);
 
     if(flipped) {
-        color.rgb = 1 - color.rgb;
+        color.rgb = vec3(1.0) - color.rgb;
     }
 
     vec4 outColor = u_progress < color.r ? whiteColor : blackColor;
