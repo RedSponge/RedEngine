@@ -45,7 +45,7 @@ public class Player extends ScreenEntity implements INotified {
     }
 
     @Override
-    public void notified(int notification) {
+    public void notified(Object notifier, int notification) {
         switch (notification) {
             case Notifications.SCREEN_TWO_SECONDS:
                 pos.y += 50;

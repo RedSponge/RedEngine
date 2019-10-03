@@ -2,6 +2,6 @@ package com.redsponge.redengine.screen;
 
 public interface INotified {
 
-    void notified(int notification);
+    void notified(Object notifier, int notification);
 
 }

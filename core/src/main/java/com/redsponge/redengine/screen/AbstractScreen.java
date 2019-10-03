@@ -93,9 +93,9 @@ public abstract class AbstractScreen extends ScreenAdapter implements INotified 
     }
 
     @Override
-    public void notified(int notification) {
+    public void notified(Object notifier, int notification) {
         for (INotified notifiedEntity : notifiedEntities) {
-            notifiedEntity.notified(notification);
+            notifiedEntity.notified(notifier, notification);
         }
     }
 

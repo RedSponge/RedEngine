@@ -36,7 +36,7 @@ public class Background extends ScreenEntity implements INotified {
     }
 
     @Override
-    public void notified(int notification) {
+    public void notified(Object notifier, int notification) {
         switch (notification) {
             case Notifications.PLAYER_MOVE_RIGHT:
                 batch.setColor(Color.BLUE);

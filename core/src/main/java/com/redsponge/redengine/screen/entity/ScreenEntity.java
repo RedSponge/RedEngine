@@ -27,7 +27,7 @@ public abstract class ScreenEntity {
      * @param notification The notification to send
      */
     protected final void notifyScreen(int notification) {
-        screen.notified(notification);
+        screen.notified(this, notification);
     }
 
     public final void remove() {
