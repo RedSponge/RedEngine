@@ -8,6 +8,7 @@ import com.redsponge.redengine.screen.entity.ScreenSystem;
 import com.redsponge.redengine.utils.Logger;
 
 import java.util.HashMap;
+import java.util.Set;
 
 public class LightSystem implements ScreenSystem {
 
@@ -81,9 +82,9 @@ public class LightSystem implements ScreenSystem {
 
     @Override
     public void dispose() {
-        lightMaps.forEach((l, m) -> {
-            m.dispose();
-            lightMaps.remove(l);
-        });
+        Set<LightType> maps = lightMaps.keySet();
+        for (LightType map : maps) {
+            lightMaps.get(map).dispose();
+        }
     }
 }
