@@ -21,6 +21,10 @@ public class PEntity {
         this.size = new IntVector2();
     }
 
+    public void publicRemove() {
+        removed = true;
+    }
+
     public void remove() {
         removed = true;
     }
