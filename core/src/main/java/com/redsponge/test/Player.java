@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.redsponge.redengine.screen.INotified;
 import com.redsponge.redengine.screen.entity.ScreenEntity;
+import com.redsponge.redengine.utils.GameAccessor;
 
 public class Player extends ScreenEntity implements INotified {
 

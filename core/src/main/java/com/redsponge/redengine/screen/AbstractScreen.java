@@ -117,14 +117,14 @@ public abstract class AbstractScreen extends ScreenAdapter implements INotified 
     public abstract void render();
 
     public void tickEntities(float delta) {
-        for (ScreenEntity entity : entities) {
-            entity.tick(delta);
+        for (int i = 0; i < entities.size; i++) {
+            entities.get(i).tick(delta);
         }
     }
 
     public void renderEntities() {
-        for (ScreenEntity entity : entities) {
-            entity.render();
+        for (int i = 0; i < entities.size; i++) {
+            entities.get(i).render();
         }
     }
 
