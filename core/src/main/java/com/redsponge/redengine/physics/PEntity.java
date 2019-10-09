@@ -21,7 +21,7 @@ public class PEntity {
         this.size = new IntVector2();
     }
 
-    protected void remove() {
+    public void remove() {
         removed = true;
     }
 
