@@ -1,13 +1,20 @@
 package com.redsponge.redengine.screen.entity;
 
+import com.badlogic.ashley.core.Component;
+import com.badlogic.ashley.core.Entity;
+import com.badlogic.ashley.core.EntityListener;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.redsponge.redengine.assets.AssetSpecifier;
 import com.redsponge.redengine.screen.AbstractScreen;
 import com.redsponge.redengine.screen.INotified;
+import com.redsponge.redengine.screen.components.PositionComponent;
+import com.redsponge.redengine.screen.components.RenderComponent;
+import com.redsponge.redengine.screen.components.SizeComponent;
+import com.redsponge.redengine.screen.components.VelocityComponent;
 import com.redsponge.redengine.utils.Logger;
 
-public abstract class ScreenEntity {
+public abstract class ScreenEntity extends Entity {
 
     protected AbstractScreen screen;
     protected AssetSpecifier assets;
@@ -16,6 +23,11 @@ public abstract class ScreenEntity {
     protected ShapeRenderer shapeRenderer;
 
     private Object tag;
+
+    protected PositionComponent pos;
+    protected SizeComponent size;
+    protected RenderComponent render;
+    protected VelocityComponent vel;
 
     public ScreenEntity(SpriteBatch batch, ShapeRenderer shapeRenderer) {
         this.batch = batch;
@@ -34,22 +46,43 @@ public abstract class ScreenEntity {
         screen.removeEntity(this);
     }
 
+
+    public final void addedToScreen() {
+        Logger.log(this, "Default Added Method");
+        pos = new PositionComponent();
+        size = new SizeComponent();
+        render = new RenderComponent();
+        vel = new VelocityComponent();
+
+        add(pos);
+        add(size);
+        add(render);
+        add(vel);
+
+        added();
+    }
     /**
      * Called when the entity is added to the screen.
      */
     public void added() {
-        Logger.log(this, "Default Added Method");
+
     }
 
-    public abstract void tick(float delta);
+    public void additionalTick(float delta) {
 
-    public abstract void render();
+    }
+
+    public void additionalRender() {
+
+    }
 
     public int getZ() {
         return 0;
     }
 
-    public abstract void removed();
+    public void removed() {
+
+    }
 
     public void setScreen(AbstractScreen screen) {
         this.screen = screen;

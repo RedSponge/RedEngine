@@ -22,7 +22,7 @@ public class Background extends ScreenEntity implements INotified {
     }
 
     @Override
-    public void tick(float delta) {
+    public void additionalTick(float delta) {
         time += delta;
         if(time > 2) {
             time -= 2;
@@ -31,7 +31,7 @@ public class Background extends ScreenEntity implements INotified {
     }
 
     @Override
-    public void render() {
+    public void additionalRender() {
         batch.draw(background, 0, 0, 500, 500);
     }
 

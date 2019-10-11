@@ -49,7 +49,7 @@ public abstract class AbstractScreen extends ScreenAdapter implements INotified 
         entity.setScreen(this);
         entity.setAssets(assets);
         this.entities.sort(zComparator);
-        entity.added();
+        entity.addedToScreen();
     }
 
     public void removeEntity(ScreenEntity entity) {
@@ -118,13 +118,13 @@ public abstract class AbstractScreen extends ScreenAdapter implements INotified 
 
     public void tickEntities(float delta) {
         for (int i = 0; i < entities.size; i++) {
-            entities.get(i).tick(delta);
+            entities.get(i).additionalTick(delta);
         }
     }
 
     public void renderEntities() {
         for (int i = 0; i < entities.size; i++) {
-            entities.get(i).render();
+            entities.get(i).additionalRender();
         }
     }
 

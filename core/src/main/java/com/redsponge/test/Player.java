@@ -28,7 +28,7 @@ public class Player extends ScreenEntity implements INotified {
     }
 
     @Override
-    public void tick(float delta) {
+    public void additionalTick(float delta) {
         time += delta;
         if(Gdx.input.isKeyPressed(Keys.RIGHT)) {
             pos.x += 200 * delta;
@@ -41,7 +41,7 @@ public class Player extends ScreenEntity implements INotified {
     }
 
     @Override
-    public void render() {
+    public void additionalRender() {
         batch.draw(runAnimation.getKeyFrame(time), pos.x, pos.y, 100, 100);
     }
 

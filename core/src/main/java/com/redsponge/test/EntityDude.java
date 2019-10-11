@@ -47,7 +47,7 @@ public class EntityDude extends ScreenEntity {
     }
 
     @Override
-    public void tick(float delta) {
+    public void additionalTick(float delta) {
         float speed = 200;
         if(Gdx.input.isKeyPressed(Keys.RIGHT)) {
             pos.x += speed * delta;
@@ -67,7 +67,7 @@ public class EntityDude extends ScreenEntity {
     }
 
     @Override
-    public void render() {
+    public void additionalRender() {
         batch.draw(texture, pos.x - 16, pos.y - 16, 32, 32);
     }
 
