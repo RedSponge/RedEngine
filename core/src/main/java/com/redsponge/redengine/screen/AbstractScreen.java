@@ -1,14 +1,30 @@
 package com.redsponge.redengine.screen;
 
+import com.badlogic.ashley.core.Engine;
+import com.badlogic.ashley.core.EntitySystem;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.DelayedRemovalArray;
+import com.badlogic.gdx.utils.viewport.Viewport;
+import com.kotcrab.vis.ui.VisUI;
 import com.redsponge.redengine.assets.AssetSpecifier;
 import com.redsponge.redengine.screen.entity.ScreenEntity;
 import com.redsponge.redengine.screen.entity.ScreenSystem;
+import com.redsponge.redengine.screen.systems.PhysicsSystem;
+import com.redsponge.redengine.screen.systems.RenderPrepSystem;
+import com.redsponge.redengine.screen.systems.RenderSystem;
 import com.redsponge.redengine.utils.GameAccessor;
 import com.redsponge.redengine.utils.GeneralUtils;
+import com.strongjoshua.console.Console;
+import com.strongjoshua.console.GUIConsole;
 
 import java.util.Comparator;
 import java.util.HashMap;
@@ -20,6 +36,8 @@ public abstract class AbstractScreen extends ScreenAdapter implements INotified 
     protected SpriteBatch batch;
     protected AssetSpecifier assets;
 
+    protected Console console;
+
     protected GameAccessor ga;
     protected boolean transitioning;
 
@@ -30,6 +48,8 @@ public abstract class AbstractScreen extends ScreenAdapter implements INotified 
 
     private Comparator<ScreenEntity> zComparator = Comparator.comparingInt(ScreenEntity::getZ);
 
+    private Engine engine;
+
     public AbstractScreen(GameAccessor ga) {
         this.ga = ga;
         this.shapeRenderer = ga.getShapeRenderer();
@@ -38,6 +58,11 @@ public abstract class AbstractScreen extends ScreenAdapter implements INotified 
         this.entities = new DelayedRemovalArray<>();
         this.notifiedEntities = new DelayedRemovalArray<>();
         this.screenSystems = new HashMap<>();
+
+        engine = new Engine();
+        engine.addSystem(new PhysicsSystem());
+        engine.addSystem(new RenderPrepSystem());
+        engine.addSystem(new RenderSystem(getScreenWidth(), getScreenHeight(), batch));
     }
 
     public void addEntity(ScreenEntity entity) {
@@ -46,6 +71,7 @@ public abstract class AbstractScreen extends ScreenAdapter implements INotified 
             notifiedEntities.add((INotified) entity);
         }
 
+        engine.addEntity(entity);
         entity.setScreen(this);
         entity.setAssets(assets);
         this.entities.sort(zComparator);
@@ -59,6 +85,14 @@ public abstract class AbstractScreen extends ScreenAdapter implements INotified 
         }
         entity.removed();
         this.entities.sort(zComparator);
+    }
+
+    public int getScreenWidth() {
+        return 640;
+    }
+
+    public int getScreenHeight() {
+        return 360;
     }
 
     /**
@@ -92,6 +126,10 @@ public abstract class AbstractScreen extends ScreenAdapter implements INotified 
         transitioning = false;
     }
 
+    public <T extends EntitySystem> T getEntitySystem(Class<T> system) {
+        return engine.getSystem(system);
+    }
+
     @Override
     public void notified(Object notifier, int notification) {
         for (int i = 0; i < notifiedEntities.size; i++) {
@@ -115,6 +153,10 @@ public abstract class AbstractScreen extends ScreenAdapter implements INotified 
      * Called after tick, all rendering should go here
      */
     public abstract void render();
+
+    protected void updateEngine(float delta) {
+        engine.update(delta);
+    }
 
     public void tickEntities(float delta) {
         for (int i = 0; i < entities.size; i++) {
@@ -176,4 +218,14 @@ public abstract class AbstractScreen extends ScreenAdapter implements INotified 
     }
 
     public abstract Class<? extends AssetSpecifier> getAssetSpecsType();
+
+    @Override
+    public final void resize(int width, int height) {
+        reSize(width, height);
+//        console.refresh();
+    }
+
+    public void reSize(int width, int height) {
+//        console.refresh(true);
+    }
 }

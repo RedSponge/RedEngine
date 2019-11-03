@@ -7,6 +7,9 @@ dependencies {
   compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
   compile "club.minnced:java-discord-rpc:2.0.2"
   compile 'com.rafaskoberg.gdx:typing-label:1.1.0'
+  compile "com.strongjoshua:libgdx-inGameConsole:$inGameConsoleVersion"
+  compile "com.kotcrab.vis:vis-ui:$visuiVersion"
+  compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
   //compile 'io.github.SergiusIW:collider:v0.1.1'
 }
         

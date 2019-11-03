@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.kotcrab.vis.ui.VisUI;
 import com.redsponge.redengine.assets.AssetSpecifier;
 import com.redsponge.redengine.assets.Fonts;
 import com.redsponge.redengine.desktop.DesktopUtil;
@@ -20,6 +21,7 @@ import com.redsponge.redengine.transitions.TransitionTextures;
 import com.redsponge.redengine.utils.Discord;
 import com.redsponge.redengine.utils.GameAccessor;
 import com.redsponge.redengine.render.util.ScreenFiller;
+import com.strongjoshua.console.Console;
 
 import java.util.function.BiConsumer;
 
@@ -33,7 +35,7 @@ public abstract class EngineGame extends Game {
     protected Discord discord;
 
     private boolean assetLoadingComplete;
-
+    protected Console console;
 
     public EngineGame() {
     }
@@ -65,8 +67,10 @@ public abstract class EngineGame extends Game {
         transitionManager.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         discord = new Discord(getDiscordAppId(), getSteamId());
-        Fonts.load();
+        Fonts.init();
+        Fonts.addFont("fonts/pixelmix.ttf", "pixelmix", Fonts.DEFAULT_SIZES);
 
+        VisUI.load();
         init();
     }
 
@@ -194,6 +198,8 @@ public abstract class EngineGame extends Game {
         am.clear();
         TransitionTextures.disposeInstance();
         LightTextures.disposeAssets();
+        VisUI.dispose();
+        Fonts.unload();
     }
 
     public String getDiscordAppId() {

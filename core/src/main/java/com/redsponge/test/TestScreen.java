@@ -54,7 +54,7 @@ public class TestScreen extends AbstractScreen {
     }
 
     @Override
-    public void resize(int width, int height) {
+    public void reSize(int width, int height) {
         viewport.update(width, height, true);
     }
 }

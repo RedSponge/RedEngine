@@ -1,6 +1,7 @@
 package com.redsponge.redengine.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -14,6 +15,7 @@ import com.redsponge.redengine.assets.AssetSpecifier;
 import com.redsponge.redengine.assets.Fonts;
 import com.redsponge.redengine.desktop.DesktopUtil;
 import com.redsponge.redengine.utils.GameAccessor;
+import com.strongjoshua.console.GUIConsole;
 
 public class DefaultScreen extends AbstractScreen {
 
@@ -32,8 +34,9 @@ public class DefaultScreen extends AbstractScreen {
 
     @Override
     public void show() {
-        font = Fonts.pixelMix16;
-        viewport = new FitViewport(640, 360);
+
+        font = Fonts.getFont("pixelmix", 16);
+        viewport = new FitViewport(640 ,360);
         stage = new Stage(viewport, batch);
         typingLabel = new TypingLabel(TEXT, new LabelStyle(font, Color.WHITE));
 
@@ -51,7 +54,6 @@ public class DefaultScreen extends AbstractScreen {
         timeSinceStart += delta;
 
         stage.act(delta);
-        DesktopUtil.moveWindow(Gdx.graphics.getDisplayMode().width / 2 - Gdx.graphics.getWidth() / 2, (int) (Gdx.graphics.getDisplayMode().height / 2 - Gdx.graphics.getHeight() / 2 + Math.sin(timeSinceStart * 2) * 40));
     }
 
     @Override
@@ -64,11 +66,14 @@ public class DefaultScreen extends AbstractScreen {
         batch.setProjectionMatrix(viewport.getCamera().combined);
 
         stage.draw();
+
+        console.draw();
     }
 
     @Override
-    public void resize(int width, int height) {
+    public void reSize(int width, int height) {
         viewport.update(width, height, true);
+//        console.refresh(true);
     }
 
     @Override

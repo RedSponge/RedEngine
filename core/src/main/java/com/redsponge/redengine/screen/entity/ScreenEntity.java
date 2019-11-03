@@ -29,6 +29,8 @@ public abstract class ScreenEntity extends Entity {
     protected RenderComponent render;
     protected VelocityComponent vel;
 
+    public ScreenEntity() {}
+
     public ScreenEntity(SpriteBatch batch, ShapeRenderer shapeRenderer) {
         this.batch = batch;
         this.shapeRenderer = shapeRenderer;

@@ -57,7 +57,7 @@ public class SplashScreenScreen extends AbstractScreen {
 
 
     @Override
-    public void resize(int width, int height) {
+    public void reSize(int width, int height) {
         splashScreenRenderer.resize(width, height);
     }
 

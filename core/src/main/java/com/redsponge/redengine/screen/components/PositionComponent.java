@@ -54,4 +54,20 @@ public class PositionComponent implements Component {
         this.y = y;
         return this;
     }
+
+    public PositionComponent set(int x, int y, int z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return "PositionComponent{" +
+                "x=" + x +
+                ", y=" + y +
+                ", z=" + z +
+                '}';
+    }
 }
