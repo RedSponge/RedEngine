@@ -60,7 +60,10 @@ public abstract class AbstractScreen extends ScreenAdapter implements INotified 
         this.screenSystems = new HashMap<>();
 
         engine = new Engine();
-        engine.addSystem(new PhysicsSystem());
+        PhysicsSystem physicsSystem = new PhysicsSystem();
+        engine.addSystem(physicsSystem);
+        engine.addEntityListener(physicsSystem);
+
         engine.addSystem(new RenderPrepSystem());
         engine.addSystem(new RenderSystem(getScreenWidth(), getScreenHeight(), batch));
     }
@@ -71,8 +74,10 @@ public abstract class AbstractScreen extends ScreenAdapter implements INotified 
             notifiedEntities.add((INotified) entity);
         }
 
-        engine.addEntity(entity);
         entity.setScreen(this);
+        entity.addedToScreen();
+
+        engine.addEntity(entity);
         entity.setAssets(assets);
         this.entities.sort(zComparator);
         entity.addedToScreen();

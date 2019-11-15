@@ -1,5 +1,6 @@
 package com.redsponge.redengine.physics;
 
+import com.badlogic.ashley.core.Entity;
 import com.redsponge.redengine.utils.IntVector2;
 
 /**
@@ -9,6 +10,7 @@ public class PEntity {
 
     public IntVector2 pos, size;
     protected PhysicsWorld worldIn;
+    private Entity connectedEntity;
 
     /**
      * If true, the world object will be removed from the {@link PhysicsWorld} on the next tick
@@ -21,15 +23,20 @@ public class PEntity {
         this.size = new IntVector2();
     }
 
-    public void publicRemove() {
-        removed = true;
-    }
-
     public void remove() {
         removed = true;
     }
 
     public boolean isRemoved() {
         return removed;
+    }
+
+    public Entity getConnectedEntity() {
+        return connectedEntity;
+    }
+
+    public PEntity setConnectedEntity(Entity connectedEntity) {
+        this.connectedEntity = connectedEntity;
+        return this;
     }
 }

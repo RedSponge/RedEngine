@@ -3,13 +3,17 @@ package com.redsponge.test.platformer;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.redsponge.redengine.assets.AssetSpecifier;
+import com.redsponge.redengine.physics.PhysicsDebugRenderer;
 import com.redsponge.redengine.screen.AbstractScreen;
+import com.redsponge.redengine.screen.systems.PhysicsSystem;
 import com.redsponge.redengine.screen.systems.RenderSystem;
 import com.redsponge.redengine.utils.GameAccessor;
 
 public class PlatformerScreen extends AbstractScreen {
 
     private RenderSystem renderSystem;
+    private PhysicsSystem physicsSystem;
+    private PhysicsDebugRenderer pdr;
 
     public PlatformerScreen(GameAccessor ga) {
         super(ga);
@@ -17,10 +21,14 @@ public class PlatformerScreen extends AbstractScreen {
 
     @Override
     public void show() {
-        addEntity(new Background());
+//        addEntity(new Background());
         addEntity(new PlatformerPlayer());
+//        addEntity(new Platform(0, 0, getScreenWidth(), 20));
         renderSystem = getEntitySystem(RenderSystem.class);
+        physicsSystem = getEntitySystem(PhysicsSystem.class);
+
 //        renderSystem.setBackground(Color.WHITE);
+        pdr = new PhysicsDebugRenderer();
     }
 
     @Override
@@ -44,6 +52,7 @@ public class PlatformerScreen extends AbstractScreen {
 
     @Override
     public void render() {
+        pdr.render(physicsSystem.getPhysicsWorld(), renderSystem.getCamera().combined);
     }
 
     @Override
@@ -54,5 +63,10 @@ public class PlatformerScreen extends AbstractScreen {
     @Override
     public void reSize(int width, int height) {
         renderSystem.resize(width, height);
+    }
+
+    @Override
+    public void disposeAssets() {
+//        pdr.dispose();
     }
 }

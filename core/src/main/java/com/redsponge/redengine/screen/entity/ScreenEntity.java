@@ -48,7 +48,6 @@ public abstract class ScreenEntity extends Entity {
         screen.removeEntity(this);
     }
 
-
     public final void addedToScreen() {
         Logger.log(this, "Default Added Method");
         pos = new PositionComponent();
@@ -67,6 +66,10 @@ public abstract class ScreenEntity extends Entity {
      * Called when the entity is added to the screen.
      */
     public void added() {
+
+    }
+
+    public void addedToEngine() {
 
     }
 

@@ -8,6 +8,7 @@ public class SizeComponent implements Component {
     private int y;
     private float scaleX;
     private float scaleY;
+    private boolean beenSet;
 
     public SizeComponent() {
         this(0, 0);
@@ -30,6 +31,7 @@ public class SizeComponent implements Component {
 
     public SizeComponent setX(int x) {
         this.x = x;
+        this.beenSet = true;
         return this;
     }
 
@@ -39,28 +41,33 @@ public class SizeComponent implements Component {
 
     public SizeComponent setY(int y) {
         this.y = y;
+        this.beenSet = true;
         return this;
     }
 
     public SizeComponent set(int x, int y) {
         this.x = x;
         this.y = y;
+        this.beenSet = true;
         return this;
     }
 
     public SizeComponent setScaleX(float scaleX) {
         this.scaleX = scaleX;
+        this.beenSet = true;
         return this;
     }
 
     public SizeComponent setScaleY(float scaleY) {
         this.scaleY = scaleY;
+        this.beenSet = true;
         return this;
     }
 
     public SizeComponent setScale(float x, float y) {
         this.scaleX = x;
         this.scaleY = y;
+        this.beenSet = true;
         return this;
     }
 
@@ -88,5 +95,14 @@ public class SizeComponent implements Component {
                 ", scaleX=" + scaleX +
                 ", scaleY=" + scaleY +
                 '}';
+    }
+
+    public boolean isBeenSet() {
+        return beenSet;
+    }
+
+    public SizeComponent setBeenSet(boolean beenSet) {
+        this.beenSet = beenSet;
+        return this;
     }
 }

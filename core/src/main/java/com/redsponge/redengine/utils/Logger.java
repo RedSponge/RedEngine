@@ -13,6 +13,8 @@ public class Logger {
     public static final int LOG = 2;
     public static final int DEBUG = 1;
 
+    private static final String[] LOG_TITLES = {"DEBUG", "INFO", "ERR"};
+
     private static int logLevel = LOG;
 
     private static final DateFormat FORMAT = new SimpleDateFormat("HH:mm:ss");
@@ -83,7 +85,7 @@ public class Logger {
             for (Object o : toLog) {
                 sb.append(o).append(" ");
             }
-            Gdx.app.log(FORMAT.format(new Date(TimeUtils.millis())) + "] [" + from.getSimpleName(), sb.toString());
+            Gdx.app.log(FORMAT.format(new Date(TimeUtils.millis())) + "] [" + from.getSimpleName() + "] [" + LOG_TITLES[level-1], sb.toString());
         }
     }
 

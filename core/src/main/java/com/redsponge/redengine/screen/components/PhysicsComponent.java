@@ -1,21 +1,16 @@
 package com.redsponge.redengine.screen.components;
 
 import com.badlogic.ashley.core.Component;
-import com.badlogic.ashley.core.Entity;
-import com.redsponge.redengine.physics.PActor;
+import com.redsponge.redengine.physics.OnCollide;
 import com.redsponge.redengine.physics.PBodyType;
 import com.redsponge.redengine.physics.PEntity;
 
-import java.util.function.Consumer;
-
-/**
- *
- */
 public class PhysicsComponent implements Component {
 
     private PEntity body;
     private PBodyType type;
-    private Consumer<Entity> onCollide;
+    private OnCollide onCollideX;
+    private OnCollide onCollideY;
 
     public PhysicsComponent() {
         this(PBodyType.ACTOR);
@@ -38,12 +33,21 @@ public class PhysicsComponent implements Component {
         return type;
     }
 
-    public Consumer<Entity> getOnCollide() {
-        return onCollide;
+    public OnCollide getOnCollideX() {
+        return onCollideX;
     }
 
-    public PhysicsComponent setOnCollide(Consumer<Entity> onCollide) {
-        this.onCollide = onCollide;
+    public PhysicsComponent setOnCollideX(OnCollide onCollideX) {
+        this.onCollideX = onCollideX;
+        return this;
+    }
+
+    public OnCollide getOnCollideY() {
+        return onCollideY;
+    }
+
+    public PhysicsComponent setOnCollideY(OnCollide onCollideY) {
+        this.onCollideY = onCollideY;
         return this;
     }
 }

@@ -52,7 +52,6 @@ public class PhysicsWorld {
         }
     }
 
-
     public DelayedRemovalArray<PSolid> getSolids() {
         return solids;
     }
