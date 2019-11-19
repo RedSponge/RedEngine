@@ -7,6 +7,10 @@ public class RenderComponent implements Component {
 
     private boolean flipX, flipY;
     private float offsetX, offsetY;
+    private float scaleX, scaleY;
+
+    // Flags, if true, the region's width and height will be used instead of the entity's SizeComponent's size
+    private boolean useRegW, useRegH;
     private TextureRegion region;
 
     public RenderComponent() {
@@ -15,6 +19,10 @@ public class RenderComponent implements Component {
         offsetX = 0;
         offsetY = 0;
         region = new TextureRegion();
+        useRegW = false;
+        useRegH = false;
+        scaleX = 1;
+        scaleY = 1;
     }
 
     public boolean isFlipX() {
@@ -62,6 +70,42 @@ public class RenderComponent implements Component {
         return this;
     }
 
+    public boolean isUseRegW() {
+        return useRegW;
+    }
+
+    public RenderComponent setUseRegW(boolean useRegW) {
+        this.useRegW = useRegW;
+        return this;
+    }
+
+    public boolean isUseRegH() {
+        return useRegH;
+    }
+
+    public RenderComponent setUseRegH(boolean useRegH) {
+        this.useRegH = useRegH;
+        return this;
+    }
+
+    public float getScaleX() {
+        return scaleX;
+    }
+
+    public RenderComponent setScaleX(float scaleX) {
+        this.scaleX = scaleX;
+        return this;
+    }
+
+    public float getScaleY() {
+        return scaleY;
+    }
+
+    public RenderComponent setScaleY(float scaleY) {
+        this.scaleY = scaleY;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "RenderComponent{" +
@@ -69,6 +113,10 @@ public class RenderComponent implements Component {
                 ", flipY=" + flipY +
                 ", offsetX=" + offsetX +
                 ", offsetY=" + offsetY +
+                ", scaleX=" + scaleX +
+                ", scaleY=" + scaleY +
+                ", useRegW=" + useRegW +
+                ", useRegH=" + useRegH +
                 ", region=" + region +
                 '}';
     }

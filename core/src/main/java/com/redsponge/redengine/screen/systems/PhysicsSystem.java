@@ -28,7 +28,6 @@ public class PhysicsSystem extends IteratingSystem implements EntityListener {
 
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
-        Logger.log(this, "Entity:", entity);
         processBeenSets(entity);
         PositionComponent pos = Mappers.position.get(entity);
         VelocityComponent vel = Mappers.velocity.get(entity);
@@ -36,7 +35,6 @@ public class PhysicsSystem extends IteratingSystem implements EntityListener {
 
         if(physics != null) {
             PhysicsUtils.moveEntity(physics.getBody(), vel.getX(), vel.getY(), physics.getOnCollideX(), physics.getOnCollideY());
-            //TODO: Bug is that for some reason physics.getBody is null
             pos.set(physics.getBody().pos.x, physics.getBody().pos.y);
         } else {
             pos.setX(pos.getX() + vel.getX() * deltaTime);
@@ -52,12 +50,11 @@ public class PhysicsSystem extends IteratingSystem implements EntityListener {
 
         if(pos.isBeenSet()) {
             pos.setBeenSet(false);
-            Logger.log(this, entity, physics.getBody());
-//            physics.getBody().pos.set((int) pos.getX(), (int) pos.getY());
+            physics.getBody().pos.set((int) pos.getX(), (int) pos.getY());
         }
         if (size.isBeenSet()) {
             size.setBeenSet(false);
-//            physics.getBody().size.set(size.getScaledX(), size.getScaledY());
+            physics.getBody().size.set(size.getX(), size.getY());
         }
     }
 
@@ -103,7 +100,6 @@ public class PhysicsSystem extends IteratingSystem implements EntityListener {
             }
             Logger.log(this, "Finished creating new body:", pEntity);
             physics.setBody(pEntity);
-            Logger.log(this, "physics.getBody() =", physics.getBody());
         }
     }
 

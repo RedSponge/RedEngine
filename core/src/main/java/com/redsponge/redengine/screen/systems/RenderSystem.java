@@ -36,16 +36,31 @@ public class RenderSystem extends SortedIteratingSystem {
         SizeComponent size = Mappers.size.get(entity);
         RenderComponent render = Mappers.render.get(entity);
 
-        Logger.log(this, pos, size, render, entity);
-
         TextureRegion drawn = render.getRegion();
         boolean flipX = render.isFlipX();
         boolean flipY = render.isFlipY();
 
-        if(drawn == null) return;
+        if (drawn == null || drawn.getTexture() == null) return;
+
+        float width;
+        float height;
+        if(render.isUseRegW()) {
+            width = drawn.getRegionWidth();
+        } else {
+            width = size.getX();
+        }
+
+        if(render.isUseRegH()) {
+            height = drawn.getRegionHeight();
+        } else {
+            height = size.getY();
+        }
+
+        width *= render.getScaleX();
+        height *= render.getScaleY();
 
         drawn.flip(flipX, flipY);
-        batch.draw(drawn, pos.getX() + render.getOffsetX(), pos.getY() + render.getOffsetY(), size.getScaledX(), size.getScaledY());
+        batch.draw(drawn, pos.getX() + render.getOffsetX(), pos.getY() + render.getOffsetY(), width, height);
         drawn.flip(flipX, flipY);
     }
 

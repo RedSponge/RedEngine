@@ -4,10 +4,10 @@ import com.badlogic.ashley.core.Component;
 
 public class VelocityComponent implements Component {
 
-    private int x;
-    private int y;
+    private float x;
+    private float y;
 
-    public VelocityComponent(int x, int y) {
+    public VelocityComponent(float x, float y) {
         this.x = x;
         this.y = y;
     }
@@ -16,25 +16,25 @@ public class VelocityComponent implements Component {
         this(0, 0);
     }
 
-    public int getX() {
+    public float getX() {
         return x;
     }
 
-    public VelocityComponent setX(int x) {
+    public VelocityComponent setX(float x) {
         this.x = x;
         return this;
     }
 
-    public int getY() {
+    public float getY() {
         return y;
     }
 
-    public VelocityComponent setY(int y) {
+    public VelocityComponent setY(float y) {
         this.y = y;
         return this;
     }
 
-    public VelocityComponent set(int x, int y) {
+    public VelocityComponent set(float x, float y) {
         this.x = x;
         this.y = y;
         return this;

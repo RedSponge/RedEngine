@@ -1,6 +1,7 @@
 package com.redsponge.test.platformer;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.redsponge.redengine.assets.AssetSpecifier;
 import com.redsponge.redengine.physics.PhysicsDebugRenderer;
@@ -21,13 +22,13 @@ public class PlatformerScreen extends AbstractScreen {
 
     @Override
     public void show() {
-//        addEntity(new Background());
-        addEntity(new PlatformerPlayer());
-//        addEntity(new Platform(0, 0, getScreenWidth(), 20));
+        addEntity(new Background());
+        addEntity(new Platform(0, 0, getScreenWidth(), 20));
         renderSystem = getEntitySystem(RenderSystem.class);
         physicsSystem = getEntitySystem(PhysicsSystem.class);
+        renderSystem.setBackground(Color.WHITE);
 
-//        renderSystem.setBackground(Color.WHITE);
+        addEntity(new PlatformerPlayer());
         pdr = new PhysicsDebugRenderer();
     }
 

@@ -80,7 +80,7 @@ public abstract class AbstractScreen extends ScreenAdapter implements INotified 
         engine.addEntity(entity);
         entity.setAssets(assets);
         this.entities.sort(zComparator);
-        entity.addedToScreen();
+        entity.addedToEngine();
     }
 
     public void removeEntity(ScreenEntity entity) {
