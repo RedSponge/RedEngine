@@ -21,6 +21,12 @@ public class PlatformerAssets extends AssetSpecifier {
     @AtlasAnimation(animationName = "idle", length = 2, atlas = "player", frameDuration = 1/3f)
     private Animation<TextureRegion> idle;
 
+    @AtlasAnimation(animationName = "walk", length = 2, atlas = "player", frameDuration = 1/3f)
+    private Animation<TextureRegion> walk;
+
+    @AtlasAnimation(animationName = "jump", length = 2, atlas = "player", frameDuration = 0.05f)
+    private Animation<TextureRegion> jump;
+
     @Asset("pixel.png")
     private Texture pixel;
 }

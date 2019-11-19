@@ -2,15 +2,52 @@ package com.redsponge.test.platformer;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
 import com.redsponge.redengine.physics.PBodyType;
 import com.redsponge.redengine.physics.PSolid;
 import com.redsponge.redengine.screen.components.AnimationComponent;
 import com.redsponge.redengine.screen.components.PhysicsComponent;
+import com.redsponge.redengine.screen.entity.RenderPreset;
 import com.redsponge.redengine.screen.entity.ScreenEntity;
 import com.redsponge.redengine.utils.Logger;
 
 public class PlatformerPlayer extends ScreenEntity {
+
+    private class PlayerAnimation {
+
+        public PlayerAnimation(Animation<TextureRegion> anim, RenderPreset preset) {
+            this.anim = anim;
+            this.preset = preset;
+        }
+
+        public Animation<TextureRegion> getAnim() {
+            return anim;
+        }
+
+        public RenderPreset getPreset() {
+            return preset;
+        }
+
+        private final Animation<TextureRegion> anim;
+        private final RenderPreset preset;
+    }
+
+    private Animation<TextureRegion> idleAnim;
+    private RenderPreset idlePreset;
+
+    private Animation<TextureRegion> walkAnim;
+    private RenderPreset walkPreset;
+
+    private Animation<TextureRegion> jumpAnim;
+    private RenderPreset jumpPreset;
+
+    private PlayerAnimation currentAnimation;
+
+    private PlayerAnimation idleAnimation;
+    private PlayerAnimation walkAnimation;
+    private PlayerAnimation jumpAnimation;
 
     private AnimationComponent anim;
     private PhysicsComponent physics;
@@ -32,8 +69,29 @@ public class PlatformerPlayer extends ScreenEntity {
 
     @Override
     public void loadAssets() {
-        anim = new AnimationComponent(assets.getAnimation("idle"));
+        idleAnim = assets.getAnimation("idle");
+        idlePreset = new RenderPreset(-4, -2, 1, 1);
+        walkAnim = assets.getAnimation("walk");
+        walkPreset = new RenderPreset(-4, 0, 1, 1);
+        jumpAnim = assets.getAnimation("jump");
+        jumpPreset = new RenderPreset(-4, 0, 1, 1);
+
+        idleAnimation = new PlayerAnimation(idleAnim, idlePreset);
+        walkAnimation = new PlayerAnimation(walkAnim, walkPreset);
+        jumpAnimation = new PlayerAnimation(jumpAnim, jumpPreset);
+
+        anim = new AnimationComponent();
         add(anim);
+
+        setAnimation(idleAnimation);
+    }
+
+    private void setAnimation(PlayerAnimation anim) {
+        if(anim != currentAnimation) {
+            currentAnimation = anim;
+            anim.preset.applyTo(render);
+            this.anim.setAnimation(anim.anim);
+        }
     }
 
     @Override
@@ -58,6 +116,14 @@ public class PlatformerPlayer extends ScreenEntity {
         if(Gdx.input.isKeyJustPressed(Keys.J)) {
             pos.setY(pos.getY() + 100);
             vel.setY(0);
+        }
+
+        if(!onGround) {
+            setAnimation(jumpAnimation);
+        } else if(vx == 0) {
+            setAnimation(idleAnimation);
+        } else {
+            setAnimation(walkAnimation);
         }
     }
 
