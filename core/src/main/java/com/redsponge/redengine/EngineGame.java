@@ -41,6 +41,7 @@ public abstract class EngineGame extends Game {
     }
 
     public EngineGame(boolean desktop, BiConsumer<Integer, Integer> desktopMoveAction) {
+
         if(desktop) {
             DesktopUtil.init(desktopMoveAction);
         }
