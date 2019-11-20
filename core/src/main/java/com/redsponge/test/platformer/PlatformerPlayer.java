@@ -103,7 +103,14 @@ public class PlatformerPlayer extends ScreenEntity {
 
         int vx = (right ? 1 : 0) - (left ? 1 : 0);
 
-        vel.setX(vx * 3);
+        if(vx != 0) {
+            vel.setX(vx * 3);
+        } else {
+            vel.setX(vel.getX() * 0.9f);
+            if(Math.abs(vel.getX()) < 0.5f)  {
+                vel.setX(0);
+            }
+        }
         processJump(delta);
         Logger.log(this, jumping, jumpTime);
         if(!jumping) {
@@ -148,7 +155,7 @@ public class PlatformerPlayer extends ScreenEntity {
     }
 
     private void collideY(PSolid pSolid) {
-        if(pSolid.getConnectedEntity() instanceof Platform) {
+        if(pSolid.getConnectedEntity() instanceof IPlatform) {
             if(vel.getY() < 0) {
                 onGround = true;
             }

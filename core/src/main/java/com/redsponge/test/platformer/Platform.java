@@ -4,7 +4,7 @@ import com.redsponge.redengine.physics.PBodyType;
 import com.redsponge.redengine.screen.components.PhysicsComponent;
 import com.redsponge.redengine.screen.entity.ScreenEntity;
 
-public class Platform extends ScreenEntity {
+public class Platform extends ScreenEntity implements IPlatform {
 
     private int x, y, w, h;
     public Platform(int x, int y, int w, int h) {
