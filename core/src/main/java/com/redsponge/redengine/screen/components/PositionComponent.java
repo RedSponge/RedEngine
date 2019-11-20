@@ -66,11 +66,24 @@ public class PositionComponent implements Component {
         return this;
     }
 
+    public PositionComponent silentSet(float x, float y) {
+        this.x = x;
+        this.y = y;
+        return this;
+    }
+
     public PositionComponent set(float x, float y, int z) {
         this.x = x;
         this.y = y;
         this.z = z;
         this.beenSet = true;
+        return this;
+    }
+
+    public PositionComponent silentSet(float x, float y, int z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
         return this;
     }
 

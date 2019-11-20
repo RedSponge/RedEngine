@@ -155,11 +155,13 @@ public class PlatformerPlayer extends ScreenEntity {
     }
 
     private void collideY(PSolid pSolid) {
+        Logger.log(this, "COLLIDE");
         if(pSolid.getConnectedEntity() instanceof IPlatform) {
             if(vel.getY() < 0) {
                 onGround = true;
             }
             vel.setY(0);
+            jumping = false;
         }
     }
 }
