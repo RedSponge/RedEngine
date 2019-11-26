@@ -66,8 +66,6 @@ public class DefaultScreen extends AbstractScreen {
         batch.setProjectionMatrix(viewport.getCamera().combined);
 
         stage.draw();
-
-        console.draw();
     }
 
     @Override
