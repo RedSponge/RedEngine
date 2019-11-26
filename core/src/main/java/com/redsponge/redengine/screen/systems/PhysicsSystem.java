@@ -17,6 +17,9 @@ import com.redsponge.redengine.screen.components.SizeComponent;
 import com.redsponge.redengine.screen.components.VelocityComponent;
 import com.redsponge.redengine.utils.Logger;
 
+/**
+ * Handles both physics based entities and regular pos+vel based entities.
+ */
 public class PhysicsSystem extends IteratingSystem implements EntityListener {
 
     private PhysicsWorld pWorld;
@@ -35,9 +38,9 @@ public class PhysicsSystem extends IteratingSystem implements EntityListener {
 
         if(physics != null) {
             PhysicsUtils.moveEntity(physics.getBody(), vel.getX(), vel.getY(), physics.getOnCollideX(), physics.getOnCollideY());
-            pos.set(physics.getBody().pos.x, physics.getBody().pos.y);
+            pos.silentSet(physics.getBody().pos.x, physics.getBody().pos.y);
         } else {
-            pos.setX(pos.getX() + vel.getX() * deltaTime);
+            pos.silentSet(pos.getX() + vel.getX() * deltaTime, pos.getY() + vel.getY() * deltaTime);
         }
     }
 
@@ -55,6 +58,10 @@ public class PhysicsSystem extends IteratingSystem implements EntityListener {
         if (size.isBeenSet()) {
             size.setBeenSet(false);
             physics.getBody().size.set(size.getX(), size.getY());
+        }
+        if(physics.getBody().getWasMoved()) {
+            pos.set(physics.getBody().pos.x, physics.getBody().pos.y);
+            physics.getBody().setWasMoved(false);
         }
     }
 

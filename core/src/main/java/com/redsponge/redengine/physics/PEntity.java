@@ -11,6 +11,7 @@ public class PEntity {
     public IntVector2 pos, size;
     protected PhysicsWorld worldIn;
     private Entity connectedEntity;
+    private boolean wasMoved;
 
     /**
      * If true, the world object will be removed from the {@link PhysicsWorld} on the next tick
@@ -38,5 +39,13 @@ public class PEntity {
     public PEntity setConnectedEntity(Entity connectedEntity) {
         this.connectedEntity = connectedEntity;
         return this;
+    }
+
+    public void setWasMoved(boolean wasMoved) {
+        this.wasMoved = wasMoved;
+    }
+
+    public boolean getWasMoved() {
+        return wasMoved;
     }
 }

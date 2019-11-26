@@ -29,6 +29,7 @@ public class PlatformerScreen extends AbstractScreen {
         renderSystem.setBackground(Color.WHITE);
 
         addEntity(new PlatformerPlayer());
+        addEntity(new MovingPlatform(50, 50, 30, 10));
         pdr = new PhysicsDebugRenderer();
     }
 

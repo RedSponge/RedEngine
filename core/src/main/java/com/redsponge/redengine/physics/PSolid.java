@@ -40,8 +40,10 @@ public class PSolid extends PEntity {
                     for (PActor actor : worldIn.getActors()) {
                         if (MathUtilities.rectanglesIntersect(this.pos, this.size, actor.pos, actor.size)) {
                             actor.moveX(this.pos.x + this.size.x - actor.pos.x, actor::squish); // Push
+                            actor.setWasMoved(true);
                         } else if (ridingActors.contains(actor, true)) {
                             actor.moveX(moveX, null); // Carry
+                            actor.setWasMoved(true);
                         }
                     }
                 } else {

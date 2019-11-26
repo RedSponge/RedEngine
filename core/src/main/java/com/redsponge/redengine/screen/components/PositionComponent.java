@@ -19,11 +19,11 @@ public class PositionComponent implements Component {
         this(0, 0, 0);
     }
 
-    public PositionComponent(int x, int y) {
+    public PositionComponent(float x, float y) {
         this(x, y, 0);
     }
 
-    public PositionComponent(int x, int y, int z) {
+    public PositionComponent(float x, float y, int z) {
         this.x = x;
         this.y = y;
         this.z = z;
@@ -59,18 +59,31 @@ public class PositionComponent implements Component {
         return this;
     }
 
-    public PositionComponent set(int x, int y) {
+    public PositionComponent set(float x, float y) {
         this.x = x;
         this.y = y;
         this.beenSet = true;
         return this;
     }
 
-    public PositionComponent set(int x, int y, int z) {
+    public PositionComponent silentSet(float x, float y) {
+        this.x = x;
+        this.y = y;
+        return this;
+    }
+
+    public PositionComponent set(float x, float y, int z) {
         this.x = x;
         this.y = y;
         this.z = z;
         this.beenSet = true;
+        return this;
+    }
+
+    public PositionComponent silentSet(float x, float y, int z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
         return this;
     }
 
