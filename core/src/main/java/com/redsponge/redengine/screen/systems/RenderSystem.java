@@ -14,6 +14,7 @@ import com.redsponge.redengine.screen.components.Mappers;
 import com.redsponge.redengine.screen.components.PositionComponent;
 import com.redsponge.redengine.screen.components.RenderComponent;
 import com.redsponge.redengine.screen.components.SizeComponent;
+import com.redsponge.redengine.screen.entity.ScreenEntity;
 import com.redsponge.redengine.utils.Logger;
 
 public class RenderSystem extends SortedIteratingSystem {

@@ -15,6 +15,7 @@ import com.redsponge.redengine.screen.components.PhysicsComponent;
 import com.redsponge.redengine.screen.components.PositionComponent;
 import com.redsponge.redengine.screen.components.SizeComponent;
 import com.redsponge.redengine.screen.components.VelocityComponent;
+import com.redsponge.redengine.screen.entity.ScreenEntity;
 import com.redsponge.redengine.utils.Logger;
 
 /**
