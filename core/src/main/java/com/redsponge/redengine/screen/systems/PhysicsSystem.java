@@ -15,6 +15,7 @@ import com.redsponge.redengine.screen.components.PhysicsComponent;
 import com.redsponge.redengine.screen.components.PositionComponent;
 import com.redsponge.redengine.screen.components.SizeComponent;
 import com.redsponge.redengine.screen.components.VelocityComponent;
+import com.redsponge.redengine.screen.entity.ScreenEntity;
 import com.redsponge.redengine.utils.Logger;
 
 /**
@@ -41,6 +42,10 @@ public class PhysicsSystem extends IteratingSystem implements EntityListener {
             pos.silentSet(physics.getBody().pos.x, physics.getBody().pos.y);
         } else {
             pos.silentSet(pos.getX() + vel.getX() * deltaTime, pos.getY() + vel.getY() * deltaTime);
+        }
+
+        if(entity instanceof ScreenEntity) {
+            ((ScreenEntity) entity).additionalTick(deltaTime);
         }
     }
 

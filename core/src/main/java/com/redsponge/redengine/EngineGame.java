@@ -21,6 +21,7 @@ import com.redsponge.redengine.transitions.TransitionTextures;
 import com.redsponge.redengine.utils.Discord;
 import com.redsponge.redengine.utils.GameAccessor;
 import com.redsponge.redengine.render.util.ScreenFiller;
+import com.redsponge.redengine.utils.Logger;
 import com.strongjoshua.console.Console;
 
 import java.util.function.BiConsumer;
@@ -41,7 +42,7 @@ public abstract class EngineGame extends Game {
     }
 
     public EngineGame(boolean desktop, BiConsumer<Integer, Integer> desktopMoveAction) {
-
+        Logger.log(this, "MASTER SNAPSHOT TEST");
         if(desktop) {
             DesktopUtil.init(desktopMoveAction);
         }

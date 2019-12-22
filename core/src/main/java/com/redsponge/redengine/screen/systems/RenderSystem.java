@@ -14,6 +14,7 @@ import com.redsponge.redengine.screen.components.Mappers;
 import com.redsponge.redengine.screen.components.PositionComponent;
 import com.redsponge.redengine.screen.components.RenderComponent;
 import com.redsponge.redengine.screen.components.SizeComponent;
+import com.redsponge.redengine.screen.entity.ScreenEntity;
 import com.redsponge.redengine.utils.Logger;
 
 public class RenderSystem extends SortedIteratingSystem {
@@ -62,6 +63,11 @@ public class RenderSystem extends SortedIteratingSystem {
         drawn.flip(flipX, flipY);
         batch.draw(drawn, pos.getX() + render.getOffsetX(), pos.getY() + render.getOffsetY(), width, height);
         drawn.flip(flipX, flipY);
+
+
+        if(entity instanceof ScreenEntity) {
+            ((ScreenEntity) entity).additionalRender();
+        }
     }
 
     @Override
