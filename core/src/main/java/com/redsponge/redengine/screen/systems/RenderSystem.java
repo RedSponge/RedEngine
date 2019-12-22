@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.redsponge.redengine.screen.components.Mappers;
 import com.redsponge.redengine.screen.components.PositionComponent;
 import com.redsponge.redengine.screen.components.RenderComponent;
+import com.redsponge.redengine.screen.components.RenderRunnableComponent;
 import com.redsponge.redengine.screen.components.SizeComponent;
 import com.redsponge.redengine.screen.entity.ScreenEntity;
 import com.redsponge.redengine.utils.Logger;
@@ -36,6 +37,7 @@ public class RenderSystem extends SortedIteratingSystem {
         PositionComponent pos = Mappers.position.get(entity);
         SizeComponent size = Mappers.size.get(entity);
         RenderComponent render = Mappers.render.get(entity);
+        RenderRunnableComponent renderRunnable = Mappers.renderRunnable.get(entity);
 
         TextureRegion drawn = render.getRegion();
         boolean flipX = render.isFlipX();
@@ -77,6 +79,10 @@ public class RenderSystem extends SortedIteratingSystem {
         batch.setColor(render.getColor());
         batch.draw(drawn, x + render.getOffsetX(), y + render.getOffsetY(), width, height);
         drawn.flip(flipX, flipY);
+
+        if(renderRunnable != null) {
+            renderRunnable.getRenderRunnable().run();
+        }
     }
 
     @Override
