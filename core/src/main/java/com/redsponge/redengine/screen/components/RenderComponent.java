@@ -16,6 +16,8 @@ public class RenderComponent implements Component {
 
     private Color color;
 
+    private RenderCentering centering;
+
     public RenderComponent() {
         flipX = false;
         flipY = false;
@@ -28,6 +30,7 @@ public class RenderComponent implements Component {
         scaleY = 1;
 
         color = Color.WHITE.cpy();
+        centering = RenderCentering.BOTTOM_LEFT;
     }
 
     public boolean isFlipX() {
@@ -95,6 +98,15 @@ public class RenderComponent implements Component {
 
     public RenderComponent setColor(float r, float g, float b, float a) {
         this.color.set(r, g, b, a);
+        return this;
+    }
+
+    public RenderCentering getCentering() {
+        return centering;
+    }
+
+    public RenderComponent setCentering(RenderCentering centering) {
+        this.centering = centering;
         return this;
     }
 

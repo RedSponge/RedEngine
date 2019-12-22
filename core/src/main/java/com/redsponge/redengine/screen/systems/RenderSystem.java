@@ -60,9 +60,22 @@ public class RenderSystem extends SortedIteratingSystem {
         width *= render.getScaleX();
         height *= render.getScaleY();
 
+        float x = pos.getX();
+        float y = pos.getY();
+
+        switch (render.getCentering()) {
+            case CENTER:
+                x -= width / 2;
+                y -= height / 2;
+                break;
+            case BOTTOM_LEFT:
+            default:
+                break;
+        }
+
         drawn.flip(flipX, flipY);
         batch.setColor(render.getColor());
-        batch.draw(drawn, pos.getX() + render.getOffsetX(), pos.getY() + render.getOffsetY(), width, height);
+        batch.draw(drawn, x + render.getOffsetX(), y + render.getOffsetY(), width, height);
         drawn.flip(flipX, flipY);
     }
 
