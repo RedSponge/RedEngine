@@ -9,6 +9,7 @@ import com.redsponge.redengine.physics.PBodyType;
 import com.redsponge.redengine.physics.PSolid;
 import com.redsponge.redengine.screen.components.AnimationComponent;
 import com.redsponge.redengine.screen.components.PhysicsComponent;
+import com.redsponge.redengine.screen.components.RenderRunnableComponent;
 import com.redsponge.redengine.screen.entity.RenderPreset;
 import com.redsponge.redengine.screen.entity.ScreenEntity;
 import com.redsponge.redengine.utils.Logger;

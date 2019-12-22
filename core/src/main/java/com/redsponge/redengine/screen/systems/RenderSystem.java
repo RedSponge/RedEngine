@@ -43,42 +43,43 @@ public class RenderSystem extends SortedIteratingSystem {
         boolean flipX = render.isFlipX();
         boolean flipY = render.isFlipY();
 
-        if (drawn == null || drawn.getTexture() == null) return;
+        if (!(drawn == null || drawn.getTexture() == null)) {
 
-        float width;
-        float height;
-        if(render.isUseRegW()) {
-            width = drawn.getRegionWidth();
-        } else {
-            width = size.getX();
+            float width;
+            float height;
+            if (render.isUseRegW()) {
+                width = drawn.getRegionWidth();
+            } else {
+                width = size.getX();
+            }
+
+            if (render.isUseRegH()) {
+                height = drawn.getRegionHeight();
+            } else {
+                height = size.getY();
+            }
+
+            width *= render.getScaleX();
+            height *= render.getScaleY();
+
+            float x = pos.getX();
+            float y = pos.getY();
+
+            switch (render.getCentering()) {
+                case CENTER:
+                    x -= width / 2;
+                    y -= height / 2;
+                    break;
+                case BOTTOM_LEFT:
+                default:
+                    break;
+            }
+
+            drawn.flip(flipX, flipY);
+            batch.setColor(render.getColor());
+            batch.draw(drawn, x + render.getOffsetX(), y + render.getOffsetY(), width, height);
+            drawn.flip(flipX, flipY);
         }
-
-        if(render.isUseRegH()) {
-            height = drawn.getRegionHeight();
-        } else {
-            height = size.getY();
-        }
-
-        width *= render.getScaleX();
-        height *= render.getScaleY();
-
-        float x = pos.getX();
-        float y = pos.getY();
-
-        switch (render.getCentering()) {
-            case CENTER:
-                x -= width / 2;
-                y -= height / 2;
-                break;
-            case BOTTOM_LEFT:
-            default:
-                break;
-        }
-
-        drawn.flip(flipX, flipY);
-        batch.setColor(render.getColor());
-        batch.draw(drawn, x + render.getOffsetX(), y + render.getOffsetY(), width, height);
-        drawn.flip(flipX, flipY);
 
         if(renderRunnable != null) {
             renderRunnable.getRenderRunnable().run();
