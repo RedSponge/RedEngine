@@ -1,6 +1,7 @@
 package com.redsponge.redengine.screen.components;
 
 import com.badlogic.ashley.core.Component;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class RenderComponent implements Component {
@@ -13,6 +14,8 @@ public class RenderComponent implements Component {
     private boolean useRegW, useRegH;
     private TextureRegion region;
 
+    private Color color;
+
     public RenderComponent() {
         flipX = false;
         flipY = false;
@@ -23,6 +26,8 @@ public class RenderComponent implements Component {
         useRegH = false;
         scaleX = 1;
         scaleY = 1;
+
+        color = Color.WHITE.cpy();
     }
 
     public boolean isFlipX() {
@@ -79,6 +84,20 @@ public class RenderComponent implements Component {
         return this;
     }
 
+    public Color getColor() {
+        return color;
+    }
+
+    public RenderComponent setColor(Color color) {
+        this.color.set(color);
+        return this;
+    }
+
+    public RenderComponent setColor(float r, float g, float b, float a) {
+        this.color.set(r, g, b, a);
+        return this;
+    }
+
     public boolean isUseRegH() {
         return useRegH;
     }
@@ -118,6 +137,7 @@ public class RenderComponent implements Component {
                 ", useRegW=" + useRegW +
                 ", useRegH=" + useRegH +
                 ", region=" + region +
+                ", color=" + color +
                 '}';
     }
 }
