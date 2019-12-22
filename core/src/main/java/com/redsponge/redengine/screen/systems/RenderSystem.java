@@ -91,6 +91,10 @@ public class RenderSystem extends SortedIteratingSystem {
         return this;
     }
 
+    public FitViewport getViewport() {
+        return viewport;
+    }
+
     public Color getBackground() {
         return background;
     }

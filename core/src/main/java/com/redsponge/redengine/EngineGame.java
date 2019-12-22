@@ -42,6 +42,7 @@ public abstract class EngineGame extends Game {
     }
 
     public EngineGame(boolean desktop, BiConsumer<Integer, Integer> desktopMoveAction) {
+        Logger.log(this, "MASTER SNAPSHOT TEST");
         if(desktop) {
             DesktopUtil.init(desktopMoveAction);
         }
