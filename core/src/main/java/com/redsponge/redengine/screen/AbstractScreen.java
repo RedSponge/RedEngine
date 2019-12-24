@@ -88,6 +88,7 @@ public abstract class AbstractScreen extends ScreenAdapter implements INotified 
         if(entity instanceof INotified) {
             notifiedEntities.removeValue((INotified) entity, true);
         }
+        engine.removeEntity(entity);
         entity.removed();
         this.entities.sort(zComparator);
     }
