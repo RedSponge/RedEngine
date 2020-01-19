@@ -38,7 +38,7 @@ public class PhysicsSystem extends IteratingSystem implements EntityListener {
         PhysicsComponent physics = Mappers.physics.get(entity);
 
         if(physics != null) {
-            PhysicsUtils.moveEntity(physics.getBody(), vel.getX(), vel.getY(), physics.getOnCollideX(), physics.getOnCollideY());
+            PhysicsUtils.moveEntity(physics.getBody(), vel.getX() * deltaTime, vel.getY() * deltaTime, physics.getOnCollideX(), physics.getOnCollideY());
             pos.silentSet(physics.getBody().pos.x, physics.getBody().pos.y);
         } else {
             pos.silentSet(pos.getX() + vel.getX() * deltaTime, pos.getY() + vel.getY() * deltaTime);
