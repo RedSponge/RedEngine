@@ -9,6 +9,9 @@ public class RenderComponent implements Component {
     private boolean flipX, flipY;
     private float offsetX, offsetY;
     private float scaleX, scaleY;
+    private float rotation;
+    private float renderOriginX;
+    private float renderOriginY;
 
     // Flags, if true, the region's width and height will be used instead of the entity's SizeComponent's size
     private boolean useRegW, useRegH;
@@ -151,5 +154,32 @@ public class RenderComponent implements Component {
                 ", region=" + region +
                 ", color=" + color +
                 '}';
+    }
+
+    public float getRotation() {
+        return rotation;
+    }
+
+    public RenderComponent setRotation(float rotation) {
+        this.rotation = rotation;
+        return this;
+    }
+
+    public float getRenderOriginX() {
+        return renderOriginX;
+    }
+
+    public RenderComponent setRenderOriginX(float renderOriginX) {
+        this.renderOriginX = renderOriginX;
+        return this;
+    }
+
+    public float getRenderOriginY() {
+        return renderOriginY;
+    }
+
+    public RenderComponent setRenderOriginY(float renderOriginY) {
+        this.renderOriginY = renderOriginY;
+        return this;
     }
 }
