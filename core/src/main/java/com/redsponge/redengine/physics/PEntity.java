@@ -13,7 +13,7 @@ public class PEntity {
     private Entity connectedEntity;
     private boolean wasMoved;
 
-    private String physicsBodyTag;
+    private String physicsBodyTag = "";
 
     /**
      * If true, the world object will be removed from the {@link PhysicsWorld} on the next tick

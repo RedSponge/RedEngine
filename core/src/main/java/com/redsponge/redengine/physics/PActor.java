@@ -13,6 +13,7 @@ public class PActor extends PEntity {
     private float remainderX, remainderY;
     private RidingCheck ridingCheck;
 
+    public static final RidingCheck defaultRidingCheck = ((self, solid) -> solid.pos.y + solid.size.y == self.pos.y);
 
     public PActor(PhysicsWorld worldIn) {
         super(worldIn);
@@ -125,9 +126,9 @@ public class PActor extends PEntity {
      */
     public boolean isRiding(PSolid solid) {
         if(ridingCheck != null) {
-            return ridingCheck.isRiding(solid);
+            return ridingCheck.isRiding(this, solid);
         }
-        return solid.pos.y + solid.size.y == this.pos.y;
+        return defaultRidingCheck.isRiding(this, solid);
     }
 
     /**
