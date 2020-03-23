@@ -65,7 +65,6 @@ public class PlatformerPlayer extends ScreenEntity {
         physics = new PhysicsComponent(PBodyType.ACTOR);
         add(physics);
         physics.setOnCollideY(this::collideY);
-        render.setOffsetY(-2).setOffsetX(-4);
     }
 
     @Override
@@ -83,7 +82,6 @@ public class PlatformerPlayer extends ScreenEntity {
 
         anim = new AnimationComponent();
         add(anim);
-
         setAnimation(idleAnimation);
     }
 
@@ -103,9 +101,9 @@ public class PlatformerPlayer extends ScreenEntity {
         boolean down = Gdx.input.isKeyPressed(Keys.DOWN);
 
         int vx = (right ? 1 : 0) - (left ? 1 : 0);
-
+        render.setRotation(render.getRotation() + 10);
         if(vx != 0) {
-            vel.setX(vx * 3);
+            vel.setX(vx * 100);
         } else {
             vel.setX(vel.getX() * 0.9f);
             if(Math.abs(vel.getX()) < 0.5f)  {
@@ -115,7 +113,7 @@ public class PlatformerPlayer extends ScreenEntity {
         processJump(delta);
         Logger.log(this, jumping, jumpTime);
         if(!jumping) {
-            vel.setY(vel.getY() - .5f);
+            vel.setY(vel.getY() - 10);
         }
         if(vx != 0) {
             render.setFlipX(vx < 0);
@@ -133,6 +131,9 @@ public class PlatformerPlayer extends ScreenEntity {
         } else {
             setAnimation(walkAnimation);
         }
+
+        pos.set(200, 200);
+        vel.set(0, 0);
     }
 
     private void processJump(float delta) {
@@ -146,7 +147,7 @@ public class PlatformerPlayer extends ScreenEntity {
         }
 
         if(jumping) {
-            vel.setY(Interpolation.linear.apply((len - jumpTime) / len) * 5);
+            vel.setY(Interpolation.linear.apply((len - jumpTime) / len) * 200);
             jumpTime += delta;
             if(jumpTime > len || !Gdx.input.isKeyPressed(Keys.SPACE)) {
                 jumping = false;

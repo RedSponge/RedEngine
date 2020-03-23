@@ -77,7 +77,7 @@ public class RenderSystem extends SortedIteratingSystem {
 
             drawn.flip(flipX, flipY);
             batch.setColor(render.getColor());
-            batch.draw(drawn, x + render.getOffsetX(), y + render.getOffsetY(), width, height);
+            batch.draw(drawn, x + render.getOffsetX(), y + render.getOffsetY(), size.getX() / 2f + render.getRenderOriginX(), size.getY() / 2f + render.getRenderOriginY(), width, height, 1, 1, render.getRotation());
             drawn.flip(flipX, flipY);
         }
 

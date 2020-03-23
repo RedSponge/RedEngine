@@ -30,7 +30,7 @@ public class PActor extends PEntity {
 
             while(move != 0) {
                 pos.add(sign, 0);
-                PSolid col = collideFirst(pos);
+                PSolid col = getFirstCollision(pos);
                 pos.add(-sign, 0);
 
                 if(col == null) {
@@ -63,7 +63,7 @@ public class PActor extends PEntity {
 
             while(move != 0) {
                 pos.add(0, sign);
-                PSolid col = collideFirst(pos);
+                PSolid col = getFirstCollision(pos);
                 pos.add(0, -sign);
                 if(col == null) {
                     pos.y += sign;
@@ -99,7 +99,7 @@ public class PActor extends PEntity {
      * @param pos The checking position
      * @return The first solid the actor will collide with when in this position. null if none
      */
-    public PSolid collideFirst(IntVector2 pos) {
+    public PSolid getFirstCollision(IntVector2 pos) {
         for(PSolid solid : worldIn.getSolids()) {
             if(solid.isCollidable() && MathUtilities.rectanglesIntersect(pos, this.size, solid.pos, solid.size)) {
                 return solid;
