@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.redsponge.redengine.screen.components.Mappers;
+import com.redsponge.redengine.screen.components.NinePatchComponent;
 import com.redsponge.redengine.screen.components.PositionComponent;
 import com.redsponge.redengine.screen.components.RenderComponent;
 import com.redsponge.redengine.screen.components.RenderRunnableComponent;
@@ -38,6 +39,7 @@ public class RenderSystem extends SortedIteratingSystem {
         SizeComponent size = Mappers.size.get(entity);
         RenderComponent render = Mappers.render.get(entity);
         RenderRunnableComponent renderRunnable = Mappers.renderRunnable.get(entity);
+        NinePatchComponent ninePatch = Mappers.ninePatch.get(entity);
 
         TextureRegion drawn = render.getRegion();
         boolean flipX = render.isFlipX();
@@ -75,10 +77,14 @@ public class RenderSystem extends SortedIteratingSystem {
                     break;
             }
 
-            drawn.flip(flipX, flipY);
-            batch.setColor(render.getColor());
-            batch.draw(drawn, x + render.getOffsetX(), y + render.getOffsetY(), size.getX() / 2f + render.getRenderOriginX(), size.getY() / 2f + render.getRenderOriginY(), width, height, 1, 1, render.getRotation());
-            drawn.flip(flipX, flipY);
+            if(ninePatch != null) {
+                ninePatch.getPatch().draw(batch, x + render.getOffsetX(), y + render.getOffsetY(), size.getX() / 2f + render.getRenderOriginX(), size.getY() / 2f + render.getRenderOriginY(), width, height, 1, 1, render.getRotation());
+            } else {
+                drawn.flip(flipX, flipY);
+                batch.setColor(render.getColor());
+                batch.draw(drawn, x + render.getOffsetX(), y + render.getOffsetY(), size.getX() / 2f + render.getRenderOriginX(), size.getY() / 2f + render.getRenderOriginY(), width, height, 1, 1, render.getRotation());
+                drawn.flip(flipX, flipY);
+            }
         }
 
         if(renderRunnable != null) {

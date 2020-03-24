@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.redsponge.redengine.screen.components.AnimationComponent;
 import com.redsponge.redengine.screen.components.Mappers;
+import com.redsponge.redengine.screen.components.NinePatchComponent;
 import com.redsponge.redengine.screen.components.RenderComponent;
 import com.redsponge.redengine.screen.components.TextureComponent;
 
@@ -21,6 +22,7 @@ public class RenderPrepSystem extends IteratingSystem {
         TextureComponent texC = Mappers.texture.get(entity);
         AnimationComponent aniC = Mappers.animation.get(entity);
         RenderComponent renderC = Mappers.render.get(entity);
+        NinePatchComponent ninePatch = Mappers.ninePatch.get(entity);
 
         if(texC != null) {
             renderC.getRegion().setRegion(texC.getTexture());
@@ -37,6 +39,9 @@ public class RenderPrepSystem extends IteratingSystem {
                 reg = ani.getKeyFrames()[aniC.getFixedFrame()];
             }
             renderC.getRegion().setRegion(reg);
+        }
+        if(ninePatch != null) {
+            renderC.getRegion().setRegion(ninePatch.getPatch().getTexture());
         }
     }
 }

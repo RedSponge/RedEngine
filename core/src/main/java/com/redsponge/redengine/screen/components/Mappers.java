@@ -14,5 +14,6 @@ public class Mappers {
     public static final ComponentMapper<RenderRunnableComponent> renderRunnable = ComponentMapper.getFor(RenderRunnableComponent.class);
     public static final ComponentMapper<TextureComponent> texture = ComponentMapper.getFor(TextureComponent.class);
     public static final ComponentMapper<AnimationComponent> animation = ComponentMapper.getFor(AnimationComponent.class);
+    public static final ComponentMapper<NinePatchComponent> ninePatch = ComponentMapper.getFor(NinePatchComponent.class);
 
 }
