@@ -11,6 +11,9 @@ public class PActor extends PEntity {
 
     protected boolean collidable;
     private float remainderX, remainderY;
+    private RidingCheck ridingCheck;
+
+    public static final RidingCheck defaultRidingCheck = ((self, solid) -> solid.pos.y + solid.size.y == self.pos.y);
 
     public PActor(PhysicsWorld worldIn) {
         super(worldIn);
@@ -46,6 +49,14 @@ public class PActor extends PEntity {
                 }
             }
         }
+    }
+
+    public RidingCheck getRidingCheck() {
+        return ridingCheck;
+    }
+
+    public void setRidingCheck(RidingCheck ridingCheck) {
+        this.ridingCheck = ridingCheck;
     }
 
     /**
@@ -114,7 +125,10 @@ public class PActor extends PEntity {
      * @return Is the actor riding the solid?
      */
     public boolean isRiding(PSolid solid) {
-        return solid.pos.y + solid.size.y == this.pos.y;
+        if(ridingCheck != null) {
+            return ridingCheck.isRiding(this, solid);
+        }
+        return defaultRidingCheck.isRiding(this, solid);
     }
 
     /**
