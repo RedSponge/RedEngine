@@ -14,7 +14,7 @@ import com.redsponge.redengine.screen.components.TextureComponent;
 public class RenderPrepSystem extends IteratingSystem {
 
     public RenderPrepSystem() {
-        super(Family.all(RenderComponent.class).one(TextureComponent.class, AnimationComponent.class).get());
+        super(Family.all(RenderComponent.class).one(TextureComponent.class, AnimationComponent.class, NinePatchComponent.class).get());
     }
 
     @Override
