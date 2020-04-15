@@ -11,9 +11,8 @@ public class PActor extends PEntity {
 
     protected boolean collidable;
     private float remainderX, remainderY;
-    private RidingCheck ridingCheck;
-
-    public static final RidingCheck defaultRidingCheck = ((self, solid) -> solid.pos.y + solid.size.y == self.pos.y);
+    private RidingCheck ridingCheck = RidingCheck.DEFAULT;
+    private SquishListener onSquish = SquishListener.DEFAULT;
 
     public PActor(PhysicsWorld worldIn) {
         super(worldIn);
@@ -128,7 +127,16 @@ public class PActor extends PEntity {
         if(ridingCheck != null) {
             return ridingCheck.isRiding(this, solid);
         }
-        return defaultRidingCheck.isRiding(this, solid);
+        return RidingCheck.DEFAULT.isRiding(this, solid);
+    }
+
+    public SquishListener getOnSquish() {
+        return onSquish;
+    }
+
+    public PActor setOnSquish(SquishListener onSquish) {
+        this.onSquish = onSquish;
+        return this;
     }
 
     /**
@@ -137,7 +145,11 @@ public class PActor extends PEntity {
      */
     public void squish(PSolid solid) {
         Logger.log(this, "Got Squished!");
-        this.remove();
+        if(onSquish != null) {
+            onSquish.squish(this, solid);
+        }
+        SquishListener.DEFAULT.squish(this, solid);
     }
+
 
 }
